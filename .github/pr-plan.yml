@@ -1,0 +1,2271 @@
+{
+  "meta": {
+    "plan_id": "balanced-edited-v4-4-commits",
+    "repo": "shahinsafarli/az-tokenizer-transfer",
+    "repo_state": "fresh-history plan; live GitHub state has not been inspected",
+    "default_base": "main",
+    "merge_method": "squash",
+    "delete_branch_on_merge": true,
+    "required_approvals": 1,
+    "execution_trigger": "do PR<number>",
+    "end_of_do_pr": "open the reviewed-scope PR; do not merge or publish a release",
+    "required_checks_by_readiness": [
+      "infrastructure: scope/hygiene",
+      "after PR09: full source tests",
+      "after PR10–14: complete grid integrity",
+      "PR15–18: member-specific tests and draft PDF builds",
+      "PR19: strict claims, final PDFs, contribution report and complete release readiness",
+      "PR09: edited source test-access baseline and config lock",
+      "after PR10–14, before amendments: separate ledger and reduced-record audit",
+      "PR15/PR18: synthetic entry-point and fine-tune test-access regression checks"
+    ],
+    "variables": {
+      "REPO": "absolute path of target Git checkout, verified against registered remote",
+      "DATA_ROOT": "absolute path to extracted artifacts/data from the supplied data.tgz",
+      "INPUT_DIR": "absolute path containing edited ZIP and the named earlier evidence inputs listed in docs/CODEBASE_UPDATE.md",
+      "ANALYSIS_REPO": "disposable checkout of the reviewed PR18 code/evidence; analysis commands run here, allowed outputs are reviewed and only registered paths copied back"
+    },
+    "planned_pr_count": 19,
+    "main_commits_per_member": 4,
+    "bootstrap_owner": "SS",
+    "supersedes": [
+      "balanced-final-v3-four-commits"
+    ],
+    "delivery_sequence": [
+      "PR15",
+      "PR16",
+      "PR17",
+      "PR18",
+      "PR19"
+    ],
+    "commit_accounting": "19 PR squash commits + one SS bootstrap = 20 authored main-branch commits; four per member. Branch WIP commits, reviews, tags and release uploads are not additional main-branch commits.",
+    "publication_owner": "FB",
+    "migration_note": "Updated alternative for the edited source ZIP. Choose exactly one commit-budget plan. Inspect already-merged history before applying; no reset or history rewrite is authorized.",
+    "source_archive": "aztokenizertransfer_FINAL_v3_edited.zip",
+    "source_archive_sha256": "116fb3dd4a9411b6f32f1554688e2ca8a45afd6b5fb2dba88249042a5a9d8989",
+    "test_access_policy": "Import supplied edited bytes; distinguish historical and final-run evidence; no new held-out evaluation during ordinary PR work. Read docs/CODEBASE_UPDATE.md."
+  },
+  "members": {
+    "SS": {
+      "name": "Safarli, Shahin",
+      "gh": "shahinsafarli"
+    },
+    "FA": {
+      "name": "Alibabayeva, Fatima",
+      "gh": "FatimaAlibabayeva"
+    },
+    "EJ": {
+      "name": "Jafarov, Emil",
+      "gh": "Emil-Jafarov-06"
+    },
+    "FB": {
+      "name": "Baghirova, Fidan",
+      "gh": "Fidan6557"
+    },
+    "SA": {
+      "name": "Allahverdiyev, Suleyman",
+      "gh": "SuleymanAllahverdiyev"
+    }
+  },
+  "domains": {
+    "SS": [
+      "src/tokenization/__init__.py",
+      "src/tokenization/anchor_map.py",
+      "src/tokenization/anchors.py",
+      "src/tokenization/canon.py",
+      "src/training/orchestrate.py",
+      "src/training/phases.py",
+      "src/training/run_grid.py",
+      "src/transplant/check_embedding_norms.py"
+    ],
+    "FA": [
+      "src/data/__init__.py",
+      "src/data/audit.py",
+      "src/data/profile_candidates.py",
+      "src/data/scramble.py",
+      "src/data/splits.py",
+      "src/data/truncation.py",
+      "src/training/stability_diagnostics.py",
+      "src/training/transplant_controls.py"
+    ],
+    "EJ": [
+      "src/analysis/report.py",
+      "src/tokenization/overlap_control.py",
+      "src/transplant/__init__.py",
+      "src/transplant/build.py",
+      "src/transplant/build_rescale_variant.py",
+      "src/transplant/controls.py",
+      "src/transplant/cross_base_quality.py",
+      "src/transplant/donor_embeddings.py",
+      "src/transplant/eval_text.py",
+      "src/transplant/omp.py"
+    ],
+    "FB": [
+      "src/tokenization/corpus_fertility.py",
+      "src/tokenization/diacritics.py",
+      "src/tokenization/fertility.py",
+      "src/training/__init__.py",
+      "src/training/finetune.py"
+    ],
+    "SA": [
+      "src/__init__.py",
+      "src/analysis/__init__.py",
+      "src/analysis/aggregate.py",
+      "src/analysis/decompose.py",
+      "src/analysis/errors.py",
+      "src/analysis/figures.py",
+      "src/analysis/noise_interaction.py",
+      "src/analysis/stats.py",
+      "src/transplant/embedding_norms.py",
+      "src/transplant/top1_accuracy.py",
+      "src/utils.py"
+    ]
+  },
+  "bootstrap": {
+    "id": "PR00",
+    "owner": "SS",
+    "objective": "One direct bootstrap commit after repository creation, before protection. Import the snapshot README.md and .gitignore, plus .gitattributes with byte-preserving policy. The workflow package remains available as external AI context until PR04.",
+    "paths": [
+      "README.md",
+      ".gitignore",
+      ".gitattributes"
+    ],
+    "commits": [
+      "chore(repo): initialize repository and byte-preserving import policy"
+    ],
+    "validate": [
+      {
+        "cwd": "workflow_context",
+        "argv": [
+          "python",
+          "scripts/pr_plan.py",
+          "check-inputs",
+          "--input-dir",
+          "${INPUT_DIR}"
+        ]
+      },
+      {
+        "cwd": "workflow_context",
+        "argv": [
+          "python",
+          "scripts/pr_plan.py",
+          "verify-plan"
+        ]
+      },
+      {
+        "cwd": "workflow_context",
+        "argv": [
+          "python",
+          "scripts/pr_plan.py",
+          "audit",
+          "--repo",
+          "${REPO}",
+          "--pr",
+          "PR00"
+        ]
+      }
+    ]
+  },
+  "prs": [
+    {
+      "id": "PR01",
+      "title": "PR01 · ci(repo): ci foundation",
+      "branch": "ci/pr01-ej-ci-foundation",
+      "base": "main",
+      "owner": "EJ",
+      "reviewers": [
+        "FA",
+        "FB"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ej",
+        "wave:0"
+      ],
+      "depends_on": [],
+      "merge_method": "squash",
+      "objective": "Create phased CI, size/scope guards and CI dependency declarations. Add reviewed LICENSE/NOTICE texts after checking project and third-party notices; do not change the frozen scientific source.",
+      "paths": [
+        ".github/scripts/pr_hygiene.py",
+        ".github/workflows/ci.yml",
+        "LICENSE",
+        "NOTICE",
+        "requirements-ci.txt"
+      ],
+      "commits": [
+        "ci(repo): ci foundation"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR01",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "py_compile",
+            ".github/scripts/pr_hygiene.py"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Initial CI checks only available infrastructure. Full project tests, complete-grid integrity and PDFs become required at their actual readiness gates.",
+        "Do not reuse token-switching scripts or private authentication files from _repo_setup.",
+        "PR checks use fixtures and existing evidence; no full training wrapper or real held-out test evaluation runs in CI."
+      ],
+      "deliverables": [
+        "Create phased CI, size/scope guards and CI dependency declarations. Add reviewed LICENSE/NOTICE texts after checking project and third-party notices; do not change the frozen scientific source."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR02",
+      "title": "PR02 · docs(repo): governance",
+      "branch": "docs/pr02-fa-governance",
+      "base": "main",
+      "owner": "FA",
+      "reviewers": [
+        "SS",
+        "EJ"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fa",
+        "wave:0"
+      ],
+      "depends_on": [],
+      "merge_method": "squash",
+      "objective": "Create CODEOWNERS, templates and contribution rules from the new exact file ownership. Primary and alternate reviewers are on the same CODEOWNERS pattern line.",
+      "paths": [
+        ".github/CODEOWNERS",
+        ".github/ISSUE_TEMPLATE/bug.yml",
+        ".github/ISSUE_TEMPLATE/config.yml",
+        ".github/ISSUE_TEMPLATE/finding.yml",
+        ".github/labels.yml",
+        ".github/pull_request_template.md",
+        "CONTRIBUTING.md"
+      ],
+      "commits": [
+        "docs(repo): governance"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR02",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "verify-plan"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Every source path has its assigned owner and a different alternate; specific rules follow broad rules.",
+        "No single-owner self-review deadlock. One code-owner approval does not imply two independent approvals."
+      ],
+      "deliverables": [
+        "Create CODEOWNERS, templates and contribution rules from the new exact file ownership. Primary and alternate reviewers are on the same CODEOWNERS pattern line."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR03",
+      "title": "PR03 · build(repo): local verification",
+      "branch": "build/pr03-fb-local-verification",
+      "base": "main",
+      "owner": "FB",
+      "reviewers": [
+        "SA",
+        "SS"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fb",
+        "wave:0"
+      ],
+      "depends_on": [
+        "PR01"
+      ],
+      "merge_method": "squash",
+      "objective": "Create Makefile, lint configuration and phased verification entry point. Preserve frozen code; lint new files explicitly.",
+      "paths": [
+        "Makefile",
+        "ruff.toml",
+        "scripts/verify_repo.py"
+      ],
+      "commits": [
+        "build(repo): local verification"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR03",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "py_compile",
+            "scripts/verify_repo.py"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "help"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Verification distinguishes source, historical provenance, final evidence and paper readiness.",
+        "Do not hard-code successful placeholder checks."
+      ],
+      "deliverables": [
+        "Create Makefile, lint configuration and phased verification entry point. Preserve frozen code; lint new files explicitly."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR04",
+      "title": "PR04 · chore(repo): registry and writing skeletons",
+      "branch": "chore/pr04-sa-registry-and-writing-skeletons",
+      "base": "main",
+      "owner": "SA",
+      "reviewers": [
+        "EJ",
+        "FA"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:sa",
+        "wave:0"
+      ],
+      "depends_on": [
+        "PR01",
+        "PR02",
+        "PR03"
+      ],
+      "merge_method": "squash",
+      "objective": "Install the supplied plan, manifest, local helper and command contract. Create buildable report/slide skeletons with exactly two report section stubs and four slide slots for each member. Integrate repository path aliases for preserved evidence. Reserve the five bibliography and five claim fragments, and load the bibliography fragments directly from the report build so later member deliveries do not need another integration commit. Install the supplied edited-source provenance note at docs/CODEBASE_UPDATE.md.",
+      "paths": [
+        ".github/import-manifest.json",
+        ".github/pr-plan.yml",
+        "DO_PR.md",
+        "GIT_WORKFLOW_AND_CONTRIBUTIONS.md",
+        "docs/CODEBASE_UPDATE.md",
+        "evidence/README_REPOSITORY_PATHS.md",
+        "presentation/README.md",
+        "presentation/beamerthemeAIA.sty",
+        "presentation/presentation.tex",
+        "presentation/sections/ej.tex",
+        "presentation/sections/fa.tex",
+        "presentation/sections/fb.tex",
+        "presentation/sections/sa.tex",
+        "presentation/sections/ss.tex",
+        "report/README.md",
+        "report/claims/ej.yaml",
+        "report/claims/fa.yaml",
+        "report/claims/fb.yaml",
+        "report/claims/sa.yaml",
+        "report/claims/ss.yaml",
+        "report/latexmkrc",
+        "report/references/ej.bib",
+        "report/references/fa.bib",
+        "report/references/fb.bib",
+        "report/references/sa.bib",
+        "report/references/ss.bib",
+        "report/refs.bib",
+        "report/report.tex",
+        "report/sections/00_abstract.tex",
+        "report/sections/01_introduction.tex",
+        "report/sections/02_related_work.tex",
+        "report/sections/03_method.tex",
+        "report/sections/04_setup_data.tex",
+        "report/sections/05_setup_training.tex",
+        "report/sections/06_results.tex",
+        "report/sections/07_discussion_limitations.tex",
+        "report/sections/08_conclusion.tex",
+        "report/sections/09_tools_ack.tex",
+        "scripts/pr_plan.py"
+      ],
+      "commits": [
+        "chore(repo): registry and writing skeletons"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR04",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "verify-plan"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-report"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-slides"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Committed registry exactly matches plan_id balanced-edited-v4-4-commits; old 19-PR registry is not retained as another authority.",
+        "Skeleton PDFs may be labelled drafts; release validation must reject unfilled stubs.",
+        "Preserved evidence documents use root-relative aliases; execution/run.log resolves to a release asset, not a missing Git file.",
+        "The report loads the five member bibliography fragments directly, with empty stubs valid until their owners fill them.",
+        "Member claim fragments exist as explicit drafts; strict numeric-claim validation starts only when the resolver is delivered in PR19.",
+        "Makefile provides the declared per-member test/build targets and the final contribution/release targets; readiness is not represented by fake success.",
+        "Exactly one current commit-budget plan is active; original source ZIP is not an accepted fallback. Preserve the explicit distinction between edited snapshot and earlier as-run evidence."
+      ],
+      "deliverables": [
+        "Install the supplied plan, manifest, local helper and command contract. Create buildable report/slide skeletons with exactly two report section stubs and four slide slots for each member. Integrate repository path aliases for preserved evidence. Reserve the five bibliography and five claim fragments, and load the bibliography fragments directly from the report build so later member deliveries do not need another integration commit. Install the supplied edited-source provenance note at docs/CODEBASE_UPDATE.md."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR05",
+      "title": "PR05 · feat(src): ss source partition",
+      "branch": "feat/pr05-ss-ss-source-partition",
+      "base": "main",
+      "owner": "SS",
+      "reviewers": [
+        "FB",
+        "SA"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ss",
+        "wave:1"
+      ],
+      "depends_on": [
+        "PR04"
+      ],
+      "merge_method": "squash",
+      "objective": "Import canonical token alignment plus grid orchestration, assigned test and runtime support files. This owner carries both the representation gate and scheduling correctness.",
+      "paths": [
+        "docs/A100_SETUP.md",
+        "docs/A100_TRANSFER_MANIFEST.md",
+        "docs/VASTAI_STEP_BY_STEP.md",
+        "notebooks/vastai_h100.ipynb",
+        "scripts/a100_bootstrap.sh",
+        "scripts/vastai_stage1.sh",
+        "scripts/vastai_stage2.sh",
+        "src/tokenization/__init__.py",
+        "src/tokenization/anchor_map.py",
+        "src/tokenization/anchors.py",
+        "src/tokenization/canon.py",
+        "src/training/orchestrate.py",
+        "src/training/phases.py",
+        "src/training/run_grid.py",
+        "src/transplant/check_embedding_norms.py",
+        "tests/test_frozen_pipeline.py"
+      ],
+      "commits": [
+        "feat(src): ss source partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR05",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR05"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Only these exact files/part are imported; no src/** bulk-add and no source reformatting.",
+        "Match source bytes and hashes; partial imports are not advertised as runnable.",
+        "The complete source test gate runs after PR09; earlier imports run path/hash checks.",
+        "Review default validation in Python entry points and the unchanged full shell wrappers that default to test and pass opt-in flags; do not run a full wrapper during import."
+      ],
+      "deliverables": [
+        "Import canonical token alignment plus grid orchestration, assigned test and runtime support files. This owner carries both the representation gate and scheduling correctness."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR06",
+      "title": "PR06 · feat(src): fa source partition",
+      "branch": "feat/pr06-fa-fa-source-partition",
+      "base": "main",
+      "owner": "FA",
+      "reviewers": [
+        "SS",
+        "EJ"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fa",
+        "wave:1"
+      ],
+      "depends_on": [
+        "PR05"
+      ],
+      "merge_method": "squash",
+      "objective": "Import data selection, splits, leakage/label audit, control diagnostics and the shared core-test file. Introduce HANDOFF.md lines 1–933 verbatim.",
+      "paths": [
+        "HANDOFF.md",
+        "docs/TEST_AUDIT.md",
+        "src/data/__init__.py",
+        "src/data/audit.py",
+        "src/data/profile_candidates.py",
+        "src/data/scramble.py",
+        "src/data/splits.py",
+        "src/data/truncation.py",
+        "src/training/stability_diagnostics.py",
+        "src/training/transplant_controls.py",
+        "tests/test_core.py"
+      ],
+      "commits": [
+        "feat(src): fa source partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR06",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR06"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Only these exact files/part are imported; no src/** bulk-add and no source reformatting.",
+        "Match source bytes and hashes; partial imports are not advertised as runnable.",
+        "The complete source test gate runs after PR09; earlier imports run path/hash checks.",
+        "Import the revised docs/TEST_AUDIT.md exactly. Its shortened text is not evidence of zero previous test accesses. HANDOFF prefix remains lines 1–933."
+      ],
+      "deliverables": [
+        "Import data selection, splits, leakage/label audit, control diagnostics and the shared core-test file. Introduce HANDOFF.md lines 1–933 verbatim."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR07",
+      "title": "PR07 · feat(src): ej source partition",
+      "branch": "feat/pr07-ej-ej-source-partition",
+      "base": "main",
+      "owner": "EJ",
+      "reviewers": [
+        "FA",
+        "FB"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ej",
+        "wave:1"
+      ],
+      "depends_on": [
+        "PR06"
+      ],
+      "merge_method": "squash",
+      "objective": "Import OMP transplant and quality controls, overlap control, table/report generation and the tiny-model end-to-end test.",
+      "paths": [
+        "configs/CONFIG_HASHES.lock",
+        "configs/FROZEN.md",
+        "docs/PAPER_SKELETON.md",
+        "docs/SCOPE_FROZEN.md",
+        "docs/a100_transfer_checksums.sha256",
+        "notebooks/colab_t4.ipynb",
+        "requirements.lock",
+        "requirements.txt",
+        "scripts/a100_benchmark.sh",
+        "scripts/verify_amendment_20260907.py",
+        "src/analysis/report.py",
+        "src/tokenization/overlap_control.py",
+        "src/transplant/__init__.py",
+        "src/transplant/build.py",
+        "src/transplant/build_rescale_variant.py",
+        "src/transplant/controls.py",
+        "src/transplant/cross_base_quality.py",
+        "src/transplant/donor_embeddings.py",
+        "src/transplant/eval_text.py",
+        "src/transplant/omp.py",
+        "tests/test_end_to_end.py"
+      ],
+      "commits": [
+        "feat(src): ej source partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR07",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR07"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Only these exact files/part are imported; no src/** bulk-add and no source reformatting.",
+        "Match source bytes and hashes; partial imports are not advertised as runnable.",
+        "The complete source test gate runs after PR09; earlier imports run path/hash checks.",
+        "Import revised FROZEN.md and CONFIG_HASHES.lock together. Verify all locked file hashes without changing experiment parameters; keep as-run preregistration evidence separate."
+      ],
+      "deliverables": [
+        "Import OMP transplant and quality controls, overlap control, table/report generation and the tiny-model end-to-end test."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR08",
+      "title": "PR08 · feat(src): fb source partition",
+      "branch": "feat/pr08-fb-fb-source-partition",
+      "base": "main",
+      "owner": "FB",
+      "reviewers": [
+        "SA",
+        "SS"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fb",
+        "wave:1"
+      ],
+      "depends_on": [
+        "PR07"
+      ],
+      "merge_method": "squash",
+      "objective": "Import the actual fine-tuning engine, token efficiency/diacritic confound checks, parallel-execution tests and assigned launch/configuration files.",
+      "paths": [
+        "configs/experiment.yaml",
+        "configs/pilot_t4.yaml",
+        "docs/COMPUTE_ESTIMATES.md",
+        "docs/RUNBOOK.md",
+        "notebooks/colab_t4_pilot.ipynb",
+        "scripts/vastai_run_full.sh",
+        "src/tokenization/corpus_fertility.py",
+        "src/tokenization/diacritics.py",
+        "src/tokenization/fertility.py",
+        "src/training/__init__.py",
+        "src/training/finetune.py",
+        "tests/test_parallel_execution.py"
+      ],
+      "commits": [
+        "feat(src): fb source partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR08",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR08"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Only these exact files/part are imported; no src/** bulk-add and no source reformatting.",
+        "Match source bytes and hashes; partial imports are not advertised as runnable.",
+        "The complete source test gate runs after PR09; earlier imports run path/hash checks.",
+        "The fine-tune runtime guard and ledger append behavior are unchanged. Model test evaluation remains outside normal import/PR checks."
+      ],
+      "deliverables": [
+        "Import the actual fine-tuning engine, token efficiency/diacritic confound checks, parallel-execution tests and assigned launch/configuration files."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR09",
+      "title": "PR09 · feat(src): sa source partition",
+      "branch": "feat/pr09-sa-sa-source-partition",
+      "base": "main",
+      "owner": "SA",
+      "reviewers": [
+        "EJ",
+        "FA"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:sa",
+        "wave:1"
+      ],
+      "depends_on": [
+        "PR08"
+      ],
+      "merge_method": "squash",
+      "objective": "Import inference/statistics/decomposition, shared utilities, norm/top-1 diagnostics and assigned analysis support. Append HANDOFF.md lines 934–1811 verbatim.",
+      "paths": [
+        "HANDOFF.md",
+        "notebooks/START_HERE.md",
+        "notebooks/a100.ipynb",
+        "pytest.ini",
+        "resources/README.txt",
+        "resources/domain_keywords.txt",
+        "resources/false_friends.csv",
+        "run_all.sh",
+        "scripts/a100_micro_benchmark.py",
+        "src/__init__.py",
+        "src/analysis/__init__.py",
+        "src/analysis/aggregate.py",
+        "src/analysis/decompose.py",
+        "src/analysis/errors.py",
+        "src/analysis/figures.py",
+        "src/analysis/noise_interaction.py",
+        "src/analysis/stats.py",
+        "src/transplant/embedding_norms.py",
+        "src/transplant/top1_accuracy.py",
+        "src/utils.py",
+        "tests/test_stats.py"
+      ],
+      "commits": [
+        "feat(src): sa source partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR09",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR09"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--phase",
+            "source"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "-m",
+            "not slow"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit-test-access",
+            "--repo",
+            "${REPO}",
+            "--stage",
+            "source"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Only these exact files/part are imported; no src/** bulk-add and no source reformatting.",
+        "Match source bytes and hashes; partial imports are not advertised as runnable.",
+        "The complete source test gate runs after PR09; earlier imports run path/hash checks.",
+        "This completes the frozen source-import milestone; PR15–19 later deliver new code plus member writing/close-out work in one commit each.",
+        "Import errors.py with six removed comment lines and unchanged schema filter. Append HANDOFF lines 934–1811; its shortened document needs the new full/prefix hashes."
+      ],
+      "deliverables": [
+        "Import inference/statistics/decomposition, shared utilities, norm/top-1 diagnostics and assigned analysis support. Append HANDOFF.md lines 934–1811 verbatim."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR10",
+      "title": "PR10 · feat(results): ss evidence partition",
+      "branch": "feat/pr10-ss-ss-evidence-partition",
+      "base": "main",
+      "owner": "SS",
+      "reviewers": [
+        "FB",
+        "SA"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ss",
+        "wave:2"
+      ],
+      "depends_on": [
+        "PR09"
+      ],
+      "merge_method": "squash",
+      "objective": "Import exactly this manifest batch: 32 final schema-4 runs, their 32 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit.",
+      "paths": [
+        "evidence/carried_forward_pre_grid/PROVENANCE.md",
+        "evidence/carried_forward_pre_grid/label_audit.json",
+        "evidence/carried_forward_pre_grid/noise_interaction.json",
+        "evidence/source_snapshot/figures/source_manifest.json",
+        "evidence/source_snapshot/results/anchors.json",
+        "evidence/source_snapshot/results/controls__xlm15.json",
+        "evidence/source_snapshot/results/cross_base_transplant_quality.json",
+        "evidence/source_snapshot/results/decompose.json",
+        "evidence/source_snapshot/results/pre_amendment/runs/base=xlm15__cond=tokenizator__n=100__seed=13.json",
+        "evidence/source_snapshot/results/runs/base=xlm15__cond=tokenizator__n=2000__seed=13__variant=mean_k64_rescaled.json",
+        "evidence/source_snapshot/results/runs/base=xlm15__cond=tokenizator__n=2000__seed=13__variant=random_coef_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant__xlm15__omp_k64.json",
+        "evidence/source_snapshot/results/transplant__xlm15__omp_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant__xlmr__mean_k64.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlm15__method=mean__cond=tokenizator__n=2000__seed=13.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlm15__method=random_coef__cond=tokenizator__n=2000__seed=13.json",
+        "evidence/supplemental/test_tables_received.md",
+        "results/controls__xlm15__random_coef_k64_rescaled.json",
+        "results/controls__xlmr__mean_k64_rescaled.json",
+        "results/logs/base=xlm15__cond=baza__n=2000__seed=1337__20260908T193948Z.log",
+        "results/logs/base=xlm15__cond=baza__n=20914__seed=42__20260909T014103Z.log",
+        "results/logs/base=xlm15__cond=baza__n=500__seed=7__20260908T231925Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=2000__seed=42__20260908T205432Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=500__seed=2024__20260909T004219Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=2000__seed=42__20260908T195301Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=20914__seed=13__20260909T015759Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=500__seed=42__20260908T232612Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=10000__seed=1337__20260909T012530Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=2000__seed=1337__20260908T201104Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=500__seed=1337__20260908T234448Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=10000__seed=42__20260909T013145Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=2000__seed=42__20260908T202301Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=500__seed=1337__20260909T000016Z.log",
+        "results/logs/base=xlm15__cond=turk__n=2000__seed=42__20260908T203800Z.log",
+        "results/logs/base=xlm15__cond=turk__n=500__seed=42__20260909T001238Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=2000__seed=1337__20260908T211252Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=500__seed=42__20260909T004527Z.log",
+        "results/logs/base=xlmr__cond=baza__n=2000__seed=1337__20260908T213256Z.log",
+        "results/logs/base=xlmr__cond=baza__n=500__seed=1337__20260909T022342Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=2000__seed=2024__20260908T225229Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=500__seed=1337__20260909T033347Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=2000__seed=2024__20260908T215912Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=500__seed=1337__20260909T023923Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=2000__seed=2024__20260908T221226Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=500__seed=2024__20260909T030054Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=2000__seed=2024__20260908T222514Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=500__seed=2024__20260909T031411Z.log",
+        "results/logs/base=xlmr__cond=turk__n=2000__seed=2024__20260908T223903Z.log",
+        "results/logs/base=xlmr__cond=turk__n=500__seed=2024__20260909T032818Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=2000__seed=2024__20260908T230619Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=500__seed=2024__20260909T035545Z.log",
+        "results/overlap_control.json",
+        "results/paper_tables.md",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=20914__seed=42.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=7.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=10000__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=2024.json",
+        "results/scramble.json",
+        "results/stats.json",
+        "results/summary.json",
+        "results/transplant__xlm15__mean_k64.json",
+        "results/transplant__xlm15__random_coef_k64.json",
+        "results/transplant__xlmr__random_coef_k64_rescaled.json"
+      ],
+      "commits": [
+        "feat(results): ss evidence partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR10",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR10"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Record schema, unique run key, matching log, source hash, metric consistency and provenance status in the PR review.",
+        "Results-full is authoritative at results/; pre-grid records stay under evidence/, never results/runs/.",
+        "AMENDMENT: initial import of final evidence and explicitly separated prior evidence.",
+        "After all five evidence PRs merge, run the full import audit and the actual grid integrity check before PR15–19.",
+        "Use the edited ZIP for evidence/source_snapshot origins, including its reduced test fields and empty ledger. Keep results_full.zip final-run bytes and its separate 164-entry ledger unchanged; never fill removed fields from the old source ZIP."
+      ],
+      "deliverables": [
+        "Import exactly this manifest batch: 32 final schema-4 runs, their 32 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR11",
+      "title": "PR11 · feat(results): fa evidence partition",
+      "branch": "feat/pr11-fa-fa-evidence-partition",
+      "base": "main",
+      "owner": "FA",
+      "reviewers": [
+        "SS",
+        "EJ"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fa",
+        "wave:2"
+      ],
+      "depends_on": [
+        "PR09"
+      ],
+      "merge_method": "squash",
+      "objective": "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit.",
+      "paths": [
+        "evidence/carried_forward_pre_grid/dataset_candidates.json",
+        "evidence/carried_forward_pre_grid/label_audit_annotator2.csv",
+        "evidence/disclosures/TEST_AUDIT.md",
+        "evidence/environment/ENVIRONMENT_AS_RUN.md",
+        "evidence/environment/env_freeze_as_run.txt",
+        "evidence/source_snapshot/results/embedding_norm_report__xlmr.json",
+        "evidence/source_snapshot/results/pre_amendment/README.md",
+        "evidence/source_snapshot/results/pre_amendment/runs/base=xlmr__cond=tokenizator__n=100__seed=13.json",
+        "evidence/source_snapshot/results/runs/base=xlm15__cond=tokenizator__n=2000__seed=1337__variant=mean_k64_rescaled.json",
+        "evidence/source_snapshot/results/stats.json",
+        "evidence/source_snapshot/results/transplant__xlmr__mean_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlmr__method=mean__cond=tokenizator__n=2000__seed=42.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlmr__method=random_coef__cond=tokenizator__n=2000__seed=13.json",
+        "figures/conditional_macro_f1.png",
+        "figures/source_manifest.json",
+        "results/aggregate.csv",
+        "results/controls__xlm15__mean_k64_rescaled.json",
+        "results/cross_base_transplant_quality.json",
+        "results/embedding_norm_report__xlm15.json",
+        "results/fertility.json",
+        "results/logs/base=xlm15__cond=baza__n=10000__seed=1337__20260909T010604Z.log",
+        "results/logs/base=xlm15__cond=baza__n=2000__seed=2024__20260908T194941Z.log",
+        "results/logs/base=xlm15__cond=baza__n=500__seed=13__20260908T231601Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=2000__seed=2024__20260908T210632Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=500__seed=1337__20260909T003259Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=10000__seed=42__20260909T011302Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=2000__seed=1337__20260908T195601Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=500__seed=1337__20260908T232919Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=10000__seed=13__20260909T012837Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=2000__seed=42__20260908T200805Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=20914__seed=42__20260909T020109Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=500__seed=42__20260908T234144Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=2000__seed=1337__20260908T202601Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=20914__seed=13__20260909T021646Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=500__seed=42__20260908T235712Z.log",
+        "results/logs/base=xlm15__cond=turk__n=2000__seed=1337__20260908T204120Z.log",
+        "results/logs/base=xlm15__cond=turk__n=500__seed=1337__20260909T001602Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=2000__seed=42__20260908T210934Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=500__seed=1337__20260909T004852Z.log",
+        "results/logs/base=xlmr__cond=baza__n=2000__seed=42__20260908T212610Z.log",
+        "results/logs/base=xlmr__cond=baza__n=500__seed=42__20260909T021953Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=2000__seed=42__20260908T224155Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=500__seed=42__20260909T033107Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=2000__seed=42__20260908T214710Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=500__seed=42__20260909T023634Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=2000__seed=42__20260908T220202Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=500__seed=42__20260909T025020Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=2000__seed=42__20260908T221502Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=500__seed=42__20260909T030333Z.log",
+        "results/logs/base=xlmr__cond=turk__n=2000__seed=42__20260908T222751Z.log",
+        "results/logs/base=xlmr__cond=turk__n=500__seed=42__20260909T031649Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=2000__seed=42__20260908T225503Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=500__seed=42__20260909T034420Z.log",
+        "results/runs/base=xlm15__cond=baza__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=10000__seed=42.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=20914__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=42.json",
+        "results/splits.json",
+        "results/test_evaluation_ledger.jsonl",
+        "results/top1_accuracy.json",
+        "results/transplant__xlm15__omp_k64.json",
+        "results/transplant__xlmr__omp_k64_rescaled.json"
+      ],
+      "commits": [
+        "feat(results): fa evidence partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR11",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR11"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Record schema, unique run key, matching log, source hash, metric consistency and provenance status in the PR review.",
+        "Results-full is authoritative at results/; pre-grid records stay under evidence/, never results/runs/.",
+        "AMENDMENT: initial import of final evidence and explicitly separated prior evidence.",
+        "After all five evidence PRs merge, run the full import audit and the actual grid integrity check before PR15–19.",
+        "Use the edited ZIP for evidence/source_snapshot origins, including its reduced test fields and empty ledger. Keep results_full.zip final-run bytes and its separate 164-entry ledger unchanged; never fill removed fields from the old source ZIP."
+      ],
+      "deliverables": [
+        "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR12",
+      "title": "PR12 · feat(results): ej evidence partition",
+      "branch": "feat/pr12-ej-ej-evidence-partition",
+      "base": "main",
+      "owner": "EJ",
+      "reviewers": [
+        "FA",
+        "FB"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ej",
+        "wave:2"
+      ],
+      "depends_on": [
+        "PR09"
+      ],
+      "merge_method": "squash",
+      "objective": "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit.",
+      "paths": [
+        "evidence/carried_forward_pre_grid/diacritics.json",
+        "evidence/carried_forward_pre_grid/label_audit_annotator1.csv",
+        "evidence/carried_forward_pre_grid/label_audit_key.json",
+        "evidence/carried_forward_pre_grid/splits_PRE_GRID.json",
+        "evidence/environment/requirements.lock",
+        "evidence/preregistration/CONFIG_HASHES.lock",
+        "evidence/preregistration/FROZEN.md",
+        "evidence/source_snapshot/results/controls__xlmr__rescaled.json",
+        "evidence/source_snapshot/results/pre_amendment/runs/base=xlmr__cond=baza__n=100__seed=13.json",
+        "evidence/source_snapshot/results/transplant__xlm15__mean_k64.json",
+        "evidence/source_snapshot/results/transplant__xlm15__random_coef_k64.json",
+        "evidence/source_snapshot/results/transplant__xlmr__random_coef_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlm15__method=random_coef__cond=tokenizator__n=2000__seed=1337.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlmr__method=mean__cond=tokenizator__n=2000__seed=1337.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlmr__method=random_coef__cond=tokenizator__n=2000__seed=42.json",
+        "figures/fig1_overlap_en.png",
+        "results/anchors.json",
+        "results/controls__xlmr__random_coef_k64_rescaled.json",
+        "results/embedding_norm_report__xlmr.json",
+        "results/errors.json",
+        "results/errors_manual_sample.csv",
+        "results/launcher_state.json",
+        "results/logs/base=xlm15__cond=baza__n=10000__seed=13__20260909T010934Z.log",
+        "results/logs/base=xlm15__cond=baza__n=2000__seed=7__20260908T194623Z.log",
+        "results/logs/base=xlm15__cond=baza__n=20914__seed=1337__20260909T014434Z.log",
+        "results/logs/base=xlm15__cond=baza__n=500__seed=42__20260908T230911Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=2000__seed=7__20260908T210329Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=500__seed=7__20260909T003912Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=2000__seed=13__20260908T195902Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=20914__seed=42__20260909T015144Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=500__seed=7__20260908T233531Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=2000__seed=7__20260908T201700Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=20914__seed=13__20260909T020721Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=500__seed=13__20260908T234754Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=10000__seed=1337__20260909T013449Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=2000__seed=7__20260908T203201Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=500__seed=7__20260909T000629Z.log",
+        "results/logs/base=xlm15__cond=turk__n=2000__seed=7__20260908T204753Z.log",
+        "results/logs/base=xlm15__cond=turk__n=500__seed=7__20260909T002255Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=2000__seed=7__20260908T211930Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=500__seed=7__20260909T005542Z.log",
+        "results/logs/base=xlmr__cond=baza__n=2000__seed=7__20260908T214022Z.log",
+        "results/logs/base=xlmr__cond=baza__n=500__seed=7__20260909T023028Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=2000__seed=7__20260908T224951Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=500__seed=7__20260909T033907Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=2000__seed=7__20260908T215611Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=500__seed=7__20260909T024501Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=2000__seed=7__20260908T220948Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=500__seed=7__20260909T025814Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=2000__seed=7__20260908T222240Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=500__seed=7__20260909T031131Z.log",
+        "results/logs/base=xlmr__cond=turk__n=2000__seed=7__20260908T223615Z.log",
+        "results/logs/base=xlmr__cond=turk__n=500__seed=7__20260909T032527Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=2000__seed=7__20260908T230325Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=500__seed=7__20260909T035254Z.log",
+        "results/runs/base=xlm15__cond=baza__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=baza__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=7.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=20914__seed=42.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=7.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=7.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=7.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=7.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=7.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=7.json",
+        "results/transplant__xlm15__mean_k64_rescaled.json",
+        "results/transplant__xlm15__omp_k64_rescaled.json",
+        "results/transplant__xlmr__omp_k64.json"
+      ],
+      "commits": [
+        "feat(results): ej evidence partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR12",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR12"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Record schema, unique run key, matching log, source hash, metric consistency and provenance status in the PR review.",
+        "Results-full is authoritative at results/; pre-grid records stay under evidence/, never results/runs/.",
+        "AMENDMENT: initial import of final evidence and explicitly separated prior evidence.",
+        "After all five evidence PRs merge, run the full import audit and the actual grid integrity check before PR15–19.",
+        "Use the edited ZIP for evidence/source_snapshot origins, including its reduced test fields and empty ledger. Keep results_full.zip final-run bytes and its separate 164-entry ledger unchanged; never fill removed fields from the old source ZIP."
+      ],
+      "deliverables": [
+        "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR13",
+      "title": "PR13 · feat(results): fb evidence partition",
+      "branch": "feat/pr13-fb-fb-evidence-partition",
+      "base": "main",
+      "owner": "FB",
+      "reviewers": [
+        "SA",
+        "SS"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fb",
+        "wave:2"
+      ],
+      "depends_on": [
+        "PR09"
+      ],
+      "merge_method": "squash",
+      "objective": "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit.",
+      "paths": [
+        "evidence/00_READ_ME_FIRST.md",
+        "evidence/carried_forward_pre_grid/corpus_fertility.json",
+        "evidence/carried_forward_pre_grid/dataset_candidates_tr.json",
+        "evidence/environment/env_hardware_as_run.txt",
+        "evidence/environment/requirements.txt",
+        "evidence/source_snapshot/results/controls__xlmr.json",
+        "evidence/source_snapshot/results/paper_report.json",
+        "evidence/source_snapshot/results/paper_tables.md",
+        "evidence/source_snapshot/results/pre_amendment/condition3_transplant_controls.json",
+        "evidence/source_snapshot/results/pre_amendment/runs/base=xlm15__cond=baza__n=100__seed=13.json",
+        "evidence/source_snapshot/results/runs/base=xlm15__cond=tokenizator__n=2000__seed=42__variant=random_coef_k64_rescaled.json",
+        "evidence/source_snapshot/results/stability_diagnostics/runs/step1_mean_collapsed_seed42.json",
+        "evidence/source_snapshot/results/transplant__xlm15__mean_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant__xlm15__random_coef_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant__xlmr__omp_k64.json",
+        "evidence/source_snapshot/results/transplant__xlmr__random_coef_k64.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlm15__method=mean__cond=tokenizator__n=2000__seed=42.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlmr__method=random_coef__cond=tokenizator__n=2000__seed=1337.json",
+        "evidence/source_snapshot/results/truncation.json",
+        "results/controls__xlm15__omp_k64_rescaled.json",
+        "results/controls__xlmr__omp_k64_rescaled.json",
+        "results/logs/base=xlm15__cond=baza__n=2000__seed=42__20260908T193630Z.log",
+        "results/logs/base=xlm15__cond=baza__n=20914__seed=13__20260909T014810Z.log",
+        "results/logs/base=xlm15__cond=baza__n=500__seed=1337__20260908T231236Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=2000__seed=1337__20260908T205732Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=500__seed=42__20260909T002951Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=10000__seed=1337__20260909T011611Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=2000__seed=2024__20260908T200503Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=500__seed=2024__20260908T233838Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=10000__seed=42__20260909T012224Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=2000__seed=2024__20260908T202000Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=500__seed=2024__20260908T235405Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=10000__seed=13__20260909T013756Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=2000__seed=2024__20260908T203502Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=20914__seed=1337__20260909T021338Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=500__seed=2024__20260909T000934Z.log",
+        "results/logs/base=xlm15__cond=turk__n=2000__seed=2024__20260908T205114Z.log",
+        "results/logs/base=xlm15__cond=turk__n=500__seed=2024__20260909T002624Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=2000__seed=2024__20260908T212252Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=500__seed=2024__20260909T005908Z.log",
+        "results/logs/base=xlmr__cond=baza__n=2000__seed=2024__20260908T214354Z.log",
+        "results/logs/base=xlmr__cond=baza__n=500__seed=2024__20260909T023333Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=2000__seed=1337__20260908T224433Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=500__seed=2024__20260909T034143Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=2000__seed=1337__20260908T215035Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=500__seed=2024__20260909T024741Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=2000__seed=1337__20260908T220434Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=500__seed=1337__20260909T025257Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=2000__seed=1337__20260908T221734Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=500__seed=1337__20260909T030612Z.log",
+        "results/logs/base=xlmr__cond=turk__n=2000__seed=1337__20260908T223041Z.log",
+        "results/logs/base=xlmr__cond=turk__n=500__seed=1337__20260909T031942Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=2000__seed=1337__20260908T225751Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=500__seed=1337__20260909T034712Z.log",
+        "results/paper_report.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=baza__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=10000__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=1337.json",
+        "results/stats.csv",
+        "results/summary.csv",
+        "results/test_tables.md",
+        "results/transplant__xlmr__mean_k64_rescaled.json"
+      ],
+      "commits": [
+        "feat(results): fb evidence partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR13",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR13"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Record schema, unique run key, matching log, source hash, metric consistency and provenance status in the PR review.",
+        "Results-full is authoritative at results/; pre-grid records stay under evidence/, never results/runs/.",
+        "AMENDMENT: initial import of final evidence and explicitly separated prior evidence.",
+        "After all five evidence PRs merge, run the full import audit and the actual grid integrity check before PR15–19.",
+        "Use the edited ZIP for evidence/source_snapshot origins, including its reduced test fields and empty ledger. Keep results_full.zip final-run bytes and its separate 164-entry ledger unchanged; never fill removed fields from the old source ZIP."
+      ],
+      "deliverables": [
+        "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR14",
+      "title": "PR14 · feat(results): sa evidence partition",
+      "branch": "feat/pr14-sa-sa-evidence-partition",
+      "base": "main",
+      "owner": "SA",
+      "reviewers": [
+        "EJ",
+        "FA"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:sa",
+        "wave:2"
+      ],
+      "depends_on": [
+        "PR09"
+      ],
+      "merge_method": "squash",
+      "objective": "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit.",
+      "paths": [
+        "evidence/PAPER_SKELETON.md",
+        "evidence/carried_forward_pre_grid/label_audit_INSTRUCTIONS.md",
+        "evidence/preregistration/experiment.yaml",
+        "evidence/source_snapshot/figures/conditional_macro_f1.png",
+        "evidence/source_snapshot/results/aggregate.csv",
+        "evidence/source_snapshot/results/controls__xlm15__rescaled.json",
+        "evidence/source_snapshot/results/embedding_norm_report__xlm15.json",
+        "evidence/source_snapshot/results/runs/base=xlm15__cond=tokenizator__n=2000__seed=42__variant=mean_k64_rescaled.json",
+        "evidence/source_snapshot/results/scramble.json",
+        "evidence/source_snapshot/results/summary.csv",
+        "evidence/source_snapshot/results/summary.json",
+        "evidence/source_snapshot/results/test_evaluation_ledger.jsonl",
+        "evidence/source_snapshot/results/top1_accuracy.json",
+        "evidence/source_snapshot/results/transplant__xlmr__omp_k64_rescaled.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlm15__method=mean__cond=tokenizator__n=2000__seed=1337.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlm15__method=random_coef__cond=tokenizator__n=2000__seed=42.json",
+        "evidence/source_snapshot/results/transplant_controls/runs/base=xlmr__method=mean__cond=tokenizator__n=2000__seed=13.json",
+        "figures/escape_rate.png",
+        "results/controls__xlm15.json",
+        "results/controls__xlmr.json",
+        "results/decompose.json",
+        "results/logs/base=xlm15__cond=baza__n=10000__seed=42__20260909T010235Z.log",
+        "results/logs/base=xlm15__cond=baza__n=2000__seed=13__20260908T194304Z.log",
+        "results/logs/base=xlm15__cond=baza__n=500__seed=2024__20260908T232249Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=2000__seed=13__20260908T210029Z.log",
+        "results/logs/base=xlm15__cond=her_ikisi__n=500__seed=13__20260909T003607Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=10000__seed=13__20260909T011917Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=2000__seed=7__20260908T200201Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=20914__seed=1337__20260909T015450Z.log",
+        "results/logs/base=xlm15__cond=tokenizator__n=500__seed=13__20260908T233227Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=2000__seed=13__20260908T201402Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=20914__seed=1337__20260909T020416Z.log",
+        "results/logs/base=xlm15__cond=transplant_mean__n=500__seed=7__20260908T235100Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=2000__seed=13__20260908T202903Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=20914__seed=42__20260909T021029Z.log",
+        "results/logs/base=xlm15__cond=transplant_random_coef__n=500__seed=13__20260909T000324Z.log",
+        "results/logs/base=xlm15__cond=turk__n=2000__seed=13__20260908T204436Z.log",
+        "results/logs/base=xlm15__cond=turk__n=500__seed=13__20260909T001928Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=2000__seed=13__20260908T211612Z.log",
+        "results/logs/base=xlm15__cond=turk_qarisiq__n=500__seed=13__20260909T005219Z.log",
+        "results/logs/base=xlmr__cond=baza__n=2000__seed=13__20260908T213656Z.log",
+        "results/logs/base=xlmr__cond=baza__n=500__seed=13__20260909T022714Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=2000__seed=13__20260908T224715Z.log",
+        "results/logs/base=xlmr__cond=her_ikisi__n=500__seed=13__20260909T033627Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=2000__seed=13__20260908T215328Z.log",
+        "results/logs/base=xlmr__cond=tokenizator__n=500__seed=13__20260909T024213Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=2000__seed=13__20260908T220711Z.log",
+        "results/logs/base=xlmr__cond=transplant_mean__n=500__seed=13__20260909T025536Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=2000__seed=13__20260908T222008Z.log",
+        "results/logs/base=xlmr__cond=transplant_random_coef__n=500__seed=13__20260909T030852Z.log",
+        "results/logs/base=xlmr__cond=turk__n=2000__seed=13__20260908T223328Z.log",
+        "results/logs/base=xlmr__cond=turk__n=500__seed=13__20260909T032233Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=2000__seed=13__20260908T230037Z.log",
+        "results/logs/base=xlmr__cond=turk_qarisiq__n=500__seed=13__20260909T035001Z.log",
+        "results/runs/base=xlm15__cond=baza__n=10000__seed=42.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=7.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=7.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=20914__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=13.json",
+        "results/transplant__xlm15__random_coef_k64_rescaled.json",
+        "results/transplant__xlmr__mean_k64.json",
+        "results/transplant__xlmr__random_coef_k64.json",
+        "results/truncation.json",
+        "tables/test_tables.md"
+      ],
+      "commits": [
+        "feat(results): sa evidence partition"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR14",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}",
+            "--pr",
+            "PR14"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Record schema, unique run key, matching log, source hash, metric consistency and provenance status in the PR review.",
+        "Results-full is authoritative at results/; pre-grid records stay under evidence/, never results/runs/.",
+        "AMENDMENT: initial import of final evidence and explicitly separated prior evidence.",
+        "After all five evidence PRs merge, run the full import audit and the actual grid integrity check before PR15–19.",
+        "Use the edited ZIP for evidence/source_snapshot origins, including its reduced test fields and empty ledger. Keep results_full.zip final-run bytes and its separate 164-entry ledger unchanged; never fill removed fields from the old source ZIP."
+      ],
+      "deliverables": [
+        "Import exactly this manifest batch: 33 final schema-4 runs, their 33 logs, and assigned reports/provenance. Each final run/log pair stays together; this is verification ownership, not experiment execution credit."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass, required real non-author review is recorded, and the diff stays in the registered paths. Opening the PR is the end of \"do PR#\"; merging is a separate instruction."
+    },
+    {
+      "id": "PR15",
+      "title": "PR15 · feat(delivery): anchors paper and artifact guide",
+      "branch": "feat/pr15-ss-anchors-paper-and-artifact-guide",
+      "base": "main",
+      "owner": "SS",
+      "reviewers": [
+        "FB",
+        "SA"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ss",
+        "wave:3",
+        "combined-delivery"
+      ],
+      "depends_on": [
+        "PR10",
+        "PR11",
+        "PR12",
+        "PR13",
+        "PR14"
+      ],
+      "merge_method": "squash",
+      "objective": "Deliver the anchor/grid verifier and focused tests; write Abstract, Discussion/Limitations and slides 1–4; complete the SS claim/reference fragments and truthful contribution row; update README and artifact navigation. Use the shared skeleton and directly loaded bibliography fragments from PR04. Do not incorporate another member's unfinished source or section prose into this commit. Add synthetic entry-point regression tests documenting Python val defaults, refusal of test without opt-in and current shell-wrapper test defaults; do not execute training or the real test split.",
+      "paths": [
+        "README.md",
+        "docs/ANCHOR_VERIFICATION.md",
+        "docs/ARTIFACT_NAVIGATION.md",
+        "docs/contributions/ss.md",
+        "presentation/sections/ss.tex",
+        "report/claims/ss.yaml",
+        "report/references/ss.bib",
+        "report/sections/00_abstract.tex",
+        "report/sections/07_discussion_limitations.tex",
+        "results/anchor_report.json",
+        "src/tokenization/anchor_report.py",
+        "tests/test_anchor_report.py",
+        "tests/test_test_access_entrypoints.py"
+      ],
+      "commits": [
+        "feat(delivery): anchors paper and artifact guide"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR15",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "audit-test-access",
+            "--repo",
+            "${REPO}",
+            "--stage",
+            "evidence"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_anchor_report.py"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "src.tokenization.anchor_report",
+            "--config",
+            "configs/experiment.yaml"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-report"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-slides"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_test_access_entrypoints.py"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Anchor values are derived from actual evidence; test invalid/special anchors and unknown bases.",
+        "Own numeric claims are manually traced to source files now; the automatic global strict check is a PR19 gate, not an unavailable PR15 command.",
+        "The two owned report sections, four slides, README and contribution row are complete; other member sections may still be draft stubs.",
+        "Do not regenerate a shared refs.bib snapshot that would require another commit after later fragments arrive.",
+        "Any final navigation review after PR19 is recorded as PR review/comment if no tracked-file fix is needed.",
+        "Full frozen import and ledger audits run before implementing new modules. Entry-point tests mock subprocess/model/data access; the empty snapshot ledger never resets access history."
+      ],
+      "deliverables": [
+        "Deliver the anchor/grid verifier and focused tests; write Abstract, Discussion/Limitations and slides 1–4; complete the SS claim/reference fragments and truthful contribution row; update README and artifact navigation. Use the shared skeleton and directly loaded bibliography fragments from PR04. Do not incorporate another member's unfinished source or section prose into this commit. Add synthetic entry-point regression tests documenting Python val defaults, refusal of test without opt-in and current shell-wrapper test defaults; do not execute training or the real test split."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass and real non-author review is recorded on this head. Commit this complete delivery once. Opening the PR ends \"do PR#\"; merging or publishing is a separate instruction."
+    },
+    {
+      "id": "PR16",
+      "title": "PR16 · feat(delivery): data verification paper and provenance",
+      "branch": "feat/pr16-fa-data-verification-paper-and-provenance",
+      "base": "main",
+      "owner": "FA",
+      "reviewers": [
+        "SS",
+        "EJ"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fa",
+        "wave:3",
+        "combined-delivery"
+      ],
+      "depends_on": [
+        "PR15"
+      ],
+      "merge_method": "squash",
+      "objective": "Deliver the split-manifest verifier, focused provenance tests, DATA.md and actual data-audit evidence. Write Introduction, Data Setup and slides 5–8; complete FA claim/reference fragments and truthful contribution row. Verify the received dataset rather than copying an existing success statement. Verify the edited-snapshot versus as-run ledger/configuration provenance using fixtures and supplied file hashes, and describe their different histories in DATA.md.",
+      "paths": [
+        "docs/DATA.md",
+        "docs/DATA_PROVENANCE_AUDIT.md",
+        "docs/contributions/fa.md",
+        "presentation/sections/fa.tex",
+        "report/claims/fa.yaml",
+        "report/references/fa.bib",
+        "report/sections/01_introduction.tex",
+        "report/sections/04_setup_data.tex",
+        "results/data_integrity_report.json",
+        "results/provenance_verification.json",
+        "src/data/verify_splits.py",
+        "tests/test_evidence_provenance.py",
+        "tests/test_verify_splits.py"
+      ],
+      "commits": [
+        "feat(delivery): data verification paper and provenance"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR16",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_verify_splits.py",
+            "tests/test_evidence_provenance.py"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "src.data.verify_splits",
+            "--config",
+            "configs/experiment.yaml",
+            "--data-root",
+            "${DATA_ROOT}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-report"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-slides"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Reproduce the exact train/validation/test hashes and 20937/2791/4186 counts; verify zero normalized-text overlap.",
+        "Keep the dataset outside Git and describe the one-example pre-grid difference and unpinned revision accurately.",
+        "Validate the two own paper sections and four slides; full global claims/finished-paper validation occurs in PR19.",
+        "The provenance report records measurements actually repeated by the contributor.",
+        "Data identity checks may hash the supplied test split but must not evaluate a model or use its labels for tuning. The empty edited snapshot ledger and 164-entry as-run ledger are distinct sources, not proof of zero lifetime test access."
+      ],
+      "deliverables": [
+        "Deliver the split-manifest verifier, focused provenance tests, DATA.md and actual data-audit evidence. Write Introduction, Data Setup and slides 5–8; complete FA claim/reference fragments and truthful contribution row. Verify the received dataset rather than copying an existing success statement. Verify the edited-snapshot versus as-run ledger/configuration provenance using fixtures and supplied file hashes, and describe their different histories in DATA.md."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass and real non-author review is recorded on this head. Commit this complete delivery once. Opening the PR ends \"do PR#\"; merging or publishing is a separate instruction."
+    },
+    {
+      "id": "PR17",
+      "title": "PR17 · feat(delivery): model verification paper and ci",
+      "branch": "feat/pr17-ej-model-verification-paper-and-ci",
+      "base": "main",
+      "owner": "EJ",
+      "reviewers": [
+        "FA",
+        "FB"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:ej",
+        "wave:3",
+        "combined-delivery"
+      ],
+      "depends_on": [
+        "PR16"
+      ],
+      "merge_method": "squash",
+      "objective": "Deliver the model/parameter and environment verification, focused release-integrity failure tests and CI readiness logic. Write Method, Tools/Acknowledgements and slides 9–12; complete EJ claim/reference fragments and contribution row. Document the clean checkout and stages actually tested at this point. Define the final validation commands for PR19; do not claim to have tested not-yet-delivered final files. Record the edited FROZEN.md/lock hashes alongside retained as-run configuration provenance; no claim that old results were rerun on this edited ZIP.",
+      "paths": [
+        ".github/scripts/pr_hygiene.py",
+        ".github/workflows/ci.yml",
+        "docs/CLEAN_CLONE_AUDIT.md",
+        "docs/ENVIRONMENT_AS_RUN.md",
+        "docs/MODEL_AND_CONTROL_VERIFICATION.md",
+        "docs/contributions/ej.md",
+        "presentation/sections/ej.tex",
+        "report/claims/ej.yaml",
+        "report/references/ej.bib",
+        "report/sections/03_method.tex",
+        "report/sections/09_tools_ack.tex",
+        "requirements-as-run.txt",
+        "results/model_table.json",
+        "scripts/verify_repo.py",
+        "src/analysis/model_table.py",
+        "tests/test_model_table.py",
+        "tests/test_release_integrity.py"
+      ],
+      "commits": [
+        "feat(delivery): model verification paper and ci"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR17",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_model_table.py",
+            "tests/test_release_integrity.py"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "src.analysis.model_table",
+            "--config",
+            "configs/experiment.yaml"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-report"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-slides"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Parameter-count definitions and as-run/pinned environment differences are explicit; do not silently change historical pins.",
+        "Failure fixtures cover missing runs, duplicate identities, stale claims and missing PDFs without pretending the absent final deliverables passed.",
+        "CI enforces stage-appropriate checks using the registered plan ID; final gates genuinely run on PR19 rather than requiring impossible inputs on PR17.",
+        "EJ performs the final independent clean-checkout review on PR19 and attaches its log/artifact to that PR; no separate sign-off commit is needed when no tracked changes are required.",
+        "Compare each configuration capture to its own archive hash. A different historical FROZEN.md is disclosed provenance, not a reason to overwrite it or regenerate metrics."
+      ],
+      "deliverables": [
+        "Deliver the model/parameter and environment verification, focused release-integrity failure tests and CI readiness logic. Write Method, Tools/Acknowledgements and slides 9–12; complete EJ claim/reference fragments and contribution row. Document the clean checkout and stages actually tested at this point. Define the final validation commands for PR19; do not claim to have tested not-yet-delivered final files. Record the edited FROZEN.md/lock hashes alongside retained as-run configuration provenance; no claim that old results were rerun on this edited ZIP."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass and real non-author review is recorded on this head. Commit this complete delivery once. Opening the PR ends \"do PR#\"; merging or publishing is a separate instruction."
+    },
+    {
+      "id": "PR18",
+      "title": "PR18 · feat(delivery): test tables paper and release tooling",
+      "branch": "feat/pr18-fb-test-tables-paper-and-release-tooling",
+      "base": "main",
+      "owner": "FB",
+      "reviewers": [
+        "SA",
+        "SS",
+        "EJ"
+      ],
+      "required_approvals": 1,
+      "labels": [
+        "owner:fb",
+        "wave:3",
+        "combined-delivery"
+      ],
+      "depends_on": [
+        "PR17"
+      ],
+      "merge_method": "squash",
+      "objective": "Deliver the test-table generator, focused tests, Amendment-8 report columns and the existing analysis-only wiring. Resolve and document the two test-table versions' inference-policy difference. Write Training Setup, Conclusion and slides 13–16; complete FB claim/reference fragments and contribution row. Add release-building tooling and its tests now, so the complete PDFs and manifests can be produced after PR19 fills the final sections. Do not commit prematurely labelled final PDFs or a stale final release manifest. Add synthetic fine-tune guard and ledger regression tests; cover validation without test-file access, refused test without opt-in, authorized synthetic test with an appended ledger record, and analysis of records lacking test fields. Extend the existing analysis-only route; it already exists in this source version.",
+      "paths": [
+        "docs/REPRODUCE_RELEASE.md",
+        "docs/TEST_TABLES_POLICY.md",
+        "docs/contributions/fb.md",
+        "presentation/sections/fb.tex",
+        "report/claims/fb.yaml",
+        "report/references/fb.bib",
+        "report/sections/05_setup_training.tex",
+        "report/sections/08_conclusion.tex",
+        "results/paper_tables.md",
+        "run_all.sh",
+        "scripts/build_release.py",
+        "src/analysis/report.py",
+        "src/analysis/test_tables.py",
+        "tables/test_tables.md",
+        "tests/test_release_package.py",
+        "tests/test_test_access_runtime.py",
+        "tests/test_test_tables.py"
+      ],
+      "commits": [
+        "feat(delivery): test tables paper and release tooling"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR18",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_test_tables.py",
+            "tests/test_release_package.py"
+          ]
+        },
+        {
+          "cwd": "disposable_analysis_checkout",
+          "argv": [
+            "bash",
+            "run_all.sh",
+            "--analysis-only"
+          ]
+        },
+        {
+          "cwd": "disposable_analysis_checkout",
+          "argv": [
+            "git",
+            "diff",
+            "--exit-code",
+            "--",
+            "tables/test_tables.md"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-report"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-slides"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_test_access_runtime.py"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "Canonical T1–T4 come from the evidence pack; the standalone T5/T6 supplement remains separately preserved and its inference status is explicitly reviewed.",
+        "Resolve bootstrap ordering/seed from evidence. If exact regeneration is not defensible, record and review a deterministic amendment instead of hard-coding output.",
+        "Existing report.py and run_all.sh changes have an AMENDMENT explanation and source-owner review.",
+        "build_release.py works on a complete input tree, tests missing/changed artifacts, and writes checksums deterministically; integration with the complete final tree is checked in PR19.",
+        "FB retains packaging/publication responsibility after PR19. A release tag and asset upload do not create another code commit; publishing requires a separate explicit instruction.",
+        "All test-access regression fixtures are synthetic or mocked; no real model evaluation of the held-out split occurs.",
+        "Run analysis-only regeneration in a disposable verification checkout containing the reviewed PR code and retained final evidence. Check snapshot/result hashes before and after; allow writes only to documented derived outputs there. Stage only the registered report/table outputs back in the PR checkout. Never run the full wrapper as a shortcut.",
+        "Reduced historical records may lack test fields. Final tables admit schema-4 records only and must not fabricate predictions or treat absent metrics as zero. Keep the original final ledger unchanged."
+      ],
+      "deliverables": [
+        "Deliver the test-table generator, focused tests, Amendment-8 report columns and the existing analysis-only wiring. Resolve and document the two test-table versions' inference-policy difference. Write Training Setup, Conclusion and slides 13–16; complete FB claim/reference fragments and contribution row. Add release-building tooling and its tests now, so the complete PDFs and manifests can be produced after PR19 fills the final sections. Do not commit prematurely labelled final PDFs or a stale final release manifest. Add synthetic fine-tune guard and ledger regression tests; cover validation without test-file access, refused test without opt-in, authorized synthetic test with an appended ledger record, and analysis of records lacking test fields. Extend the existing analysis-only route; it already exists in this source version."
+      ],
+      "amendment_required": true,
+      "acceptance": "All declared checks pass and real non-author review is recorded on this head. Commit this complete delivery once. Opening the PR ends \"do PR#\"; merging or publishing is a separate instruction."
+    },
+    {
+      "id": "PR19",
+      "title": "PR19 · feat(delivery): claims results and final integration",
+      "branch": "feat/pr19-sa-claims-results-and-final-integration",
+      "base": "main",
+      "owner": "SA",
+      "reviewers": [
+        "EJ",
+        "FA",
+        "FB",
+        "SS"
+      ],
+      "required_approvals": 2,
+      "labels": [
+        "owner:sa",
+        "wave:3",
+        "combined-delivery"
+      ],
+      "depends_on": [
+        "PR18"
+      ],
+      "merge_method": "squash",
+      "objective": "Deliver the numeric-claim checker/tests and own Related Work, Results and slides 17–20. Complete the SA reference/claim/contribution fragments, integrate all five factual contribution rows, and build the complete report/deck/contribution PDFs. Run the actual full clean-tree verification and release builder from PR18; commit the resulting final artifacts, changelog and release manifest in this one delivery. Other members provide their real final review acknowledgements and reproduction logs on this PR, not separate sign-off commits. Resolve test-access/history claims against the edited source note and separately retained as-run evidence; reject unsupported claims that an empty edited ledger proves no prior test access.",
+      "paths": [
+        "CHANGELOG.md",
+        "contribution_report.pdf",
+        "contribution_report.tex",
+        "docs/CONTRIBUTIONS.md",
+        "docs/RELEASE_MANIFEST.json",
+        "docs/contributions/ej.md",
+        "docs/contributions/fa.md",
+        "docs/contributions/fb.md",
+        "docs/contributions/sa.md",
+        "docs/contributions/ss.md",
+        "presentation/presentation.pdf",
+        "presentation/sections/sa.tex",
+        "report/claims/ej.yaml",
+        "report/claims/fa.yaml",
+        "report/claims/fb.yaml",
+        "report/claims/index.yaml",
+        "report/claims/sa.yaml",
+        "report/claims/ss.yaml",
+        "report/references/sa.bib",
+        "report/report.pdf",
+        "report/sections/02_related_work.tex",
+        "report/sections/06_results.tex",
+        "scripts/verify_paper_claims.py",
+        "tests/test_verify_paper_claims.py"
+      ],
+      "commits": [
+        "feat(delivery): claims results and final integration"
+      ],
+      "validate": [
+        {
+          "cwd": "workflow_context",
+          "argv": [
+            "python",
+            "scripts/pr_plan.py",
+            "scope",
+            "PR19",
+            "--repo",
+            "${REPO}"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_verify_paper_claims.py"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "scripts/verify_paper_claims.py",
+            "--strict"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf-contribution"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "pdf"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "make",
+            "verify-all"
+          ]
+        },
+        {
+          "cwd": "repository",
+          "argv": [
+            "python",
+            "scripts/build_release.py",
+            "--output-manifest",
+            "docs/RELEASE_MANIFEST.json"
+          ]
+        }
+      ],
+      "review_criteria": [
+        "All 164 final records, 164 logs, every final numeric claim, dataset identity, final PDF and contribution row pass the actual declared checks.",
+        "Per-member claim fragments from PR15–18 are respected. A correction in another member's fragment must be explicit, reviewed by that member and credited as a correction.",
+        "SA integrates the other members' contribution rows and generated outputs; this does not transfer authorship of their code, prose, execution or review to SA.",
+        "Every member acknowledges the contribution wording; EJ attaches independent clean-checkout verification and FB checks release packaging.",
+        "Require two real non-author approvals on the final head. Do not merge, tag or publish on the basis of \"do PR19\" alone.",
+        "Final release assets include data.tgz, run.log.txt and the evidence pack, separately from the code tree.",
+        "Every test metric points to an unchanged schema-4 final record. Missing historical test fields are absence of stored data, not zero scores or evidence that access never happened."
+      ],
+      "deliverables": [
+        "Deliver the numeric-claim checker/tests and own Related Work, Results and slides 17–20. Complete the SA reference/claim/contribution fragments, integrate all five factual contribution rows, and build the complete report/deck/contribution PDFs. Run the actual full clean-tree verification and release builder from PR18; commit the resulting final artifacts, changelog and release manifest in this one delivery. Other members provide their real final review acknowledgements and reproduction logs on this PR, not separate sign-off commits. Resolve test-access/history claims against the edited source note and separately retained as-run evidence; reject unsupported claims that an empty edited ledger proves no prior test access."
+      ],
+      "amendment_required": false,
+      "acceptance": "All declared checks pass and real non-author review is recorded on this head. Commit this complete delivery once. Opening the PR ends \"do PR#\"; merging or publishing is a separate instruction."
+    }
+  ]
+}
