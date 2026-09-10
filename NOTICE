@@ -1,0 +1,41 @@
+Third-party datasets and pretrained models
+
+LICENSE retains the supplied project's MIT source-code licence. It does not
+relicense datasets, model weights, or other third-party material. PR01 does not
+publish data archives, weights, experiment outputs, or a release.
+
+The following identifiers were checked against the supplied edited experiment
+configuration. Licence metadata below was checked on 2026-09-10; it is not a
+claim that the historical run used today's upstream revision.
+
+Dataset: LocalDoc/sentiments_dataset_azerbaijani
+Upstream: https://huggingface.co/datasets/LocalDoc/sentiments_dataset_azerbaijani
+Declared licence: CC-BY-NC-SA-4.0
+Metadata revision checked: 959dc4eb949873728cb4ce43c1b4a14d4dc32239
+
+Dataset: maydogan/Turkish_SentimentAnalysis_TRSAv1
+Upstream: https://huggingface.co/datasets/maydogan/Turkish_SentimentAnalysis_TRSAv1
+Licence: unresolved; upstream API card metadata did not declare a licence.
+Metadata revision checked: 3bda52ed2c57ac1e80ac463192cafeeae9f72213
+Absence of a licence field is not permission to redistribute. FA's PR16 data
+provenance review and FB's release preparation must resolve applicable terms
+before publishing any affected dataset asset.
+
+Model: FacebookAI/xlm-mlm-tlm-xnli15-1024
+Upstream: https://huggingface.co/FacebookAI/xlm-mlm-tlm-xnli15-1024
+Declared licence: CC-BY-NC-4.0
+Metadata revision checked: 33914a4526a074d8430af7c58b0654b240c842c4
+
+Model: FacebookAI/xlm-roberta-base (configured as xlm-roberta-base)
+Upstream: https://huggingface.co/FacebookAI/xlm-roberta-base
+Declared licence: MIT, according to the upstream model card.
+
+Tokenizer/embedding donor: HPLT/hplt_bert_base_az
+Upstream: https://huggingface.co/HPLT/hplt_bert_base_az
+Declared licence: Apache-2.0
+Revision checked and pinned in the supplied configuration:
+a126552c30733333cc95425b4eefd3d85b39d878
+
+Consult the linked upstream repositories for their full terms and notices.
+Historical configurations and evidence retain their own provenance; this
+notice does not revise the measured results or certify release readiness.
