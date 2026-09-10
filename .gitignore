@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# vendored/local interpreter and IDE/tool caches — not source, not portable
+# to the A100 host (see docs/A100_SETUP.md)
+.python311/
+python-3.11.9-embed-amd64.zip
+.idea/
+.pytest_cache/
+
+# session/harness-local state — not project content
+.claude/
+
+# böyük çıxışlar — commit EDİLMİR
+artifacts/
+*.pt
+*.bin
+*.safetensors
+/data/
+wandb/
+.ipynb_checkpoints/
+
+# nəticələr KİÇİKDİR və commit EDİLİR:
+!results/
+!results/**
+!figures/
+!figures/**
