@@ -1,0 +1,50 @@
+{
+  "name": "Code or Git workflow bug",
+  "description": "Report a reproducible code, CI, or Git workflow problem.",
+  "body": [
+    {
+      "type": "input",
+      "id": "revision",
+      "attributes": {
+        "label": "Revision and affected path",
+        "description": "Include commit SHA, path and PR identifier."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "reproduce",
+      "attributes": {
+        "label": "Steps and observed output",
+        "description": "Provide minimal reproduction steps and redacted output. Never paste credentials."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "expected",
+      "attributes": {
+        "label": "Expected behavior",
+        "description": "Explain the expected behavior and why."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "environment",
+      "attributes": {
+        "label": "Environment",
+        "description": "Give relevant OS, Python and dependency versions."
+      },
+      "validations": {
+        "required": false
+      }
+    }
+  ]
+}

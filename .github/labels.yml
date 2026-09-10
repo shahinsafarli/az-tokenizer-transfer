@@ -1,0 +1,52 @@
+[
+  {
+    "name": "combined-delivery",
+    "color": "1D76DB",
+    "description": "Registered workflow label: combined-delivery"
+  },
+  {
+    "name": "owner:ej",
+    "color": "526D82",
+    "description": "Registered workflow label: owner:ej"
+  },
+  {
+    "name": "owner:fa",
+    "color": "526D82",
+    "description": "Registered workflow label: owner:fa"
+  },
+  {
+    "name": "owner:fb",
+    "color": "526D82",
+    "description": "Registered workflow label: owner:fb"
+  },
+  {
+    "name": "owner:sa",
+    "color": "526D82",
+    "description": "Registered workflow label: owner:sa"
+  },
+  {
+    "name": "owner:ss",
+    "color": "526D82",
+    "description": "Registered workflow label: owner:ss"
+  },
+  {
+    "name": "wave:0",
+    "color": "1D76DB",
+    "description": "Registered workflow label: wave:0"
+  },
+  {
+    "name": "wave:1",
+    "color": "1D76DB",
+    "description": "Registered workflow label: wave:1"
+  },
+  {
+    "name": "wave:2",
+    "color": "1D76DB",
+    "description": "Registered workflow label: wave:2"
+  },
+  {
+    "name": "wave:3",
+    "color": "1D76DB",
+    "description": "Registered workflow label: wave:3"
+  }
+]

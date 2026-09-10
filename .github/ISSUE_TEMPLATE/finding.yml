@@ -1,0 +1,50 @@
+{
+  "name": "Evidence or result discrepancy",
+  "description": "Report a traceability, measurement, licensing, or interpretation problem.",
+  "body": [
+    {
+      "type": "input",
+      "id": "evidence",
+      "attributes": {
+        "label": "Evidence location",
+        "description": "Give the exact file, table or figure, and commit SHA."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "claim",
+      "attributes": {
+        "label": "Discrepancy",
+        "description": "Identify the recorded claim and evidence supporting the discrepancy."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "verification",
+      "attributes": {
+        "label": "Verification actually performed",
+        "description": "List checks actually run and their outputs, or state verification is pending."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "impact",
+      "attributes": {
+        "label": "Impact and proposed correction",
+        "description": "Preserve existing measurements and provenance; do not fabricate replacement results."
+      },
+      "validations": {
+        "required": false
+      }
+    }
+  ]
+}
