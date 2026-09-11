@@ -1,0 +1,127 @@
+{
+  "reference_size": 2000,
+  "status": "MEASURED",
+  "n_skipped_wrong_schema": 0,
+  "n_skipped_no_test_predictions": 0,
+  "conditions": {
+    "baza": {
+      "n_evaluated": 41860,
+      "n_errors": 13176,
+      "error_rate_pct": 31.48,
+      "counts": {
+        "morfoloji": 858,
+        "diger": 12102,
+        "texniki_lugat": 185,
+        "yalanci_dost": 31
+      },
+      "shares_pct": {
+        "morfoloji": 6.5,
+        "diger": 91.8,
+        "texniki_lugat": 1.4,
+        "yalanci_dost": 0.2
+      }
+    },
+    "her_ikisi": {
+      "n_evaluated": 41860,
+      "n_errors": 12137,
+      "error_rate_pct": 28.99,
+      "counts": {
+        "diger": 11190,
+        "morfoloji": 710,
+        "texniki_lugat": 195,
+        "yalanci_dost": 42
+      },
+      "shares_pct": {
+        "diger": 92.2,
+        "morfoloji": 5.8,
+        "texniki_lugat": 1.6,
+        "yalanci_dost": 0.3
+      }
+    },
+    "tokenizator": {
+      "n_evaluated": 41860,
+      "n_errors": 14286,
+      "error_rate_pct": 34.13,
+      "counts": {
+        "morfoloji": 859,
+        "diger": 13159,
+        "texniki_lugat": 223,
+        "yalanci_dost": 45
+      },
+      "shares_pct": {
+        "morfoloji": 6.0,
+        "diger": 92.1,
+        "texniki_lugat": 1.6,
+        "yalanci_dost": 0.3
+      }
+    },
+    "transplant_mean": {
+      "n_evaluated": 41860,
+      "n_errors": 13221,
+      "error_rate_pct": 31.58,
+      "counts": {
+        "morfoloji": 780,
+        "diger": 12202,
+        "texniki_lugat": 194,
+        "yalanci_dost": 45
+      },
+      "shares_pct": {
+        "morfoloji": 5.9,
+        "diger": 92.3,
+        "texniki_lugat": 1.5,
+        "yalanci_dost": 0.3
+      }
+    },
+    "transplant_random_coef": {
+      "n_evaluated": 41860,
+      "n_errors": 13852,
+      "error_rate_pct": 33.09,
+      "counts": {
+        "morfoloji": 838,
+        "diger": 12746,
+        "texniki_lugat": 226,
+        "yalanci_dost": 42
+      },
+      "shares_pct": {
+        "morfoloji": 6.0,
+        "diger": 92.0,
+        "texniki_lugat": 1.6,
+        "yalanci_dost": 0.3
+      }
+    },
+    "turk": {
+      "n_evaluated": 41860,
+      "n_errors": 11736,
+      "error_rate_pct": 28.04,
+      "counts": {
+        "morfoloji": 727,
+        "diger": 10793,
+        "texniki_lugat": 178,
+        "yalanci_dost": 38
+      },
+      "shares_pct": {
+        "morfoloji": 6.2,
+        "diger": 92.0,
+        "texniki_lugat": 1.5,
+        "yalanci_dost": 0.3
+      }
+    },
+    "turk_qarisiq": {
+      "n_evaluated": 41860,
+      "n_errors": 13196,
+      "error_rate_pct": 31.52,
+      "counts": {
+        "diger": 12128,
+        "yalanci_dost": 37,
+        "morfoloji": 849,
+        "texniki_lugat": 182
+      },
+      "shares_pct": {
+        "diger": 91.9,
+        "yalanci_dost": 0.3,
+        "morfoloji": 6.4,
+        "texniki_lugat": 1.4
+      }
+    }
+  }
+}

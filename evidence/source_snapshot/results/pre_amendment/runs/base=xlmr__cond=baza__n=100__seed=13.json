@@ -1,0 +1,26 @@
+{
+  "base": "xlmr",
+  "base_role": "contrast",
+  "base_model": "xlm-roberta-base",
+  "az_in_pretraining": true,
+  "condition": "baza",
+  "condition_id": 1,
+  "tokenizer": "original",
+  "turkish": "none",
+  "train_size": 100,
+  "actual_train_size": 100,
+  "seed": 13,
+  "n_labels": 2,
+  "model_path": "xlm-roberta-base",
+  "val": {
+    "val_loss": 0.6815658211708069,
+    "val_accuracy": 0.5607309208169114,
+    "val_macro_f1": 0.548078396194618,
+    "val_weighted_f1": 0.548051302994142,
+    "val_runtime": 9.0921,
+    "val_samples_per_second": 306.97,
+    "val_steps_per_second": 9.679,
+    "epoch": 5.0
+  },
+  "runtime_sec": 186.4
+}

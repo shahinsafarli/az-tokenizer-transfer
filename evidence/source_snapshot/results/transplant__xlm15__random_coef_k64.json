@@ -1,0 +1,72 @@
+{
+  "tag": "random_coef_k64",
+  "full_tag": "xlm15__random_coef_k64",
+  "method": "random_coef",
+  "k": 64,
+  "base": "xlm15",
+  "base_role": "primary",
+  "az_in_pretraining": false,
+  "base_model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+  "donor_model": "HPLT/hplt_bert_base_az",
+  "donor_revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+  "donor_embedding_diag": {
+    "donor_model": "HPLT/hplt_bert_base_az",
+    "revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+    "weights_file": "model.safetensors",
+    "resolved_embedding_key": "embedding.word_embedding.weight",
+    "embedding_shape": [
+      32768,
+      768
+    ],
+    "tokenizer_vocab_size_attr": 32768,
+    "tokenizer_get_vocab_len": 32770
+  },
+  "base_scheme": "fastbpe",
+  "donor_scheme": "sentencepiece",
+  "anchor_mode": "functional",
+  "new_vocab_size": 32770,
+  "n_anchor": 8079,
+  "n_special_mapped": 7,
+  "n_unfamiliar": 24684,
+  "output_dir": "artifacts\\transplanted__xlm15__random_coef_k64",
+  "embedding_norm_report": {
+    "base_all_rows": {
+      "n": 95000,
+      "median": 0.5919,
+      "mean": 0.5982,
+      "std": 0.0791,
+      "min": 0.3619,
+      "max": 1.1392
+    },
+    "donor_all_rows": {
+      "n": 32768,
+      "median": 14.2155,
+      "mean": 13.9307,
+      "std": 1.6439,
+      "min": 0.941,
+      "max": 18.1102
+    },
+    "new_anchor_rows": {
+      "n": 8079,
+      "median": 0.5647,
+      "mean": 0.5745,
+      "std": 0.0733,
+      "min": 0.4041,
+      "max": 1.0256
+    },
+    "new_reconstructed_rows": {
+      "n": 24684,
+      "median": 0.0891,
+      "mean": 0.0906,
+      "std": 0.0093,
+      "min": 0.0643,
+      "max": 0.1553
+    },
+    "reconstructed_to_anchor_median_ratio": 0.1578,
+    "healthy_ratio_range": [
+      0.85,
+      1.15
+    ],
+    "in_healthy_range": false
+  }
+}

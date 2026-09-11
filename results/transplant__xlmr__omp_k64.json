@@ -1,0 +1,80 @@
+{
+  "tag": "omp_k64",
+  "full_tag": "xlmr__omp_k64",
+  "method": "omp",
+  "k": 64,
+  "transplant_seed": 0,
+  "transplant_seed_note": "One fixed realisation per method, shared across all downstream model seeds. Variance across model seeds is fine-tuning noise, NOT transplant-draw noise.",
+  "base": "xlmr",
+  "base_role": "contrast",
+  "az_in_pretraining": true,
+  "base_model": "xlm-roberta-base",
+  "donor_model": "HPLT/hplt_bert_base_az",
+  "donor_revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+  "donor_embedding_diag": {
+    "donor_model": "HPLT/hplt_bert_base_az",
+    "revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+    "weights_file": "model.safetensors",
+    "resolved_embedding_key": "embedding.word_embedding.weight",
+    "embedding_shape": [
+      32768,
+      768
+    ],
+    "tokenizer_vocab_size_attr": 32768,
+    "tokenizer_get_vocab_len": 32770
+  },
+  "base_scheme": "sentencepiece",
+  "donor_scheme": "sentencepiece",
+  "anchor_mode": "functional",
+  "new_vocab_size": 32770,
+  "n_anchor": 9776,
+  "n_special_mapped": 7,
+  "n_unfamiliar": 22987,
+  "output_dir": "artifacts/transplanted__xlmr__omp_k64",
+  "reconstruction": {
+    "n_sampled": 500,
+    "mean_l2_error": 0.7098,
+    "mean_cosine": 0.7024,
+    "p10_cosine": 0.6599
+  },
+  "embedding_norm_report": {
+    "base_all_rows": {
+      "n": 250002,
+      "median": 5.9082,
+      "mean": 5.8657,
+      "std": 0.4564,
+      "min": 0.2253,
+      "max": 7.0159
+    },
+    "donor_all_rows": {
+      "n": 32768,
+      "median": 14.2155,
+      "mean": 13.9307,
+      "std": 1.6439,
+      "min": 0.941,
+      "max": 18.1102
+    },
+    "new_anchor_rows": {
+      "n": 9776,
+      "median": 5.9777,
+      "mean": 5.9406,
+      "std": 0.4048,
+      "min": 3.7072,
+      "max": 6.8707
+    },
+    "new_reconstructed_rows": {
+      "n": 22987,
+      "median": 11.4118,
+      "mean": 11.1859,
+      "std": 1.4106,
+      "min": 5.3586,
+      "max": 14.9066
+    },
+    "reconstructed_to_anchor_median_ratio": 1.9091,
+    "healthy_ratio_range": [
+      0.85,
+      1.15
+    ],
+    "in_healthy_range": false
+  }
+}

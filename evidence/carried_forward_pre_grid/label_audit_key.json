@@ -1,0 +1,402 @@
+{
+  "0": {
+    "text": "Boş şeydi çay içib serinleyerik",
+    "gold_label_name": "neutral"
+  },
+  "1": {
+    "text": "Sonra memorandum çərçivəsində gələcək əməkdaşlıqlar müzakirə edilib.",
+    "gold_label_name": "neutral"
+  },
+  "2": {
+    "text": "Leyla Aliyeva isdemirsen bele bir sey ?))))",
+    "gold_label_name": "positive"
+  },
+  "3": {
+    "text": "Tesekkuru esitmek yox demeyi oyrenmek lazimdi bir coxuna.",
+    "gold_label_name": "negative"
+  },
+  "4": {
+    "text": "Bayaq səhər Bubnovanın arxasında durub baxan, dağınıq saçlı, üzünə ənlik çəkmiş qadın onun xaç kirvəsi imiş.",
+    "gold_label_name": "neutral"
+  },
+  "5": {
+    "text": "Diriler yaman yaritdi qaldı ölülər..",
+    "gold_label_name": "negative"
+  },
+  "6": {
+    "text": "ALLAHTƏALA ŞAİRLƏR surəsində buyurur.. -şairlərdən düz yazanı da var,ancaq şairlikdən uzaq olun!  ŞAİRLƏR Uca Allaha şərik qərar verənlərdəndirlər.. Boş söz yıgının nəzmə çəkməklə. Yeganə Nəzmkar Uca Allah özüdür ki,Bütün Günəş sistemin ,Qalaktikanı Nəzmə çəkib və hərəkətlərini Tənzimləyir... Allahu Ekberu! Allahu Ekbər! 114 cü surəni Azərbaycan dilində sonradan səhv tərcümə ilə müəyyən  maraqlara uyğun çap  ediblər ... (1981 ci ildə yuxu vasitəsilə mənə gələn və yazdırılan  VƏHYLƏRDƏN...)",
+    "gold_label_name": "negative"
+  },
+  "7": {
+    "text": "Xüsusilə, ligamentlərin mumiyalanması və quruması prosesləri oxşar müşahidə olunan hərəkətlərə səbəb ola bilər.",
+    "gold_label_name": "neutral"
+  },
+  "8": {
+    "text": "Baxdım sapı yaşıl və xətdidi ,dedim ki yəqin 3000 il yaşı var)) insanlarda inandı",
+    "gold_label_name": "positive"
+  },
+  "9": {
+    "text": "Diw amilide wertdir. Ele menim ozumde indinin ozunde wekil cekdirende gulmurem.",
+    "gold_label_name": "negative"
+  },
+  "10": {
+    "text": "Əladı bütün ödənişlərimi bu tətbiq üzərindən edirəm.",
+    "gold_label_name": "neutral"
+  },
+  "11": {
+    "text": "Bu \"kompaniya\" dediyiniz istənilən vaxt belədir də. :-)",
+    "gold_label_name": "positive"
+  },
+  "12": {
+    "text": "Biz də isə Xızıdan Samaxiya getmək ucun 100 km Bakiya,sonra 120 km  yenidən buradan Samaxiya getmək lazimdir. Halbuki,Xizidan Samaxiya olan 40 km-lik dag yolunu abira salib,asfaltlamaq lazimdir",
+    "gold_label_name": "negative"
+  },
+  "13": {
+    "text": "Bir ara tutuzdurmuşdular ele ancaq messi və ronaldonu mükafatlandırırdılar,həmin vaxtlarda bu yetimində haqqı idi həmin mükafatı almaq,amma vermədilər! Bunun görüb gördüyü elə bu olacaq… Messi,Ronaldo və bu elə eyni dövrün futbolçularıdır.",
+    "gold_label_name": "neutral"
+  },
+  "14": {
+    "text": "\"Yaxşı at özünə qamçı vurdurmaz\" kimi iyrənc atalar sözümüz də var. Qadını alçaldan cümlə. Hansı qıjı, mağara beyinli \"ataların\" deyimidi bu? Halbuki ingilislər bu deyimi elə gözəl formada deyir ki. \"Yaxşı mehtər qamçı vurmaz, sığal çəkər!\". Bu cür sözlər demək lazımdı. Özünü qadından üstün görən, hər fürsətdə onu əzən, aşağılayan \"kişi\" mənim gözümdə ən zəif, ən aciz, ən əzik kişidir özü də hər mənada",
+    "gold_label_name": "negative"
+  },
+  "15": {
+    "text": "Məhərrəm Qafarov  gör nə qəşəydi elə bil Lamborgini Urusdu",
+    "gold_label_name": "positive"
+  },
+  "16": {
+    "text": "Bizdə hələ: QOQO BOŞONMOŞ QIZLA OVLONORSON?",
+    "gold_label_name": "negative"
+  },
+  "17": {
+    "text": "A.Şərif iki ali təhsil almışdı: Azərbaycan Dövlət Konservatoriyasını və Bakı Dövlət Universitetinin bitirmişdi.",
+    "gold_label_name": "neutral"
+  },
+  "18": {
+    "text": "Xəzəri qurudublar uje hündür tikililər tikiblər heç nəyə yarımıyan",
+    "gold_label_name": "negative"
+  },
+  "19": {
+    "text": "Deyəsən, xaricilərdəndi, gəlmə idi, bu evdə yaşayırdı, aşağı mərtəbədə.",
+    "gold_label_name": "neutral"
+  },
+  "20": {
+    "text": "B-2-nin hamar, az sürtünməli dizaynı ona təqdirəlayiq uçuş məsafəsi verməklə yanaşı onun radar izini də kəskin şəkildə azaldır.",
+    "gold_label_name": "neutral"
+  },
+  "21": {
+    "text": "Goren biznes tarif planlarinada samil olunacaq)",
+    "gold_label_name": "neutral"
+  },
+  "22": {
+    "text": "Kuruluş Osmanda olan Bala Xatun rolunu aparan qız oxşayıre",
+    "gold_label_name": "positive"
+  },
+  "23": {
+    "text": "“Biz torpağımızı heç bir halda onlara verməyəcəyik.",
+    "gold_label_name": "negative"
+  },
+  "24": {
+    "text": "Allah sene rehmet elesin ay Roma baba)",
+    "gold_label_name": "positive"
+  },
+  "25": {
+    "text": "Səkidə (xüsusən dar) gəzərkən siqarət çəkir, anidən üfürür və o tüstünü udaraq keçməli olursan   Ümumiyyətlə siqarət çəkərkən bir tərəfdə 5 dəqiqə sabit dayanıb çəkmək ən gözəli olardı.",
+    "gold_label_name": "negative"
+  },
+  "26": {
+    "text": "Ay, necə də həyacanlıdırlar, canlarım !",
+    "gold_label_name": "positive"
+  },
+  "27": {
+    "text": "Men bilen ilk deyil bu. Evelde bir insana köçürmüsdüler ama óldü adam.",
+    "gold_label_name": "negative"
+  },
+  "28": {
+    "text": "Fransanın illər üzrə idxal etdiyi təbii qazın ölkələr üzrə nisbət bölgüsü. Burdan da göründüyü kimi Azərbaycan qazı verdi ya kəsdi, Fransanın qozuna belə deyil. Qış gəlir, odun yandıracaqlar kimi commentlər yazıb öz özünüzə kayf almayın",
+    "gold_label_name": "negative"
+  },
+  "29": {
+    "text": "LANDAU School bu təkcə Gənclik korpusunun 1hisssəsidi",
+    "gold_label_name": "neutral"
+  },
+  "30": {
+    "text": "Internet òdeniwime 2 gùn galmıw internetimi esassız bagladilar. Zeng vurdum defelerle, mesaj yazdim, amma veclerinede olmadı. Emekdash (Eynulla) kefi isteyende cavab verir,hele meni borclu cıxarır, zbawınalıg",
+    "gold_label_name": "negative"
+  },
+  "31": {
+    "text": "Bizdə də bəzi məmurlər sıxıblar, görək necə olur.",
+    "gold_label_name": "neutral"
+  },
+  "32": {
+    "text": "Ancaq sizdən bir şey soruşmaq istəyirəm, mənim saf qəlbli dostum, siz o qızın xətrini çox istəyirsiniz?",
+    "gold_label_name": "neutral"
+  },
+  "33": {
+    "text": "Hindistan və Braziliyanın iqtisadiyyatı güclü olsa da, əhalisi bizdəndə beş betər bərbad gündə yaşayır",
+    "gold_label_name": "negative"
+  },
+  "34": {
+    "text": "Rövşən Binəqədili görüb birden bunada mahnı yazare).",
+    "gold_label_name": "positive"
+  },
+  "35": {
+    "text": "Müğənnilərin yataq otağını çəkən kanallar nədən həmin ada haqqında bir çəkiliş edib insanları məlumatlandırmır?Ada əhalisinin məşğuliyəti nə olub,işıq isitmə nə ilə olub,ərazisi nə qədər olub,əhalinin milliyəti kimlər olub,neçə ailə olub.Məlumatı olanlar heç olmasa bundan yazsın.Yoxsa allah rəhmət etsin,Vitya kişi yaxşı adam idi kimi şərhlərlə vaxt itiririk",
+    "gold_label_name": "negative"
+  },
+  "36": {
+    "text": "Qiymətlərin liberallaşdırılması nəticəsində 1993-cü ildə qiymətlər 100 dəfədən çox artdı, inflyasiya 20-25% təşkil edirdi.",
+    "gold_label_name": "negative"
+  },
+  "37": {
+    "text": "Misal olaraq, kiçik texnik belə yüksək bacarığı ilə böyük innovasiya edə bilər\",- deyə o bildirib.",
+    "gold_label_name": "positive"
+  },
+  "38": {
+    "text": "heqiqeten ela film idi yoldaslar",
+    "gold_label_name": "positive"
+  },
+  "39": {
+    "text": "Bizdede aciq olsa hele dayanmadan dolar",
+    "gold_label_name": "positive"
+  },
+  "40": {
+    "text": "İran noyabrda Xəzəryanı ölkələrin Baş nazirlərinin iştirakı ilə üçüncü Xəzər İqtisadi Sammitinə ev sahibliyi edəcək.",
+    "gold_label_name": "neutral"
+  },
+  "41": {
+    "text": "zamam deye birsey yoxdu, olcu vahidi kimi tetbiq olunub, qalmisdiki zamanda seyahet, Eynsteyn filan sey yazib deyede gelmiyin. materiya var ve materiyanin halı,ve hecbir zaman deye birsey yoxdu",
+    "gold_label_name": "negative"
+  },
+  "42": {
+    "text": "Cəlilabadda da var belə bazar. Elə  eşitmişəm, mən də onların yalançısıyam. :D",
+    "gold_label_name": "neutral"
+  },
+  "43": {
+    "text": "Kakraz ele bunnan axdarirdim)))",
+    "gold_label_name": "positive"
+  },
+  "44": {
+    "text": "Azərbaycan SSR, sovet Azərbaycanı, Bağırov-Stalin dövrü",
+    "gold_label_name": "neutral"
+  },
+  "45": {
+    "text": "film ela idi axrini birazda uzatsaydilar lap ela olardi draculani oldurerdiler)",
+    "gold_label_name": "neutral"
+  },
+  "46": {
+    "text": "Mən onun əlini əlimə aldım, onun əli ölü əli kimi yanına düşdü.",
+    "gold_label_name": "negative"
+  },
+  "47": {
+    "text": "MAŞALLAH təbrik edirəm və sizə saglıklı bereketli ömür arzulayıram",
+    "gold_label_name": "positive"
+  },
+  "48": {
+    "text": "Gah açır, gah da açmır işləmir.Çox bərbaddır ",
+    "gold_label_name": "negative"
+  },
+  "49": {
+    "text": "Verilən suyun keyfiyyəti də bir ayrı dərddir. Əhali qazandığını içməli suya verir. Suyun keyfiyyəti heç yuyunmağa da yaramır .",
+    "gold_label_name": "negative"
+  },
+  "50": {
+    "text": "Nədi,fəxr edək ki,6 milyonluq maşında gəzirik",
+    "gold_label_name": "positive"
+  },
+  "51": {
+    "text": "Müharibəni yaradanda elə böyük olkələrdi çunki ortada böyük miqdarda pullar var",
+    "gold_label_name": "negative"
+  },
+  "52": {
+    "text": "Kaşki hamı sənin kimi mərhəmətli olaydı qardaş",
+    "gold_label_name": "positive"
+  },
+  "53": {
+    "text": "Hamid Jafarovv bir kurtkam var, 6 ildi geyiniriəm heç kim danışmır. Görürsən da bunu",
+    "gold_label_name": "positive"
+  },
+  "54": {
+    "text": "Ama reklami zor soxduz haqqhesaba.hec hiss elemedik ))",
+    "gold_label_name": "negative"
+  },
+  "55": {
+    "text": "Əməkdar artist Aygün Bəylər haqqında yayılan xəbərlərə münasibət bildirib.",
+    "gold_label_name": "neutral"
+  },
+  "56": {
+    "text": "Menim istifade adim bloka dusub cixarin zehmet olmasa.",
+    "gold_label_name": "neutral"
+  },
+  "57": {
+    "text": "Həsənəli mirzə 1855-ci ildə vəfаt еdib.",
+    "gold_label_name": "neutral"
+  },
+  "58": {
+    "text": "Ekalogiyayada musbet tesiri var maşin azalir.",
+    "gold_label_name": "positive"
+  },
+  "59": {
+    "text": "Ən çox işçisi olan şirkət İlham Əıiyevin şirkətidi 8 milyon adam onun üçün işdiyir",
+    "gold_label_name": "positive"
+  },
+  "60": {
+    "text": "Əyər səhv etmirəmsə neçə il qabaq bütün dünyada  işıqlar   sönmüşdü.  Bəs necə oldu onda bu xolodelnik  isinmədi??  Donan zaman hüceyrələri nə ilə saxlayıblar bəs? Hər şey bir yana tutaq ki  hamısına çarə tapa biliblər bəs ruh? Ruhu necə geri qaytaracaqlar.",
+    "gold_label_name": "negative"
+  },
+  "61": {
+    "text": "Ukrayna gəşəng bilirdi belə olacağına. Ona görə hazırlığli oldu. Əvvəl bəzi yerləri əldən verdi. Camaatın coxi qırıldı. Dünyanı acindirdi. Sonra 2ci həmlə. Rusiyanı zəiflədib əsas oyununu oynadı və hələ də davam edir.",
+    "gold_label_name": "positive"
+  },
+  "62": {
+    "text": "Yüreği  merhametli insan ALLAH işini gücünü rast getirsin bu canları sevinirdin ya ALLAH  da seni sevindirsin  yaşayasın",
+    "gold_label_name": "positive"
+  },
+  "63": {
+    "text": "Sumqayıt - Türk Torpağıdır. Nahaq yerə Sumqayıtlı özünə Sumqayıt Türkü demir.",
+    "gold_label_name": "positive"
+  },
+  "64": {
+    "text": "Tural Humbatov az qalıb sən də belə olacaqsanNu davay,research edin də həmin müştərini",
+    "gold_label_name": "negative"
+  },
+  "65": {
+    "text": "Adamın kolleksiyası olanda da,beləsi olsun",
+    "gold_label_name": "positive"
+  },
+  "66": {
+    "text": "Mənim də 31 yaşım var 55 yaşa oxşayıram :(",
+    "gold_label_name": "negative"
+  },
+  "67": {
+    "text": "Yelena mənim əlimdən qurtarmağa çalışaraq çığırdı.",
+    "gold_label_name": "neutral"
+  },
+  "68": {
+    "text": "Qeşəng programdı pul qabı kimi çox yararlıdır",
+    "gold_label_name": "positive"
+  },
+  "69": {
+    "text": "Nikolay Sergeiç qəzəblənərək Vasilyevski kəndini tərk etdi.",
+    "gold_label_name": "negative"
+  },
+  "70": {
+    "text": "Allah razı olsun insan belə olmalıdı",
+    "gold_label_name": "positive"
+  },
+  "71": {
+    "text": "İvan Petroviç, doğrudan da, siz bu qədər pul almısınız?",
+    "gold_label_name": "neutral"
+  },
+  "72": {
+    "text": "Elə həkimin öz qəbulu da pis deyil. 60 manata qəbul edir. Təkrar gedirsən yenə 60 manat",
+    "gold_label_name": "neutral"
+  },
+  "73": {
+    "text": "...  .                (                )         --   .         .          --   ..          -          .     .  ... /",
+    "gold_label_name": "neutral"
+  },
+  "74": {
+    "text": "Gör ha... Nəyin desən söhbətin etdilər bu məlumatda... Aidiyyatı olmayan söhbətlər...",
+    "gold_label_name": "negative"
+  },
+  "75": {
+    "text": "Bu kino lap ela maarifləndirici kinodur. Kimsə baxıb düzgün qavramirsa, günah özündədir",
+    "gold_label_name": "positive"
+  },
+  "76": {
+    "text": "Iki arada bir derde reklamda getdi..))",
+    "gold_label_name": "neutral"
+  },
+  "77": {
+    "text": "Qanunsuz çəkilmiş xətdən fərdi yaşayış evləri su ilə təmin olunub.",
+    "gold_label_name": "neutral"
+  },
+  "78": {
+    "text": "Necə gözəl.necə saf.necə utancaq abırlı həyalı.Danisiq mədəniyyəti... möhtəşəm sadəcə.Əsl televiziya",
+    "gold_label_name": "positive"
+  },
+  "79": {
+    "text": "Özüm siqaret çəkənəm, bununla belə dayanacaqda, əhalinin sıx olduğu yerdə, yeraltı keçidlərdə siqaret çəkənləri hər zaman qınamışam, sivil davranışdan uzaq görmüşəm. Gəzə-gəzə siqaret çəkib arxaya tüstüsünü üfləyən adamlara isə biryolluq qandırmaq istərdim ki arxadan gələnlər ailə üzvlərindən biri də ola bilər, tüstünü onların ciyərlərinə ötürmək ən yüngül halda mədəniyyətsizlikdir.",
+    "gold_label_name": "neutral"
+  },
+  "80": {
+    "text": "Dedikleri demokratiya ancaq bu olsa gerek",
+    "gold_label_name": "negative"
+  },
+  "81": {
+    "text": "kim sevinir kimsi lezet eder ,ama evel axırı ,dunya islamı qebul edecek vay qebul etmeyenin halına.",
+    "gold_label_name": "positive"
+  },
+  "82": {
+    "text": "“Magic mushroom” xüsusi şəraitdə küfləndirilmiş göbələklərdir. Narkotik kimi satılır. Hollandiya.",
+    "gold_label_name": "negative"
+  },
+  "83": {
+    "text": "Bircə Vandam çatmırdı burda bütün ulduzlar bir araya gəlmişdi bu filmdə.",
+    "gold_label_name": "positive"
+  },
+  "84": {
+    "text": "2 yaşım olub. O dövr aparıcıları təmiz Azərbaycan dilində danışırmışlar. Amma tarix baxımından sevmirəm SSRİ illərini. Çünki, dövlətimiz rus işğalında olub.",
+    "gold_label_name": "negative"
+  },
+  "85": {
+    "text": "Neymar nrcə razılaşıb bu həyata?",
+    "gold_label_name": "neutral"
+  },
+  "86": {
+    "text": "Ən çox diqqətimi cəlb edən estetiksiz qızlar oldu . Hər birinin fərqli siması var.Indi şəhərə çıxırsan hamı bir birinə oxşayır.",
+    "gold_label_name": "negative"
+  },
+  "87": {
+    "text": "Konul Mammadova commentler free \" gülmək \" session ahahahahaha",
+    "gold_label_name": "positive"
+  },
+  "88": {
+    "text": "Bu çox maraqlı bir məqalədir. Hər gün pulsuz nəqliyyat xidmətinin sərnişinlər üçün neçəyi olduğunu öyrənmək həyəcanlandırıcıdır. Bu qatarın təmir olunan su stansiyasının yanında hələ də fəaliyyət göstərməsi maraqlıdır. Bu nəqliyyat vasitəsi təhsil və iş yerlərində olan insanlar üçün böyük bir imkan təşkil edir. Çox təşəkkür edirəm bu müəllifin bilməyimizi sağlaması üçün. #nəqliyyat",
+    "gold_label_name": "positive"
+  },
+  "89": {
+    "text": "Cavidan Səfərov  hec kim bilmesede bu proyektde muhum rol oynadigini bilen men , fexr edirem senle qardashim",
+    "gold_label_name": "positive"
+  },
+  "90": {
+    "text": "Nigar Kalfa rəylərdən bilinir ölkənin vəziyyəti",
+    "gold_label_name": "neutral"
+  },
+  "91": {
+    "text": "BU KİMDİRSƏ İPHONEDƏN GÖZÜ DOYMUR",
+    "gold_label_name": "negative"
+  },
+  "92": {
+    "text": "BİLDİRÇİN ƏTİ - 242 kKal  BU QİYMƏT BİR DAHA OLMAYACAQ. #Bildirçin əti Bağlamada 50 ədədli = 1.30 ₼ (65 ₼) #Bildirçin əti Delikates = 1.50 ₼ #Bildirçin əti Kabab & Tabakalıq = 2 ₼ #Qablaşdırılmış 2 hissəli 5 ədədli = 12 ₼ #Ləvəngi üçün 5 ədədli = 14 ₼ #Bildirçin #Farşı Lülə Kabab üçün 500 qr = 4 ₼. #Bildirçin Pətənəyi 500 qr = 8 ₼ #Ciyər+Ürək 500 qr = 7 ₼ #Ağ əti 100 qr = 5 ₼ #Bildirçin hisə verilmiş 1 əd = 1.50 ₼. Pətənəyi 1 kq = 15 ₼  PULSUZ Çatdırılma wa.me/+994702980058  PULSUZ Çatdırlma ilə Kəsilib, təmizlənmiş. Bütöv və ya iki hissəli istədiyiniz sayda, həmçinin 5 ədədli qablaşdırılmış, Bildirçin əti ilə dadı damağınızda qalacaq yeməklər bişirin. Sifariş 1 gün öncədən. Topdan və Pərakəndə  Bildirçin Bağlamada 50 ədədli = 1.30 ₼ (65 ₼) Bildirçin əti Delikates = 1.50 ₼ Bildirçin əti Kabab. Tabaka & Qril üçün = 2 ₼ Qablaşdırılmış 2 hissəli 5 ədədli = 12 ₼ Qablaşdırmış Ləvəngilik 5 ədədli = 14 ₼ Bildirçin Farşı Lülə Kabab üçün 500 qr = 4 ₼ Bildirçin Pətənəyi 500 qr = 8 ₼ Ciyər+Ürək 500 qr = 7 ₼ Ağ əti 100 qr = 5 ₼ Bildirçin hisə verilmiş 1 əd = 1.50 ₼. Pətənəyi 1 kq = 15 ₼  PULSUZ Çatdırılma wa.me/+994702980058",
+    "gold_label_name": "positive"
+  },
+  "93": {
+    "text": "7 dəfə  kimsə bu mükafata ondan başqa sahib olan olacaq?))",
+    "gold_label_name": "neutral"
+  },
+  "94": {
+    "text": "Onun belə saç daramasından mənim çox xoşum gəlirdi.",
+    "gold_label_name": "positive"
+  },
+  "95": {
+    "text": "Tesekkur....bu..melumat..ucun.... Paylasdim.ki Bir..coz..insan .bunu..bilsin...",
+    "gold_label_name": "positive"
+  },
+  "96": {
+    "text": "Sonra Müdafiə Nazirliyində təntənəli qarşılama mərasimi keçirilib.",
+    "gold_label_name": "neutral"
+  },
+  "97": {
+    "text": "Genetik faktor çox önəmlidir , bundan əlavə insulin dirənci və tsh yüksək olanda bütüngün acından öl xeyri yoxdu məni kimi.. Onagörə idman hərəkət .... Doktordan arıqlama iynələri varki endokrinoloqlarda onunla bağlı məlumat istərdim",
+    "gold_label_name": "neutral"
+  },
+  "98": {
+    "text": "Başımızı boş mənasız şeylərə qatmasaq vaxtımızı boşa xərcləməsək 83 cü yerdə olmazdıq çoxu Şərq ölkələridi",
+    "gold_label_name": "neutral"
+  },
+  "99": {
+    "text": "Deqiq 700mindi?? Ay hay . Milyonlardie",
+    "gold_label_name": "negative"
+  }
+}
