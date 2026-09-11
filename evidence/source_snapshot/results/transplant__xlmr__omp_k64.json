@@ -1,0 +1,38 @@
+{
+  "tag": "omp_k64",
+  "full_tag": "xlmr__omp_k64",
+  "method": "omp",
+  "k": 64,
+  "base": "xlmr",
+  "base_role": "contrast",
+  "az_in_pretraining": true,
+  "base_model": "xlm-roberta-base",
+  "donor_model": "HPLT/hplt_bert_base_az",
+  "donor_revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+  "donor_embedding_diag": {
+    "donor_model": "HPLT/hplt_bert_base_az",
+    "revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+    "weights_file": "model.safetensors",
+    "resolved_embedding_key": "embedding.word_embedding.weight",
+    "embedding_shape": [
+      32768,
+      768
+    ],
+    "tokenizer_vocab_size_attr": 32768,
+    "tokenizer_get_vocab_len": 32770
+  },
+  "base_scheme": "sentencepiece",
+  "donor_scheme": "sentencepiece",
+  "anchor_mode": "functional",
+  "new_vocab_size": 32770,
+  "n_anchor": 9776,
+  "n_special_mapped": 7,
+  "n_unfamiliar": 22987,
+  "output_dir": "artifacts\\transplanted__xlmr__omp_k64",
+  "reconstruction": {
+    "n_sampled": 500,
+    "mean_l2_error": 0.7098,
+    "mean_cosine": 0.7024,
+    "p10_cosine": 0.6599
+  }
+}

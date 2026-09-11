@@ -1,0 +1,64 @@
+{
+  "base": "xlmr",
+  "base_role": "contrast",
+  "base_model": "xlm-roberta-base",
+  "transplanted_dir": "artifacts/transplanted__xlmr__omp_k64_rescaled",
+  "transplanted_tag": "omp_k64_rescaled",
+  "canonical_transplant_tag": "omp_k64_rescaled",
+  "is_canonical_artifact": true,
+  "eval_text_provenance": {
+    "source": "az_train.jsonl",
+    "path": "artifacts/data/az_train.jsonl",
+    "n_lines": 300,
+    "n_chars": 40252,
+    "sample_seed": 0,
+    "note": "TRAIN bölgüsündən determinist nümunə — val/test-ə TOXUNULMUR (docs/TEST_AUDIT.md)."
+  },
+  "C1a_identity": {
+    "passed": true,
+    "mode": "matrix_gate_plus_end_to_end_diagnostic",
+    "matrix_assignment_identical": true,
+    "end_to_end_passed": true,
+    "end_to_end": {
+      "attempted": true,
+      "anchor_mode": "functional",
+      "n_anchors": 173670,
+      "anchors_map_to_self": false,
+      "n_anchor_mismatches": 19049,
+      "embeddings_bit_identical_after_round_trip": true,
+      "max_abs_logit_delta": 0.0,
+      "logits_bit_identical": true,
+      "passed": true
+    },
+    "vocab_size": 250002,
+    "canonical_keys": 250002,
+    "collisions": 0,
+    "note": "`passed` now requires the anchor mapper, the save/reload round trip and a forward pass to agree exactly, not only a matrix copied onto itself."
+  },
+  "C1c_bpc_base": {
+    "model": "xlm-roberta-base",
+    "n_lines": 300,
+    "n_tokens": 11382,
+    "n_chars": 39953,
+    "tokens_per_char": 0.2849,
+    "mlm_loss_nats_per_masked_token": 3.8868,
+    "bits_per_character": 1.5975,
+    "top1_n_correct": 602,
+    "top1_n_masked": 1631,
+    "top1_accuracy": 0.369099
+  },
+  "C1c_bpc_transplanted": {
+    "model": "artifacts/transplanted__xlmr__omp_k64_rescaled",
+    "n_lines": 300,
+    "n_tokens": 10405,
+    "n_chars": 39953,
+    "tokens_per_char": 0.2604,
+    "mlm_loss_nats_per_masked_token": 18.4584,
+    "bits_per_character": 6.9352,
+    "top1_n_correct": 40,
+    "top1_n_masked": 1502,
+    "top1_accuracy": 0.026631
+  },
+  "C1c_delta_bpc": 5.3377,
+  "C1c_note": "Müsbət delta = transplant modeli PİSLƏŞDİRİB. BPC həmişə eyni maskalardakı top-1 sayı ilə birlikdə göstərilməlidir; sıfır top-1 olanda aşağı BPC usable MLM bərpası deyil, calibration improvement-dir."
+}

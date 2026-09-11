@@ -1,0 +1,12 @@
+{
+  "status": "controls_complete_full_75_not_started",
+  "condition": "tokenizator",
+  "reference_size": 2000,
+  "batch_size": 32,
+  "seeds": [
+    13,
+    42,
+    1337
+  ],
+  "n_runs": 12
+}

@@ -1,0 +1,26 @@
+{
+  "base": "xlm15",
+  "base_role": "primary",
+  "base_model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+  "az_in_pretraining": false,
+  "condition": "baza",
+  "condition_id": 1,
+  "tokenizer": "original",
+  "turkish": "none",
+  "train_size": 100,
+  "actual_train_size": 100,
+  "seed": 13,
+  "n_labels": 2,
+  "model_path": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+  "val": {
+    "val_loss": 1.4900251626968384,
+    "val_accuracy": 0.49659620207810823,
+    "val_macro_f1": 0.46382558694571097,
+    "val_weighted_f1": 0.4637780933005916,
+    "val_runtime": 16.0709,
+    "val_samples_per_second": 173.668,
+    "val_steps_per_second": 5.476,
+    "epoch": 3.0
+  },
+  "runtime_sec": 148.5
+}

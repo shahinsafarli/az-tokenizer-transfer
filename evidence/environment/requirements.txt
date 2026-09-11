@@ -1,0 +1,35 @@
+# requirements.txt — DIRECT dependencies, pinned to the versions that ACTUALLY
+# produced the 164-run grid (H100 NVL, 2026-09-08/09).
+#
+# This file REPLACES the pre-run version, which pinned a stack (torch 2.4.1 /
+# transformers 4.44.2 / numpy 1.26.4) that was never installed on the run host:
+# the shipped requirements.lock was unresolvable there (fsspec==2026.7.0 vs
+# datasets==2.21.0, which needs fsspec[http]<=2024.6.1), so the environment was
+# resolved fresh. See docs/ENVIRONMENT_AS_RUN.md for the full account and for
+# the two packages that were missing from the old file entirely.
+#
+# Python 3.12 (container default on the run host).
+# torch must come from the cu128 wheel index, not PyPI:
+#   pip install -r requirements.txt \
+#       --extra-index-url https://download.pytorch.org/whl/cu128
+
+torch==2.11.0+cu128
+transformers==4.57.6
+tokenizers==0.22.2
+datasets==5.0.1
+accelerate==1.14.0
+safetensors==0.8.0
+huggingface_hub==0.36.2
+
+sentencepiece==0.2.2
+sacremoses==0.2.0          # REQUIRED by the XLM-15 tokenizer; absent from the pre-run file
+protobuf==7.36.1           # REQUIRED by sentencepiece model conversion; absent from the pre-run file
+
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.0
+pandas==3.0.5
+matplotlib==3.11.1
+PyYAML==6.0.3
+
+pytest==9.1.1
