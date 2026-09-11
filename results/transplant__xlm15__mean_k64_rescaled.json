@@ -1,0 +1,20 @@
+{
+  "tag": "mean_k64_rescaled",
+  "full_tag": "xlm15__mean_k64_rescaled",
+  "base": "xlm15",
+  "base_role": "primary",
+  "variant": "rescale_to_base_anchor_median",
+  "source_tag": "mean_k64",
+  "output_dir": "artifacts/transplanted__xlm15__mean_k64_rescaled",
+  "n_anchor": 8054,
+  "n_unfamiliar": 24716,
+  "norm_report": {
+    "base": "xlm15",
+    "base_role": "primary",
+    "variant": "rescale_to_base_anchor_median",
+    "target_median_norm": 0.5642,
+    "new_anchor_rows_median": 0.5642,
+    "new_reconstructed_rows_median": 0.5642,
+    "reconstructed_to_anchor_median_ratio": 1.0
+  }
+}

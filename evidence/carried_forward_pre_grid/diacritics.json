@@ -1,0 +1,116 @@
+{
+  "n_sentences_requested": 5000,
+  "xlm15_fertility_flag_on_off": {
+    "flag_on": {
+      "az": {
+        "n_sentences": 5000,
+        "n_words": 102726,
+        "n_tokens": 329376,
+        "fertility_micro": 3.2064,
+        "fertility_macro_mean": 3.2418,
+        "fertility_std": 0.6537,
+        "fertility_p50": 3.2222,
+        "fertility_p90": 4.0456,
+        "chars_per_token": 1.9479
+      },
+      "tr": {
+        "n_sentences": 5000,
+        "n_words": 98528,
+        "n_tokens": 174155,
+        "fertility_micro": 1.7676,
+        "fertility_macro_mean": 1.8277,
+        "fertility_std": 0.3482,
+        "fertility_p50": 1.7778,
+        "fertility_p90": 2.25,
+        "chars_per_token": 3.4575
+      },
+      "az_over_tr_fertility": 1.814
+    },
+    "flag_off": {
+      "az": {
+        "n_sentences": 5000,
+        "n_words": 102726,
+        "n_tokens": 382942,
+        "fertility_micro": 3.7278,
+        "fertility_macro_mean": 3.8034,
+        "fertility_std": 0.6839,
+        "fertility_p50": 3.7789,
+        "fertility_p90": 4.6667,
+        "chars_per_token": 1.6754
+      },
+      "tr": {
+        "n_sentences": 5000,
+        "n_words": 98528,
+        "n_tokens": 264751,
+        "fertility_micro": 2.6871,
+        "fertility_macro_mean": 2.7697,
+        "fertility_std": 0.4881,
+        "fertility_p50": 2.7143,
+        "fertility_p90": 3.375,
+        "chars_per_token": 2.2743
+      },
+      "az_over_tr_fertility": 1.3873
+    }
+  },
+  "vocab_letter_counts": {
+    "xlm15": {
+      "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "ə": 2,
+      "ş": 0,
+      "ç": 0,
+      "ö": 0,
+      "ü": 0,
+      "ğ": 0,
+      "ı": 1240,
+      "İ": 0,
+      "_vocab_size": 95000,
+      "_byte_level_decoded": false
+    },
+    "xlmr": {
+      "model": "xlm-roberta-base",
+      "ə": 1366,
+      "ş": 891,
+      "ç": 631,
+      "ö": 1422,
+      "ü": 1189,
+      "ğ": 407,
+      "ı": 1404,
+      "İ": 144,
+      "_vocab_size": 250002,
+      "_byte_level_decoded": false
+    },
+    "donor": {
+      "model": "HPLT/hplt_bert_base_az",
+      "ə": 8814,
+      "ş": 2253,
+      "ç": 967,
+      "ö": 1069,
+      "ü": 2094,
+      "ğ": 928,
+      "ı": 4241,
+      "İ": 981,
+      "_vocab_size": 32741,
+      "_byte_level_decoded": true
+    }
+  },
+  "confound_summary": {
+    "destroyed_letters_xlm15_vocab_counts": {
+      "ş": 0,
+      "ç": 0,
+      "ö": 0,
+      "ü": 0,
+      "ğ": 0
+    },
+    "isolated_letter_ə_xlm15_vocab_count": 2,
+    "unaffected_letters_xlm15_vocab_counts": {
+      "ı": 1240,
+      "İ": 0
+    },
+    "destroyed_confirmed_zero_in_vocab": true,
+    "isolated_confirmed_rare_single_token": true,
+    "flag_off_makes_fertility_worse": true,
+    "delta_az_fertility_flag_off_minus_on": 0.5214,
+    "delta_tr_fertility_flag_off_minus_on": 0.9195,
+    "note": "XLM-15-in 95k lüğətində DESTROYED hərflər (ş ç ö ü ğ) HƏR BİRİ 0 dəfə görünür: {'ş': 0, 'ç': 0, 'ö': 0, 'ü': 0, 'ğ': 0} — bunlar pretraining zamanı artıq silinib, lüğətdə YOXDURLAR. do_lowercase_and_remove_accent=False açmaq VƏZİYYƏTİ YAXŞILAŞDIRMIR, PİSLƏŞDİRİR: AZ fertility 3.206 → 3.728 (+0.521) çünki indi bu hərflər UNK/tək-bayt tokenə düşür (lüğətdə qarşılığı olmadığı üçün). 'ə' demək olar təklikdə qalır (2 vocab girişi — 'izolyasiya edilmiş tək-hərf token' iddiasını təsdiqləyir). Əksinə 'ı'/'İ' combining-aksent daşımadığı üçün toxunulmamış qalıb (lüğətdə 1240/0 dəfə — Türk mətnindən miras). NƏTİCƏ: ölçülmüş 3.206/1.814 defisitin BÖYÜK HİSSƏSİ orfoqrafik məhvin 'düzəldilə bilən' forması DEYİL (bayraq kömək etmir) — deməli confound M3 lehinə TƏMİZLƏNİR: donor tokenizatora keçid SEQMENTASİYA + DİAKRİTİK BƏRPASI ikisini də edir, amma flag-only düzəliş mümkün olmadığı üçün bu iki komponenti ayırmaq yalnız T2 Option C (accent-stripped mətn üzərində ayrıca Şərt-3 icrası) ilə mümkündür — flag ilə deyil."
+  }
+}

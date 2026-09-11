@@ -1,0 +1,28 @@
+{
+  "base": "xlmr",
+  "base_role": "contrast",
+  "base_model": "xlm-roberta-base",
+  "az_in_pretraining": true,
+  "condition": "tokenizator",
+  "condition_id": 3,
+  "tokenizer": "omp",
+  "turkish": "none",
+  "train_size": 2000,
+  "actual_train_size": 2000,
+  "seed": 42,
+  "n_labels": 2,
+  "model_path": "artifacts\\transplanted__xlmr__random_coef_k64_rescaled",
+  "transplant_variant": "random_coef_k64_rescaled",
+  "val": {
+    "val_loss": 0.5808756351470947,
+    "val_accuracy": 0.7140809745610892,
+    "val_macro_f1": 0.7133284216509431,
+    "val_weighted_f1": 0.7133336842587064,
+    "val_runtime": 16.4101,
+    "val_samples_per_second": 170.078,
+    "val_steps_per_second": 2.681,
+    "epoch": 5.0
+  },
+  "runtime_sec": 250.0,
+  "control_method": "random_coef"
+}

@@ -1,0 +1,136 @@
+{
+  "donor": "HPLT/hplt_bert_base_az",
+  "decision_mode": "functional",
+  "bases": {
+    "xlm15": {
+      "base_model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "donor_model": "HPLT/hplt_bert_base_az",
+      "donor_revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+      "base_scheme": "fastbpe",
+      "donor_scheme": "sentencepiece",
+      "base_byte_level": false,
+      "donor_byte_level": true,
+      "base_vocab_size": 95000,
+      "donor_vocab_size": 32770,
+      "naive_string_overlap": 1545,
+      "modes": {
+        "strict": {
+          "n_anchors": 1637,
+          "anchor_share_of_donor_pct": 5.0,
+          "base_scheme": "fastbpe",
+          "donor_scheme": "sentencepiece",
+          "diagnostics": {
+            "note": "ən mühafizəkar ədəd — sərhəd bayrağı tam uyğun olmalıdır."
+          }
+        },
+        "surface": {
+          "n_anchors": 3938,
+          "anchor_share_of_donor_pct": 12.02,
+          "base_scheme": "fastbpe",
+          "donor_scheme": "sentencepiece",
+          "diagnostics": {
+            "approximation": true,
+            "note": "Sərhəd (söz-başı/sonu) məlumatı atılıb — söz-sonu donor parçası söz-başı baza parçası ilə səhvən uyğunlaşa bilər."
+          }
+        },
+        "functional": {
+          "n_anchors": 8047,
+          "anchor_share_of_donor_pct": 24.56,
+          "base_scheme": "fastbpe",
+          "donor_scheme": "sentencepiece",
+          "diagnostics": {
+            "n_matched_standalone": 8047,
+            "n_matched_leading_space": 0,
+            "n_unmatched": 24694,
+            "note": "Hər donor tokeni baza tokenizatoru ilə kodlaşdırılıb; tam BİR xüsusi-olmayan token qaytarırsa anchordur. Konvensiyadan asılı deyil, ona görə ən düzgün say gözlənilir."
+          }
+        }
+      },
+      "union_strict_functional_diagnostic_only": {
+        "n_union": 8504,
+        "n_strict_only": 457,
+        "n_functional_only": 6867,
+        "n_intersection": 1180,
+        "used_for_transplant": false,
+        "note": "YALNIZ diaqnostika — transplant üçün İSTİFADƏ OLUNMUR. strict-in əlavə etdiyi anchor-lar sərhəd statusu bilinməyən (fastBPE→plain fallback) donor-baza cütləridir; bir neçə yüz atom qazanmaq üçün bu qeyri-müəyyənliyi qəbul etmək dəyməz."
+      },
+      "decision_mode": "functional",
+      "canonical_shared_anchors": 8047,
+      "unfamiliar_tokens": 24723,
+      "anchor_share_of_donor_pct": 24.56,
+      "verdict": "GO_WITH_CARE",
+      "note": "Anchor məhduddur — transplant.k dəyərini kiçildin (8–32).",
+      "thresholds": {
+        "good": 20000,
+        "min": 5000
+      },
+      "role": "primary",
+      "az_in_pretraining": false
+    },
+    "xlmr": {
+      "base_model": "xlm-roberta-base",
+      "donor_model": "HPLT/hplt_bert_base_az",
+      "donor_revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+      "base_scheme": "sentencepiece",
+      "donor_scheme": "sentencepiece",
+      "base_byte_level": false,
+      "donor_byte_level": true,
+      "base_vocab_size": 250002,
+      "donor_vocab_size": 32770,
+      "naive_string_overlap": 2856,
+      "modes": {
+        "strict": {
+          "n_anchors": 10662,
+          "anchor_share_of_donor_pct": 32.54,
+          "base_scheme": "sentencepiece",
+          "donor_scheme": "sentencepiece",
+          "diagnostics": {
+            "note": "ən mühafizəkar ədəd — sərhəd bayrağı tam uyğun olmalıdır."
+          }
+        },
+        "surface": {
+          "n_anchors": 9539,
+          "anchor_share_of_donor_pct": 29.11,
+          "base_scheme": "sentencepiece",
+          "donor_scheme": "sentencepiece",
+          "diagnostics": {
+            "approximation": true,
+            "note": "Sərhəd (söz-başı/sonu) məlumatı atılıb — söz-sonu donor parçası söz-başı baza parçası ilə səhvən uyğunlaşa bilər."
+          }
+        },
+        "functional": {
+          "n_anchors": 9776,
+          "anchor_share_of_donor_pct": 29.83,
+          "base_scheme": "sentencepiece",
+          "donor_scheme": "sentencepiece",
+          "diagnostics": {
+            "n_matched_standalone": 9776,
+            "n_matched_leading_space": 0,
+            "n_unmatched": 22965,
+            "note": "Hər donor tokeni baza tokenizatoru ilə kodlaşdırılıb; tam BİR xüsusi-olmayan token qaytarırsa anchordur. Konvensiyadan asılı deyil, ona görə ən düzgün say gözlənilir."
+          }
+        }
+      },
+      "union_strict_functional_diagnostic_only": {
+        "n_union": 11505,
+        "n_strict_only": 1729,
+        "n_functional_only": 843,
+        "n_intersection": 8933,
+        "used_for_transplant": false,
+        "note": "YALNIZ diaqnostika — transplant üçün İSTİFADƏ OLUNMUR. strict-in əlavə etdiyi anchor-lar sərhəd statusu bilinməyən (fastBPE→plain fallback) donor-baza cütləridir; bir neçə yüz atom qazanmaq üçün bu qeyri-müəyyənliyi qəbul etmək dəyməz."
+      },
+      "decision_mode": "functional",
+      "canonical_shared_anchors": 9776,
+      "unfamiliar_tokens": 22994,
+      "anchor_share_of_donor_pct": 29.83,
+      "verdict": "GO_WITH_CARE",
+      "note": "Anchor məhduddur — transplant.k dəyərini kiçildin (8–32).",
+      "thresholds": {
+        "good": 20000,
+        "min": 5000
+      },
+      "role": "contrast",
+      "az_in_pretraining": true
+    }
+  }
+}
