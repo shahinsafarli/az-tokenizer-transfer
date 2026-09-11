@@ -1,0 +1,80 @@
+{
+  "split_seed": 12345,
+  "az": {
+    "source": "LocalDoc/sentiments_dataset_azerbaijani",
+    "total": 27914,
+    "n_labels": 2,
+    "label_map": {
+      "negative": 0,
+      "positive": 1
+    },
+    "exclude_labels": {
+      "excluded_labels": [
+        "neutral"
+      ],
+      "n_before": 42000,
+      "n_after": 28000,
+      "n_excluded": 14000
+    },
+    "dedup": {
+      "before": 28000,
+      "after": 27914,
+      "duplicates_removed": 86,
+      "duplicate_pct": 0.31,
+      "conflicting_texts": 0,
+      "label_aware": true
+    },
+    "train": 20937,
+    "val": 2791,
+    "test": 4186,
+    "train_label_dist": {
+      "1": 10465,
+      "0": 10472
+    },
+    "test_label_dist": {
+      "1": 2092,
+      "0": 2094
+    }
+  },
+  "tr": {
+    "source": "maydogan/Turkish_SentimentAnalysis_TRSAv1",
+    "total": 20000,
+    "n_labels": 3,
+    "label_map": {
+      "Negative": 0,
+      "Neutral": 1,
+      "Positive": 2
+    },
+    "dedup": {
+      "before": 150000,
+      "after": 138640,
+      "duplicates_removed": 11360,
+      "duplicate_pct": 7.57,
+      "conflicting_texts": 937,
+      "label_aware": true
+    }
+  },
+  "leakage_check": {
+    "train_test": 0,
+    "train_val": 0,
+    "val_test": 0
+  },
+  "az_content_manifest": {
+    "algorithm": "sha256 of sorted(normalize_text(text) + TAB + label)",
+    "order_invariant": true,
+    "train": {
+      "n": 20937,
+      "sha256": "d1cf165c646b722a090e9ce45d5480f9cd43ee77029c1d10b5325e7ac02b049f"
+    },
+    "val": {
+      "n": 2791,
+      "sha256": "5cd479fb0cfcfb82e63454134f189936a4328706551b41f8d2a50af50e63aee4"
+    },
+    "test": {
+      "n": 4186,
+      "sha256": "ca19c0bb3dd8d5c2a2516ffc111cb74efc7933822e74172f7d8b33dfab86d756"
+    },
+    "note": "Compare `test.sha256` across runs to prove the holdout is the SAME holdout. A changed hash with unchanged code means the upstream dataset moved; pin data.az.hf_revision."
+  },
+  "az_hf_revision_requested": null
+}

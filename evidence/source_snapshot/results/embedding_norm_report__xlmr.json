@@ -1,0 +1,42 @@
+{
+  "base_all_rows": {
+    "n": 250002,
+    "median": 5.9082,
+    "mean": 5.8657,
+    "std": 0.4564,
+    "min": 0.2253,
+    "max": 7.0159
+  },
+  "donor_all_rows": {
+    "n": 32768,
+    "median": 14.2155,
+    "mean": 13.9307,
+    "std": 1.6439,
+    "min": 0.941,
+    "max": 18.1102
+  },
+  "new_anchor_rows": {
+    "n": 9776,
+    "median": 5.9777,
+    "mean": 5.9406,
+    "std": 0.4048,
+    "min": 3.7072,
+    "max": 6.8707
+  },
+  "new_reconstructed_rows": {
+    "n": 22987,
+    "median": 11.4118,
+    "mean": 11.1859,
+    "std": 1.4106,
+    "min": 5.3586,
+    "max": 14.9066
+  },
+  "reconstructed_to_anchor_median_ratio": 1.9091,
+  "healthy_ratio_range": [
+    0.85,
+    1.15
+  ],
+  "in_healthy_range": false,
+  "base": "xlmr",
+  "base_role": "contrast"
+}

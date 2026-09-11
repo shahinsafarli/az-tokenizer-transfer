@@ -1,0 +1,52 @@
+{
+  "eval_text_provenance": {
+    "source": "az_train.jsonl",
+    "path": "artifacts/data/az_train.jsonl",
+    "n_lines": 300,
+    "n_chars": 40252,
+    "sample_seed": 0,
+    "note": "TRAIN bölgüsündən determinist nümunə — val/test-ə TOXUNULMUR (docs/TEST_AUDIT.md)."
+  },
+  "xlm15": {
+    "base_role": "primary",
+    "base": {
+      "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "n_masked_tokens": 2323,
+      "n_correct": 2,
+      "top1_accuracy": 0.000861,
+      "vocab_size": 95000,
+      "random_guess_accuracy": 1.053e-05,
+      "accuracy_over_random": 81.79
+    },
+    "transplanted": {
+      "model": "artifacts/transplanted__xlm15__omp_k64_rescaled",
+      "n_masked_tokens": 1502,
+      "n_correct": 2,
+      "top1_accuracy": 0.001332,
+      "vocab_size": 32770,
+      "random_guess_accuracy": 3.052e-05,
+      "accuracy_over_random": 43.64
+    }
+  },
+  "xlmr": {
+    "base_role": "contrast",
+    "base": {
+      "model": "xlm-roberta-base",
+      "n_masked_tokens": 1631,
+      "n_correct": 602,
+      "top1_accuracy": 0.369099,
+      "vocab_size": 250002,
+      "random_guess_accuracy": 4e-06,
+      "accuracy_over_random": 92275.42
+    },
+    "transplanted": {
+      "model": "artifacts/transplanted__xlmr__omp_k64_rescaled",
+      "n_masked_tokens": 1502,
+      "n_correct": 40,
+      "top1_accuracy": 0.026631,
+      "vocab_size": 32770,
+      "random_guess_accuracy": 3.052e-05,
+      "accuracy_over_random": 872.7
+    }
+  }
+}
