@@ -1,0 +1,251 @@
+{
+  "label_mapping": {
+    "digit_to_label": {
+      "1": "positive",
+      "2": "neutral",
+      "3": "negative"
+    },
+    "probes": [
+      {
+        "idx": 38,
+        "text": "heqiqeten ela film idi yoldaslar",
+        "expected_gold": "positive",
+        "expected_digit": "1",
+        "gold_label_name": "positive",
+        "gold_matches_expected": true,
+        "annotators": {
+          "label_audit_annotator1.csv": {
+            "available": true,
+            "raw_value": "1",
+            "mapped_label": "positive",
+            "matches_expected_digit": true,
+            "matches_expected_gold": true
+          },
+          "label_audit_annotator2.csv": {
+            "available": true,
+            "raw_value": "1",
+            "mapped_label": "positive",
+            "matches_expected_digit": true,
+            "matches_expected_gold": true
+          }
+        }
+      },
+      {
+        "idx": 48,
+        "text": "Gah açır, gah da açmır işləmir.Çox bərbaddır ",
+        "expected_gold": "negative",
+        "expected_digit": "3",
+        "gold_label_name": "negative",
+        "gold_matches_expected": true,
+        "annotators": {
+          "label_audit_annotator1.csv": {
+            "available": true,
+            "raw_value": "3",
+            "mapped_label": "negative",
+            "matches_expected_digit": true,
+            "matches_expected_gold": true
+          },
+          "label_audit_annotator2.csv": {
+            "available": true,
+            "raw_value": "3",
+            "mapped_label": "negative",
+            "matches_expected_digit": true,
+            "matches_expected_gold": true
+          }
+        }
+      },
+      {
+        "idx": 57,
+        "text": "Həsənəli mirzə 1855-ci ildə vəfаt еdib.",
+        "expected_gold": "neutral",
+        "expected_digit": "2",
+        "gold_label_name": "neutral",
+        "gold_matches_expected": true,
+        "annotators": {
+          "label_audit_annotator1.csv": {
+            "available": true,
+            "raw_value": "2",
+            "mapped_label": "neutral",
+            "matches_expected_digit": true,
+            "matches_expected_gold": true
+          },
+          "label_audit_annotator2.csv": {
+            "available": true,
+            "raw_value": "2",
+            "mapped_label": "neutral",
+            "matches_expected_digit": true,
+            "matches_expected_gold": true
+          }
+        }
+      }
+    ],
+    "sheet_encodings_detected": {
+      "label_audit_annotator1.csv": "cp1254",
+      "label_audit_annotator2.csv": "cp1254"
+    },
+    "missing_sheets": [],
+    "fully_verified_both_annotators": true,
+    "note": "Xəritə HƏR ÜÇ probe üçün gold etiketlə VƏ mövcud auditor(lar)ın rəqəmi ilə təsdiqlənib."
+  },
+  "n_sampled": 100,
+  "annotator1_vs_gold_pct": 71.0,
+  "annotator2_vs_gold_pct": 58.59,
+  "hd_spread_pct": 12.41,
+  "hd_spread_note": "HD1 və HD2 AYRI bildirilir, ORTALANMIR — böyük fərq auditorların EYNİ həddi tətbiq etmədiyini göstərir (ölçülmüş xüsusiyyət, hamarlanmır). Bu, HƏR İKİSİNİN öz mətni MÜSTƏQİL oxuduğu real, keyfiyyətli qiymətlərdir — heç biri 'aşağı sərhəd' deyil (bax audit.py modul qeydi: Excel-in saxlama-zamanı kodlaşdırma xətası YALNIZ vərəqin GÖRÜNTÜSÜNƏ təsir edib, skor hesablanmasına yox).",
+  "annotator1_vs_gold": {
+    "n": 100,
+    "n_correct": 71,
+    "accuracy": 0.71,
+    "per_class": {
+      "neutral": {
+        "n": 33,
+        "correct": 25,
+        "accuracy": 0.7576
+      },
+      "positive": {
+        "n": 34,
+        "correct": 17,
+        "accuracy": 0.5
+      },
+      "negative": {
+        "n": 33,
+        "correct": 29,
+        "accuracy": 0.8788
+      }
+    },
+    "kappa": 0.5659,
+    "bootstrap_ci_95_agreement_pct": [
+      62.0,
+      79.0
+    ],
+    "bootstrap_ci_95_kappa": [
+      0.4296,
+      0.6867
+    ],
+    "n_unclear_excluded": 0,
+    "unclear_rate_pct": 0.0,
+    "text_quality_concern": false
+  },
+  "annotator2_vs_gold": {
+    "n": 99,
+    "n_correct": 58,
+    "accuracy": 0.5859,
+    "per_class": {
+      "neutral": {
+        "n": 32,
+        "correct": 18,
+        "accuracy": 0.5625
+      },
+      "positive": {
+        "n": 34,
+        "correct": 19,
+        "accuracy": 0.5588
+      },
+      "negative": {
+        "n": 33,
+        "correct": 21,
+        "accuracy": 0.6364
+      }
+    },
+    "kappa": 0.38,
+    "bootstrap_ci_95_agreement_pct": [
+      49.49,
+      67.68
+    ],
+    "bootstrap_ci_95_kappa": [
+      0.2375,
+      0.5163
+    ],
+    "n_unclear_excluded": 1,
+    "unclear_rate_pct": 1.0,
+    "text_quality_concern": false
+  },
+  "annotator1_vs_annotator2": {
+    "n": 99,
+    "n_correct": 66,
+    "accuracy": 0.6667,
+    "per_class": {
+      "positive": {
+        "n": 26,
+        "correct": 15,
+        "accuracy": 0.5769
+      },
+      "neutral": {
+        "n": 39,
+        "correct": 23,
+        "accuracy": 0.5897
+      },
+      "negative": {
+        "n": 34,
+        "correct": 28,
+        "accuracy": 0.8235
+      }
+    },
+    "n_excluded_either_unclear": 1,
+    "kappa": 0.4911,
+    "bootstrap_ci_95_agreement_pct": [
+      57.58,
+      75.76
+    ],
+    "bootstrap_ci_95_kappa": [
+      0.3485,
+      0.6235
+    ]
+  },
+  "human_human_agreement_pct": 66.67,
+  "abstention_counts": {
+    "annotator1": 0,
+    "annotator2": 1
+  },
+  "disagreement_decomposition": {
+    "annotator1_vs_annotator2": {
+      "n_agreements": 66,
+      "n_disagreements": 33,
+      "neutral_boundary": 28,
+      "neutral_boundary_pct_of_disagreements": 84.85,
+      "polarity_flip": 5,
+      "polarity_flip_pct_of_disagreements": 15.15
+    },
+    "dataset_vs_annotator1": {
+      "n_agreements": 71,
+      "n_disagreements": 29,
+      "neutral_boundary": 19,
+      "neutral_boundary_pct_of_disagreements": 65.52,
+      "polarity_flip": 10,
+      "polarity_flip_pct_of_disagreements": 34.48
+    },
+    "dataset_vs_annotator2": {
+      "n_agreements": 58,
+      "n_disagreements": 41,
+      "neutral_boundary": 35,
+      "neutral_boundary_pct_of_disagreements": 85.37,
+      "polarity_flip": 6,
+      "polarity_flip_pct_of_disagreements": 14.63
+    }
+  },
+  "polarity_only_subset": {
+    "n": 42,
+    "hh_agreement_pct": 88.1,
+    "bootstrap_ci_95_pct": [
+      78.57,
+      97.62
+    ],
+    "kappa": 0.7458,
+    "note": "Şərtlənib (hər üçü committed) — OPTİMİST. `task_ceiling_pct` bu nöqtə qiymət DEYİL, mühafizəkar işçi qiymətdir (bax aşağı)."
+  },
+  "task_ceiling_pct": 85.0,
+  "task_ceiling_note": "Polarity-only nöqtə qiyməti 88.1% (n=42, şərtlənib — HƏR ÜÇ mənbənin committed olmasını tələb edir, ona görə OPTİMİSTDİR). `task_ceiling_pct` bunun ƏVƏZİNƏ mühafizəkar işçi qiymətdir (insan qərarı, statistik hesablama DEYİL) — 88.1%-i çılpaq sitat gətirmək əvəzinə.",
+  "decision_gate": {
+    "verdict": "PROCEED_WITH_CAVEAT",
+    "note": "HH=66.7% (tapşırıq tavanı). Annotator1 HD=71.0% (HH+4.3pp → PROCEED); Annotator2 HD=58.6% (HH-8.1pp → PROCEED_WITH_CAVEAT). Yekun (bağlayıcı, ikisindən PİS olan): PROCEED_WITH_CAVEAT.",
+    "rule": "HD judged RELATIVE TO HH (task ceiling), not against an absolute floor — corrected 2025-09-02; supersedes the absolute-threshold table in HANDOFF §3.11",
+    "tier_annotator1": "PROCEED",
+    "tier_annotator2": "PROCEED_WITH_CAVEAT",
+    "hh_pct": 66.67,
+    "thresholds": {
+      "hh_too_subjective_ceiling": 0.6,
+      "hd_proceed_margin_pp": 5.0,
+      "hd_caveat_margin_pp": 12.0
+    }
+  }
+}

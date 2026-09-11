@@ -1,0 +1,32 @@
+{
+  "base": "xlm15",
+  "base_role": "primary",
+  "base_model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+  "C1a_identity": {
+    "passed": true,
+    "vocab_size": 95000,
+    "canonical_keys": 95000,
+    "collisions": 0,
+    "note": "Kanonik toqquşma sayı 0-a yaxın olmalıdır."
+  },
+  "C1c_bpc_base": {
+    "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+    "n_lines": 6,
+    "n_tokens": 239,
+    "n_chars": 480,
+    "tokens_per_char": 0.4979,
+    "mlm_loss_nats_per_masked_token": 12.1512,
+    "bits_per_character": 8.7287
+  },
+  "C1c_bpc_transplanted": {
+    "model": "artifacts/transplanted__xlm15__omp_k64",
+    "n_lines": 6,
+    "n_tokens": 85,
+    "n_chars": 480,
+    "tokens_per_char": 0.1771,
+    "mlm_loss_nats_per_masked_token": 19.5506,
+    "bits_per_character": 4.9947
+  },
+  "C1c_delta_bpc": -3.734,
+  "C1c_note": "Müsbət delta = transplant modeli PİSLƏŞDİRİB. Bu rəqəm məqalədə mütləq göstərilməlidir — Şərt 3 pis çıxarsa, izahı budur."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "figure": "figures/escape_rate.png",
+    "quantity": "escape_rate",
+    "source_paths": [],
+    "status": "NOT MEASURED"
+  },
+  {
+    "figure": "figures/conditional_macro_f1.png",
+    "quantity": "conditional_macro_f1",
+    "source_paths": [],
+    "status": "NOT MEASURED"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "n": 20000,
+  "word_multiset_preserved": 20000,
+  "word_multiset_preserved_pct": 100.0,
+  "order_actually_changed": 19561,
+  "output": "artifacts/data/tr_train_scrambled.jsonl",
+  "note": "word_multiset_preserved_pct 100-ə yaxın olmalıdır — token çoxluğu dəyişməyib."
+}
