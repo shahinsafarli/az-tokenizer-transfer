@@ -931,3 +931,881 @@ would have inverted the paper's central claim (xlmr is the zero-effect control; 
 scoring badly on Condition 3 reads as `MECHANISM_SUPPORTED`, a false positive, not the conservative
 confound cosine-based framing called it).
 
+### 3.17 T7 follow-up — three checks before trusting BPC or running T8
+
+**1. Top-1 masked-token accuracy (`src/transplant/top1_accuracy.py`, `results/top1_accuracy.json`)
+— is BPC's near-random reading "damaged but functional" or "destroyed"?**
+
+| | xlm15 | xlmr |
+|---|---|---|
+| base | 0/37 = 0.0% | 13/17 = 76.5% |
+| transplanted (rescaled) | 0/12 = 0.0% | 0/12 = 0.0% |
+
+Both transplants land at literally 0 correct — not 20–40%. The sample is small (12 masked
+tokens, same tiny eval text used throughout §3.16 for BPC) so this alone has limited power, but
+0/12 is far more consistent with "near the 1/32770 random floor" than with "damaged but
+functional." Taken with the smoke-test result below, the reconciliation is: raw MLM next-token
+prediction from the tied output head is where the transplant's imperfection shows up hardest
+(it needs to pick the *exact* right one of 32,770 ids), while downstream classification only
+needs the encoder's contextual representations to be linearly separable after supervised
+fine-tuning — a much lower bar. Both can be true at once, and are.
+
+**2. `compare_bases()` verdict table — missing branch added BEFORE any full run
+(`src/analysis/decompose.py`).** The ΔBPC asymmetry measured in §3.16 (xlm15 −3.73, xlmr +16.67),
+paired with top-1 changes of 0/37 → 0/12 and 13/17 → 0/12 respectively,
+is itself the pre-registered prediction that motivated this: if that pattern holds under real
+fine-tuned classification metrics too, `effect(xlmr)` will come out clearly *negative* (replacing
+a tokenizer that's already good should hurt, not just fail to help), which the old table had no
+correct verdict for — it would fall through to `MECHANISM_PARTIAL` or `UNEXPECTED`, mislabelling
+the strongest result the design can produce. Added `MECHANISM_SUPPORTED_SIGNED`: fires when
+`effect(xlm15) > 0`, `effect(xlmr)` is clearly negative (not just non-zero), and the CI on the
+difference excludes 0 — a sign flip with the deficit, stronger evidence than plain
+`MECHANISM_SUPPORTED` (where the contrast effect merely goes flat). Regression test
+`test_cross_base_supports_signed_mechanism_when_contrast_clearly_negative` added (69 tests total).
+
+
+**Environment note, since it changed what these numbers cost to get**: this session's PyTorch was
+CPU-only (`2.4.1+cpu`) for the earlier parts of T7 — a single classification smoke run was
+observed taking 20+ minutes on CPU for this base model. Reinstalled as
+`torch==2.4.1+cu121` (`pip install torch==2.4.1+cu121 --index-url
+https://download.pytorch.org/whl/cu121 --force-reinstall` — plain `pip install torch==2.4.1
+--index-url ...` is NOT sufficient, pip treats the already-installed `+cpu` build as satisfying an
+unqualified version match) once a GPU (`NVIDIA GeForce RTX 4060 Laptop GPU`) became available to
+the session; the four smoke runs took 94–186s each on GPU. **Lesson for next time: check
+`torch.cuda.is_available()` before starting a long CPU run, not after 20 minutes of silence** — a
+sparse-logging Trainer run (few steps, `logging_steps=50`, full-val eval every epoch) gives no
+visible sign of being slow-but-fine vs. hung until it's very late to tell the difference.
+
+**Memory check — `training.batch_size: 32` at `max_length: 256`, xlm15.** Measured directly (one
+forward+backward+optimizer-step on the actual transplanted model, not estimated): **peak 6.85 GB
+allocated / 7.49 GB reserved.** This GPU (RTX 4060 Laptop) has **8.59 GB total, not the 20 GB the
+question assumed** — the "fits in 20 GB" premise doesn't apply to the hardware actually available
+to this session; report the number measured, not the question asked. It does fit on this 8.59 GB
+card, but with only ~1.1 GB headroom — tight, not comfortable (longer real sequences, DataLoader
+workers, or fragmentation could push it over). The corresponding eval batch (`batch_size*2=64`,
+forward-only) is cheap: 1.64 GB / 1.81 GB. The experiment is now locked to
+`training.batch_size: 32` on both smoke-test and A100 runs so batch size is not another varying
+factor; do not silently lower it for any condition.
+
+### 3.18 Pre-full-run gate — coefficient controls and Turkish-stage cache
+
+`mean` and `random_coef` must pass through Condition 3 at `reference_size=2000` on both bases and
+all three seeds before the full 75-run matrix: 2 methods × 2 bases × 3 seeds = **12 runs**.
+Everything except coefficient construction is held fixed, including the donor tokenizer, anchor
+dictionary, `k=64`, base-anchor-median rescaling, and `training.batch_size=32`. Results are written
+under `results/transplant_controls/`. If `random_coef ≈ OMP`, M3 must be described as an embedding-reinitialisation
+test rather than evidence that OMP transferred segmentation information; if `OMP ≫ random_coef`,
+the transferred coefficients carry usable information. `mean` is included as the cited
+transplantation baseline.
+
+The Turkish intermediate stage is now cached persistently by base/model initialization,
+tokenizer arm, real-vs-scrambled Turkish data, seed, and every relevant training setting. The key
+intentionally excludes Azerbaijani train size, which cannot affect the preceding Turkish stage.
+A manifest is published only after a complete checkpoint save, so an interrupted write is never
+accepted as a cache hit. The full-run driver reuses these checkpoints automatically.
+
+
+**Resume-after-kill — confirmed, at the granularity this pipeline actually provides.** Killed a
+run mid-training (`TaskStop` after the model had loaded and training had started, before any
+result file was written); confirmed no `results/runs/...json` existed afterward (some orphaned
+`ft_*` temp directories were left behind — `finetune.py`'s `finally: shutil.rmtree(workdir)`
+doesn't run on a hard kill, harmless but worth a periodic manual sweep). Restarted the identical
+command; it completed cleanly and wrote the result file. **This confirms `orchestrate.py`'s
+`skip_existing`-based resume works, but at run granularity, not mid-epoch checkpoint granularity**
+— a killed run leaves no partial state to resume from; a restart simply redoes that
+`(base, condition, size, seed)` run from scratch. For T8's full run matrix this is the right
+semantics (each run is cheap enough to redo, and `skip_existing` means only the interrupted run
+itself is repeated, not the whole queue) — but it is not the same guarantee as Trainer-level
+`resume_from_checkpoint`, which this pipeline does not use (`workdir` is a temp dir, deleted after
+each run). Worth knowing before assuming a multi-hour T8 run can resume from partway through a
+single long run — it can't; it can only resume from partway through the *queue*.
+
+---
+
+## 4. Experiment design — 5 conditions
+
+The 5 conditions run **inside each base model** — they are the same conditions, applied twice.
+
+| # | Name (code) | Tokenizer | Pipeline | What it isolates |
+|---|---|---|---|---|
+| 1 | `baza` | original | AZ fine-tune only | Reference point |
+| 2 | `turk` | original | TR → AZ fine-tune | Total Turkish benefit (reproduces Kardeş-NLU) |
+| 3 | `tokenizator` | OMP-transplanted | AZ fine-tune only | Segmentation alone, **no Turkish** |
+| 4 | `her_ikisi` | OMP-transplanted | TR → AZ fine-tune | Interaction |
+| 5 | `turk_qarisiq` | original | **word-shuffled** TR → AZ | **KEY CONTROL:** grammar destroyed, tokens preserved |
+
+Run budget:
+
+| Base model | Sizes | Runs |
+|---|---|---|
+| `xlm15` (primary) | 100 / 500 / 2,000 / 10,000 | 5 × 4 × 3 seeds = **60** |
+| `xlmr` (contrast) | 2,000 only | 5 × 1 × 3 seeds = **15** |
+| | | **75 total** |
+
+⚠️ Never pool the two base models in one cell. `aggregate.py` groups by `base` first, and every
+run file is named `base=<short>__cond=...`. If you see `base=unknown` in `aggregate.csv`, those
+are stale run files from before the pivot — delete them and re-run.
+
+### Result formulas (implemented in `src/analysis/decompose.py`)
+
+```
+# within one base model
+recovery_ratio (%) = (Cond3 − Cond1) / (Cond2 − Cond1) × 100
+lexical_share (%)  = (Cond5 − Cond1) / (Cond2 − Cond1) × 100
+interaction        =  Cond4 − (Cond2 + Cond3 − Cond1)
+
+# ACROSS base models  ← the new headline test
+Δ = (Cond3 − Cond1)_xlm15 − (Cond3 − Cond1)_xlmr        [bootstrap 95% CI]
+    CI excludes 0 and Δ > 0  →  segmentation is the mechanism
+    CI includes 0            →  it is not
+```
+
+⚠️ **Terminology discipline.** `recovery_ratio` is a **substitutability** measure, NOT a
+decomposition. Condition 2 does not change the tokenizer. Never write "X% of the Turkish benefit
+is tokenization". Correct phrasing: *"tokenizer adaptation alone recovers X% of the Turkish
+benefit."* The code already emits this warning inside `decompose.json`.
+
+**Reading `lexical_share`:**
+- Cond5 ≈ Cond2 → the benefit is **lexical** (H1 confirmed)
+- Cond5 ≪ Cond2 → the benefit is **syntactic** (H1 rejected — also a valid result)
+
+---
+
+## 5. The code
+
+```
+configs/experiment.yaml          all params, seeds, paths       ← FILL fields NONE remain (T4)
+run_all.sh                       single entry point (brief requirement)
+src/
+  utils.py                       config, seeds, IO. load_config(path, require_complete=False)
+                                 skips FILL validation — used by tokenizer scripts
+  tokenization/
+    canon.py                     ▁ / ## / </w> (fastBPE) normalisation + BYTE-LEVEL decoding [C2]
+    anchor_map.py                compute_anchors() — SINGLE shared anchor logic (T3) — used
+                                 by BOTH anchors.py and build.py, never diverges         ✅ RUN
+    anchors.py                   GO/NO-GO gate, all 3 modes (strict/surface/functional)  ✅ RUN
+    diacritics.py                T1: diacritic-stripping confound quantification        ✅ RUN
+    fertility.py                  small-sample fertility (Figure 1 inputs)                ✅ RUN
+    corpus_fertility.py           real-corpus fertility + verdict                         ✅ RUN
+    overlap_control.py            overlap vs control languages + FLORES option       ❌ NOT RUN —
+                                  `results/overlap_control.json` does not exist yet; this doc's
+                                  own §3.2 numbers predate this session and are unverified against
+                                  a file. T5 (`noise_interaction.py`) reuses its functions directly
+                                  rather than its (currently absent) output file.
+  transplant/
+    omp.py                        OMP core (coefficient transfer)
+    build.py                      donor + base → transplanted model (uses anchor_map.py)
+    controls.py                   identity transplant + BPC                     [C1]
+  data/
+    splits.py                     fixed train/val/test, `_dedup()`/`normalize_text()`/
+                                  `apply_exclude_labels()` (T3 — neutral dropped)          ✅ RUN
+    scramble.py                   word-shuffled Turkish                         [C4]      ✅ RUN
+    profile_candidates.py         T4: dataset profiling + README provenance check         ✅ RUN
+    truncation.py                 T5: truncation confound, dual max_length (128 vs 256),
+                                  reads split artifacts directly (T3-aware)                ✅ RUN
+    audit.py                      T6: blind sheets, label mapping (T1), scorer (T2) — export/
+                                  verify/score ALL run against real data, see §3.12         ✅ RUN
+  training/
+    finetune.py                   one run; head is reset after TR stage         [C3]
+    orchestrate.py                all runs, priority order, resume
+  analysis/
+    aggregate.py                  mean ± std
+    stats.py                      Welch t-test, bootstrap CI, Cohen's d
+    decompose.py                  recovery ratio + lexical share  ← MAIN RESULT
+    errors.py                     error taxonomy (false friends / vocab / morphology)
+    figures.py                    Figures 1–4
+    noise_interaction.py          T5: noise×condition Fisher test — run, no association, §3.12 ✅ RUN
+tests/test_core.py                59 tests, all passing (33 original + 5 T3 anchor_map +
+                                  21 T6/T1/T2/T5 audit-related)
+```
+
+Run tests with `pytest -q` — should report **59 passed**.
+
+---
+
+## 6. WHAT TO DO NEXT — in order
+
+### STEP 0 · The two XLM-15 gates  ⏱ ~20 min · NO GPU · **DO THIS FIRST**
+
+The pivot rests on two unverified assumptions about XLM-15. Both are cheap to check and both
+can veto the new primary model. **Do not touch datasets until these pass.**
+
+**Gate 1 — is there actually a tokenization deficit?**
+
+```bash
+python -m src.tokenization.corpus_fertility --config configs/experiment.yaml --n-sentences 5000
+```
+
+Read `results/corpus_fertility.json → models[] → short == "xlm15" → az_over_tr_fertility`.
+
+| AZ/TR | Meaning | Action |
+|---|---|---|
+| **> 1.3** | Real deficit — the tokenizer knob has range | ✅ proceed, this is the whole point |
+| 1.15 – 1.3 | Weak deficit | 🟡 proceed but expect a small effect; say so in the paper |
+| < 1.15 | No deficit, same as XLM-R | ❌ XLM-15 buys us nothing — fall back to the lexical-vs-syntactic framing (§3.5) with XLM-R alone |
+
+**Gate 2 — can we even transplant into XLM-15?**
+
+```bash
+python -m src.tokenization.anchors --config configs/experiment.yaml
+```
+
+Read `results/anchors.json → bases.xlm15.canonical_shared_anchors`.
+
+| Anchors | Verdict | Action |
+|---|---|---|
+| ≥ 20,000 | `GO` | ✅ proceed |
+| 5,000 – 20,000 | `GO_WITH_CARE` | ✅ proceed, lower `transplant.k` to 8–32 |
+| < 5,000 | `NO_GO` | ❌ try another donor: `--donor <model>`; the script exits non-zero by design |
+
+Note XLM-15 has a **95k BPE vocabulary and hidden size 1024** (XLM-R: 250k / 768). OMP handles
+the dimension difference — coefficients are solved in donor space and applied in base space —
+but `transplant.n_candidates` (256) must stay **below** the donor hidden size or OMP goes
+overcomplete and silently picks wrong atoms. 256 < 768 ✅. Do not raise it.
+
+Also confirm XLM-15 loads at all:
+
+```bash
+python -c "from transformers import AutoTokenizer, AutoModelForMaskedLM; \
+n='FacebookAI/xlm-mlm-tlm-xnli15-1024'; t=AutoTokenizer.from_pretrained(n); \
+print(t.tokenize('gəlmişdilər kompüterlə')); print(AutoModelForMaskedLM.from_pretrained(n).config.hidden_size)"
+```
+
+XLM (not XLM-R) tokenizers sometimes need `sacremoses` installed — `pip install sacremoses`.
+
+### STEP A · Find and choose datasets  ⏱ ~30 min · no GPU
+
+We need two classification datasets: one Azerbaijani (main task), one Turkish (intermediate stage).
+
+**Task for Claude Code: write `src/data/discover.py`** that:
+1. Uses `huggingface_hub.HfApi().list_datasets(search=...)` to search for candidates
+   (search terms: `azerbaijani`, `azeri`, `az classification`, `turkish sentiment`,
+   `turkish classification`).
+2. For each candidate that loads, prints: number of rows, column names, number of distinct
+   labels, label distribution, mean text length, duplicate-text rate, and 3 example rows.
+3. Flags candidates that fail the brief's floor: **≥10k labelled examples** for text/NLP.
+4. Writes everything to `results/dataset_candidates.json`.
+
+Do **not** hardcode dataset names — they must be discovered, because several Azerbaijani repos
+on the Hub are gated (all `allmalab/*` models returned `GatedRepoError`).
+
+Known starting points (verify, do not assume — and note what we already ruled out):
+
+| Candidate | Status |
+|---|---|
+| `LocalDoc/AzTC` | ❌ **REJECTED** — 51.5M-row raw corpus, single text column, **no labels at all**. Do not spend time on it. |
+| `hajili/azerbaijani_review_sentiment_classification` | ❌ **REJECTED** — 127,537 real rows (declared 159,422), 81.4% majority class, **49.3% duplicate text**. |
+| `LocalDoc/sentiments_dataset_azerbaijani` | 🟡 leading candidate — ~42k rows, 0.6% duplicates |
+| `hajili/azerbaijani_tweet_emotion_classification` | 🟡 candidate — ~150k rows |
+| `LocalDoc/azerbaijani-text-quality-labeled` | 🟡 fallback, different in kind — 249,949 rows but 36.6% duplicates and labels may be model-generated |
+
+**Selection criteria, in priority order:**
+1. ≥10k rows **after deduplication** (brief requirement) — count the real rows, not the declared ones
+2. Not gated
+3. Clear licence
+4. ≥3 label classes, majority class **< 60%** (81% majority leaves no headroom to measure an effect)
+5. Duplicate-text rate **< 10%** — `src/data/splits.py` now dedups before splitting, so a 49%
+   duplicate dataset simply shrinks to half its advertised size
+6. **Headroom check:** a task where the baseline already scores ~0.95 cannot show a
+   tokenizer effect. Prefer a task with baseline macro-F1 in the 0.60–0.85 band.
+7. If labels are star-ratings, they must be **collapsed to 3 classes** (neg / neutral / pos)
+   before use, and the audit (Step C) must confirm the collapse is coherent — 5-star scales
+   are labelled by different users with different thresholds
+8. For Turkish: any comparable classification task — label space need NOT match Azerbaijani,
+   because the classification head is discarded between stages (control C3)
+
+### STEP B · Fill the config  ⏱ ~5 min
+
+Fill these 6 fields in `configs/experiment.yaml`:
+
+```yaml
+data:
+  az:
+    hf_name: <chosen AZ dataset>
+    text_column: <column>
+    label_column: <column>
+  tr:
+    hf_name: <chosen TR dataset>
+    text_column: <column>
+    label_column: <column>
+```
+
+Scripts fail fast with a clear error if `FILL` remains.
+
+### STEP C · Manual label audit  ⏱ ~45 min · **THIS IS THE GATE**
+
+This is the single highest remaining risk. Many Azerbaijani datasets on the Hub are auto-derived
+or machine-translated with no documented annotation protocol.
+
+**Task for Claude Code: write `src/data/audit.py`** with two subcommands:
+
+```bash
+python -m src.data.audit export --config configs/experiment.yaml --n 100
+# → results/label_audit.csv  with columns: idx, text, label, label_name, verdict
+#   (stratified sample across classes; `verdict` left empty)
+
+python -m src.data.audit score --config configs/experiment.yaml
+# → reads the filled CSV, reports label accuracy and per-class accuracy
+```
+
+A human then fills `verdict` with `1` (label correct) or `0` (label wrong).
+
+**Decision gate:**
+
+| Label accuracy | Action |
+|---|---|
+| **≥ 90%** | Proceed |
+| **85–90%** | Proceed, but report the measured label noise in the paper's Limitations |
+| **< 85%** | **STOP.** Choose a different dataset and repeat Step C |
+
+Record the number either way — it belongs in the paper.
+
+### STEP D · Fix the splits  ⏱ ~2 min · no GPU
+
+```bash
+python -m src.data.splits --config configs/experiment.yaml
+python -m src.data.scramble --config configs/experiment.yaml
+```
+
+Produces `artifacts/data/az_{train,val,test}.jsonl`, `tr_train.jsonl`,
+`tr_train_scrambled.jsonl`, and `results/splits.json`.
+
+Verify in `results/splits.json`:
+- `az.train` ≥ 10,000 (the largest `train_sizes` entry); if not, reduce `data.train_sizes`
+- `az.dedup.duplicate_pct` — **this is now applied before the split** (fixed). If it is above
+  ~25% the script warns; above 40% reconsider the dataset entirely
+- `az.dedup.conflicting_texts` — identical text with different labels. These are dropped
+  outright. A large number here is a **label-quality red flag** worth reporting in the paper
+- `leakage_check` — all three counts must be 0. The script raises `SystemExit` otherwise, so
+  if it completed, the split is clean
+
+⚠️ **Deduplication must happen before the split, and now does.** Previously it did not: with a
+49%-duplicate dataset, identical texts landed in both train and test — hidden test-set leakage
+and an automatic grade deduction. `_dedup()` in `src/data/splits.py` normalises whitespace and
+case, drops repeats, and drops label-conflicting texts entirely.
+
+⚠️ **The test set is touched exactly once, at the very end.** Test-set leakage is an automatic
+grade deduction in the brief. `finetune.py` already enforces this — do not change it.
+
+### STEP E · Build the transplant + run controls  ⏱ ~30 min
+
+One transplant **per base model** — the embedding matrix lives in the base model's own space,
+so they cannot share an artifact directory.
+
+```bash
+python -m src.transplant.build --config configs/experiment.yaml            # both bases
+python -m src.transplant.controls --config configs/experiment.yaml --base primary \
+       --transplanted artifacts/transplanted__xlm15__omp_k64
+python -m src.transplant.controls --config configs/experiment.yaml --base contrast \
+       --transplanted artifacts/transplanted__xlmr__omp_k64
+```
+
+(`run_all.sh` does this loop automatically.) Note the artifact naming:
+`artifacts/transplanted__<base>__<tag>`. If you see a directory without a base prefix, it is
+pre-pivot and should be deleted.
+
+**Check before proceeding:**
+
+| Check | Where | Pass condition |
+|---|---|---|
+| C1a identity transplant | `results/controls__<base>.json → C1a_identity.passed` | must be `true`, else the copy logic is broken |
+| C1b reconstruction | `results/transplant__<base>__omp_k64.json → reconstruction.mean_cosine` | > 0.9 desirable; if low, raise `k` |
+| C1c BPC + top-1 | `results/controls__<base>.json → C1c_delta_bpc`; `results/top1_accuracy.json` | report both together; BPC alone is not evidence of usable MLM |
+
+Before the full 75, build/rescale `mean` and `random_coef`, then run their required 12
+Condition-3 controls:
+
+```bash
+python -m src.transplant.build --config configs/experiment.yaml --method mean --tag mean_k64
+python -m src.transplant.build_rescale_variant --config configs/experiment.yaml --method mean
+python -m src.transplant.build --config configs/experiment.yaml --method random_coef --tag random_coef_k64
+python -m src.transplant.build_rescale_variant --config configs/experiment.yaml --method random_coef
+python -m src.training.transplant_controls --config configs/experiment.yaml
+```
+
+`random_coef` is the important one: same sparsity, **random** coefficients. If it performs as
+well as OMP, the gain isn't coming from OMP's solution and M3 is operationally an embedding-reset
+test. If OMP is materially better, its transferred coefficients carry real information. `mean`
+is the cited transplantation baseline and must be shown beside it. Report the 12 control values
+and stop before starting the full matrix. The `k=8`/`k=128` breadth ablations come later.
+
+### STEP F · Smoke-test the pipeline  ⏱ ~30 min · small GPU
+
+Run all 5 conditions on a tiny subset before spending the booked GPU window.
+
+```bash
+python -m src.training.orchestrate --config configs/experiment.yaml --dry-run
+# the dry-run needs no torch and must list BOTH bases — check for base=xlm15 and base=xlmr
+# then temporarily set data.train_sizes: [200] and run one seed:
+python -m src.training.orchestrate --config configs/experiment.yaml --only-priority
+```
+
+Goal is not results — it is confirming **no condition crashes**. Also kill the process
+mid-run and restart it to verify resume works (`run.skip_existing: true`).
+
+### STEP G · Full runs  ⏱ 12–18 h · **GPU WINDOW**
+
+```bash
+python -m src.training.orchestrate --config configs/experiment.yaml
+```
+
+Priority ordering is built in: all conditions at `reference_size` (2,000) first, so a truncated
+run still yields a complete comparison table.
+
+**Guaranteed-minimum fallback** (~1 h) if time runs out:
+
+```bash
+python -m src.training.orchestrate --config ... --only-priority --conditions baza,turk,turk_qarisiq
+```
+
+Those three conditions alone answer the main question (lexical vs syntactic).
+
+Keep peak VRAM under 10–12 GB (shared machine — the brief is explicit). `batch_size: 32` is locked
+for every smoke, control, and full run and fits both target machines; do not change it by condition.
+
+### STEP H · Analysis  ⏱ ~30 min · no GPU
+
+```bash
+python -m src.analysis.aggregate  --config configs/experiment.yaml
+python -m src.analysis.stats      --config configs/experiment.yaml
+python -m src.analysis.decompose  --config configs/experiment.yaml
+python -m src.analysis.errors     --config configs/experiment.yaml
+python -m src.analysis.figures    --config configs/experiment.yaml
+```
+
+Then a human fills the `manual_category` column in `results/errors_manual_sample.csv`.
+**This is where the team's native Azerbaijani knowledge becomes a scientific advantage** —
+a foreign researcher cannot do it. Say so in the paper.
+
+**How to read the outcome** (`results/decompose.json`):
+
+| Observation | Interpretation |
+|---|---|
+| `lexical_share` high (Cond5 ≈ Cond2) | Turkish benefit is lexical — H1 confirmed, headline result |
+| `lexical_share` low (Cond5 ≪ Cond2) | Turkish benefit is syntactic — H1 rejected, still a valid contribution |
+| `recovery_ratio` small | Expected, given the 7.6% fertility gain — evidence that fertility does not predict downstream |
+| `recovery_ratio` null | Correct behaviour when the Turkish effect is ≤ 0 or below seed noise — report absolute differences instead |
+| `diff_over_noise` < 1 in `stats.json` | Difference is within seed noise — **do not claim it** |
+| `cross_base_comparison.verdict == MECHANISM_SUPPORTED` | Effect present in xlm15, absent in xlmr → **segmentation is the mechanism. This is the paper's headline.** |
+| `... == MECHANISM_PARTIAL` | Effect much larger in xlm15 but not zero in xlmr → segmentation dominates, plus a deficit-independent embedding-rebuild component |
+| `... == MECHANISM_REJECTED` | Same effect in both → tokenization deficit does not explain it. Report it; a clean negative result with a proper control is publishable |
+| `... == UNEXPECTED` | Effect larger where there is no deficit → hunt for an artifact (anchor count, transplant quality, class balance) before believing it |
+
+### STEP I · Paper, slides, submission  ⏱ 2 days
+
+- IEEE two-column, course template. **GitHub link at the end of the Abstract** (brief requirement).
+- Authors as `Surname, Given name(s)`, alphabetical by surname.
+- Figures: Fig 1 (overlap/script finding — already done), Fig 2 (data-size curve, one per base
+  model), Fig 3 (recovery ratio), Fig 4 (error taxonomy), **Fig 5 (cross-base comparison —
+  this is the money figure; lead with it)**.
+- `contribution_report.pdf` in repo root — cross-checked against git history.
+- Git tag `v1.0-final`; remove all template boilerplate.
+- Moodle: exactly two files (`report.pdf`, `presentation.pdf`), **one submitter only**.
+
+---
+
+## 7. Critical gotchas — do not regress these
+
+1. **Byte-level tokenizers.** HPLT stores `▁` as `âĸģ` and `ə` as `ÉĻ`. `canon.py` byte-decodes
+   before scheme detection. Removing this silently drops anchors from 10,662 to 2,856.
+   Tests `test_byte_decode_real_hplt_tokens` and `test_bytelevel_vocab_matches_sentencepiece_after_fix`
+   guard it.
+
+2. **OMP needs `n_candidates < hidden_size.`** XLM-R base hidden = 768; config uses 256. Above the
+   hidden size the dictionary is overcomplete and greedy selection picks wrong atoms. Verified
+   empirically (20 atoms / 8 dims fails, 20 atoms / 64 dims recovers exactly). `omp.py` warns;
+   test `test_omp_degrades_when_overcomplete` documents it.
+
+3. **The classification head is discarded between the Turkish and Azerbaijani stages**
+   (`ignore_mismatched_sizes=True`). Only the encoder body transfers. This is control C3 and it
+   will be asked about at the defense: *what exactly did you transfer?* → language
+   representations, not task-specific decision boundaries.
+
+4. **Never compare perplexity across tokenizers.** Different vocabularies produce different token
+   counts. Use **bits-per-character** (already implemented in `controls.py`) or downstream metrics.
+
+5. **The split seed is separate from the model seeds** (`data.split.seed` vs `experiment.seeds`)
+   so different model seeds run on an identical split.
+
+6. **Gated Hub repos.** All `allmalab/*` models and FLORES (`facebook/flores`,
+   `openlanguagedata/flores_plus`) return `GatedRepoError`. `HPLT/hplt_bert_base_az` is free
+   (Apache 2.0) and is the chosen donor. If FLORES access is later granted,
+   `overlap_control.py --source flores` gives a parallel-corpus robustness check
+   (nice-to-have, not required — the en≈fi control already handles the topic confound).
+
+7. **`load_config(path, require_complete=False)`** skips FILL validation. The tokenizer scripts
+   use it so the GO/NO-GO gate can run before datasets are chosen. Keep it that way.
+
+8. **`.gitignore` must use `/data/`, not `data/`.** Git matches an unanchored `data/` at *any*
+   depth, which silently excluded the whole of `src/data/` from the graded repo and would have
+   broken the brief's one-command reproduction requirement. Leading slash = root-anchored.
+   After any `.gitignore` edit, run `git status --ignored src/` and confirm `src/data/` is
+   **not** listed as ignored.
+
+9. **Every run file must carry `base=`.** Two base models share condition names, sizes and
+   seeds; only the base prefix keeps them apart. `aggregate.py` reports `base=unknown` for
+   pre-pivot files — delete those rather than analysing them.
+
+10. **One transplant artifact per base model.** `artifacts/transplanted__<base>__<tag>`. XLM-15's
+    hidden size is 1024 and XLM-R's is 768, so a shared directory means loading weights of the
+    wrong shape (or worse, silently wrong values). `transplant_dir()` in `utils.py` is the single
+    source of truth for this path — never build it by string concatenation.
+
+11. **Deduplicate before splitting.** See STEP D. Test `test_dedup_removes_repeats_and_conflicts`
+    guards the helper; `splits.py` additionally asserts zero overlap between the three splits
+    and exits if any is found.
+
+12. **`orchestrate.py` imports `finetune` lazily** so `--dry-run` and the queue tests work
+    without torch installed. Do not move that import back to the top of the file.
+
+---
+
+## 8. Compute budget
+
+| Stage | Jobs | Time | VRAM |
+|---|---|---|---|
+| OMP transplant | 1 (+4 ablations) | 5–20 min each | CPU/GPU, small |
+| Turkish intermediate stage | 2 | ~1 h total | ~6–8 GB |
+| Azerbaijani fine-tuning — xlm15 (primary) | 60 | 12–18 h | ~8–10 GB |
+| Azerbaijani fine-tuning — xlmr (contrast) | 15 | 3–4 h | ~6–8 GB |
+| **Total** | **~75 runs** | **≈ 17–25 h** | **< 12 GB** |
+
+Against a ~48 h budget that is **~40–50% utilisation** — still a buffer, but thinner than
+before. XLM-15 is a 1024-hidden model, so per-run cost is higher than XLM-R's; if the window
+gets tight, cut `data.train_sizes` to `[100, 2000, 10000]` (drop 500) rather than cutting seeds
+or dropping the contrast model. **The contrast model is not optional** — without it there is no
+mechanism claim, only a single-model effect.
+
+---
+
+## 9. Open items / decisions still needed
+
+- [x] **Diacritic confound** — measured (T1, `results/diacritics.json`) and resolved (T2:
+      Option C confirmed). See §3.6.
+- [ ] **Accent-stripped Condition-3 ablation** (Option C) — 2–3 extra runs at `reference_size`
+      only, one per base model, scheduled for Step E/F, not yet run
+- [x] **XLM-15 fertility gate** — Step 0, Gate 1: **PASSED**, `AZ/TR = 1.814 > 1.3`
+      (`results/corpus_fertility.json`)
+- [x] **XLM-15 anchor gate** — Step 0, Gate 2: **`GO_WITH_CARE`** via `functional` mode
+      (8,079 anchors, 24.65% of donor) — see §3.7. Was `NO_GO` under the old buggy `strict`-only
+      logic; that was the measurement bug T3 fixed, not a real blocker.
+- [x] **Dataset choice (AZ)** — **CONFIRMED**: `LocalDoc/sentiments_dataset_azerbaijani` (§3.8),
+      locked into `configs/experiment.yaml`.
+- [x] **Dataset choice (TR)** — **CONFIRMED**: `maydogan/Turkish_SentimentAnalysis_TRSAv1` (§3.8),
+      locked into `configs/experiment.yaml`. No licence tag on HF card — cite the paper (§3.10).
+- [x] **Config fully filled** — `configs/experiment.yaml` has zero remaining `FILL` fields;
+      `load_config(require_complete=True)` passes.
+- [x] **Truncation confound** — **CONFIRMED**: `max_length: 128 → 256` (§3.9, re-measured on
+      the binary corpus in §3.14 — gap 3.36pp→0.91pp). `batch_size: 32` is locked for every run;
+      if OOM occurs, stop and tell the human rather than changing batch size or `max_length`.
+- [x] **Neutral class dropped, task is now binary** — **CONFIRMED** (§3.12/§3.13). **Not because
+      three-class was unusable** — HH=66.7% is a real, honest human ceiling for three-class
+      sentiment on this data, and the corrected verdict is `PROCEED_WITH_CAVEAT` (labels are
+      approximately human-quality). Binary is adopted to **improve measurement power**: it lifts
+      the ceiling to ~85–88% and recovers ~a third of the statistical power (§3.15).
+      `data.az.exclude_labels: [neutral]`, re-split done: train 20,936 / val 2,791 / test 4,187,
+      leakage clean.
+- [x] **Label audit RESULT — CONFIRMED against real data** (§3.12, `results/label_audit.json`).
+      Corrected verdict (relative-to-HH table, §3.12): `PROCEED_WITH_CAVEAT` — HD1=71.0% clears
+      to `PROCEED` alone, HD2=58.6% lands in the caveat band, binding/overall verdict is the
+      worse of the two.
+- [x] **Noise×condition interaction test (T5) — run, no association found** (§3.12,
+      `results/noise_interaction.json`). Fisher p=1.0000, OR=0.625 on n=66 consensus items.
+      Common-mode noise defence holds — one sentence for Limitations, with the honest caveat
+      that statistical power is limited at this n (recorded in §3.12, state it alongside the
+      null result, don't drop it).
+- [x] **Headroom gate → per-base saturation rule, sharpened (§3.15)**: evaluate `>0.90` STOP
+      **separately for xlm15 and xlmr**, not globally — XLM-15 is expected to score *below*
+      XLM-R on the same task (3.21 tok/word, no AZ pretraining, destroyed letters), so a global
+      check could hide one base's saturation behind the other's. Report each base's distance
+      from the ~85–89% human ceiling alongside effect sizes; unequal headroom is itself a
+      confound to show. Not yet checked — needs T7/T8's first real Condition-1 runs.
+- [x] **GPU fallback rule recorded (§3.15)**: guaranteed minimum is `--only-priority` with BOTH
+      bases (30 runs, ≈4.5h/T4) — sacrifice the data-size curve, never drop Conditions 3/4 (that
+      would delete the M3 arm and the cross-base contrast).
+- [ ] **Cross-base transplant-quality gate** — required before T8's full runs (see §3.7). Needs
+      T7 (build + controls) to have run for both bases first.
+- [ ] Confirm proposal status with the instructor (Cəfər müəllim) — the framing changed after
+      day-1 measurements; a short note explaining that the original hypothesis was tested and
+      rejected will land well, since his main critique was *"why do you believe this will work?"*
+      Also worth a one-line mention now: the task changed from 3-class to binary sentiment,
+      pre-registered on audit evidence before any model was trained.
+- [ ] Decide whether to keep conditions 3 & 4 (recommended: **keep** — with two base models they
+      are no longer a predicted null; they carry the mechanism test)
+- [x] **Licence stack** documented (§3.10): LocalDoc `CC-BY-NC-SA-4.0` + XLM-15 `CC-BY-NC-4.0` —
+      non-commercial AND share-alike both propagate to any published checkpoint; TRSAv1 has no
+      declared licence (cite the paper).
+- [x] **Noise-attenuation figures recorded (§3.15)**: 3-class η≈0.24 → ×0.64 attenuation;
+      binary η≈0.12 → ×0.76 — binary recovers ~a third of the lost statistical power, feeding
+      directly into the `diff_over_noise < 1` check.
+- [ ] Check whether XLM-15 needs `lang` embeddings at fine-tune time. The original XLM models
+      take a `langs` tensor; `AutoModelForSequenceClassification` works without it (the model
+      then treats input as a single language), but confirm during the STEP F smoke test that the
+      Turkish→Azerbaijani stage does not silently require it.
+
+---
+
+## 10. Reference numbers to quote in the paper
+
+```
+Fertility (5,000 Wikipedia sentences/language, 102,726 AZ words)
+  XLM-R : AZ 1.904 · TR 1.821 · ratio 1.046
+  HPLT  : AZ 1.758 · TR 2.529 · ratio 0.695
+  Donor fertility gain: 7.6%
+
+Token-type overlap with Azerbaijani (alphabetic only)
+  XLM-R : TR 46.4% · EN 34.1% · FI 33.6% · RU 9.0%
+          Latin baseline 33.8% (spread 0.5 pts) · relatedness lift +12.6 pts · ≈1,264 types
+          AZ alphabetic token types: 10,054
+  HPLT  : TR 32.1% · EN 19.3% · FI 19.1% · RU 7.7%
+          Latin baseline 19.2% (spread 0.3 pts) · relatedness lift +12.9 pts · ≈1,924 types
+          AZ alphabetic token types: 14,858
+
+Anchor analysis (xlm-roberta-base ← HPLT/hplt_bert_base_az)
+  naive string intersection 2,856 · canonical shared anchors 10,662 (32.6% of donor)
+  unfamiliar tokens 22,079 · canonical normalisation gain 3.7× · verdict GO_WITH_CARE
+
+Base models
+  primary  FacebookAI/xlm-mlm-tlm-xnli15-1024 — 15 langs (tr ✓ / az ✗), hidden 1024,
+           ~95k BPE, CC-BY-NC-4.0.  AZ/TR fertility: TO BE MEASURED (Step 0, Gate 1)
+  contrast xlm-roberta-base — 100 langs (az ✓), hidden 768, 250k SP, MIT.  AZ/TR = 1.046
+```
+
+### Dataset candidates already ruled out (do not re-litigate)
+
+```
+LocalDoc/AzTC                                        — 51.5M rows, NO label column
+hajili/azerbaijani_review_sentiment_classification    — 127,537 real rows (159,422 declared),
+                                                        81.4% majority class, 49.3% duplicates
+language-ml-lab/AzerBert                              — Iranian Azerbaijani (Arabic script);
+                                                        returns [UNK] for Latin-script AZ
+allmalab/bert-base-aze, allmalab/bert-large-aze        — gated
+google-bert/bert-base-multilingual-cased               — Azerbaijani IS in its 104 languages,
+                                                        so it fails the "az absent" requirement
+```
+
+### Citations
+
+- Kardeş-NLU (EACL 2024) — https://aclanthology.org/2024.eacl-long.100/
+- Training-Free Tokenizer Transplantation via Orthogonal Matching Pursuit — arXiv:2506.06607
+- Open Foundation Models for Azerbaijani (aLLMA / DOLLMA) — https://aclanthology.org/2024.sigturk-1.2/
+- MorphPiece arXiv:2307.07262 · MorphBPE arXiv:2502.00894
+- Toraman et al., Impact of Tokenization on Language Models: Turkish — arXiv:2204.08832
+- mergekit / tokensurgeon — https://github.com/arcee-ai/mergekit
+- HPLT/hplt_bert_base_az — https://huggingface.co/HPLT/hplt_bert_base_az
+
+---
+
+## 11. Pre-registered training amendment — 4 September 2026
+
+> **SUPERSEDED — retained for provenance only.** Every value in this section was
+> replaced later the same day by `configs/FROZEN.md`, which is the binding
+> preregistration and is SHA-256 hash-enforced at every training entry point.
+> The epoch budget below became `max_steps: 2000`; early stopping and
+> `metric_for_best_model` are now **disabled** (selection is post-hoc, in
+> analysis, never in the trainer). Do not implement anything from this section.
+
+
+This amendment was registered before any post-amendment run. It applies
+identically to both base models, every condition, every data size, and every
+seed. No per-base or per-condition exceptions are permitted.
+
+| Setting | Superseded value | Amended value |
+|---|---:|---:|
+| `training.epochs_az` | 5 | 10 |
+| `training.metric_for_best_model` | `macro_f1` (formerly supplied through `training.metric`) | `eval_loss` |
+| `training.greater_is_better` | `true` (formerly hard-coded) | `false` |
+| `training.early_stopping_patience` | 2 | 3 |
+
+Rationale: validation loss can carry optimization signal while macro-F1 is
+flat inside a majority-class collapse basin. Model selection and early
+stopping therefore monitor validation loss. Ten Azerbaijani epochs give the
+optimizer room to escape, while patience 3 prevents termination during a
+still-descending plateau. This is a direct diagnostic amendment, not a claim
+that the earlier collapse mechanism has already been confirmed.
+
+Locked settings remain unchanged: `training.batch_size=32`,
+`models.max_length=256`, `transplant.k=64`, and
+`transplant.n_candidates=256`.
+
+## 12. Observability fix — 4 September 2026 (root cause of the 41-minute stall)
+
+A launched run showed `utilization.gpu` at 100/92/100% across three
+`nvidia-smi` samples over 41 minutes with no single 65-step validation pass
+completed, while `power.draw` fell (33.40 W → 30.59 W) and `temperature.gpu`
+fell (59 → 59 → 54 °C). A 250M-parameter model actually training on this card
+draws 60–115 W and runs 70–85 °C. **`utilization.gpu` only reports whether
+any kernel was resident in the sample window — it is not a throughput
+signal**, and the falling temperature/power alongside saturated
+"utilization" is the signature of a stalled GPU, not a busy one. Root cause
+of *why this could not be diagnosed at the time*: stdout was fully buffered
+and there was no step-level logging, so whether the run was mid-way through
+a legitimate large Turkish intermediate stage or genuinely stuck was
+unknowable from the available evidence.
+
+Fix (code, not hyperparameters):
+- `PYTHONUNBUFFERED=1` exported in `run_all.sh`; `src/utils.setup_logging`
+  additionally force-line-buffers stdout defensively.
+- `src/utils.tee_run_log` — a per-run `FileHandler` (flushes every record)
+  writing to `results/logs/<run_tag>__<utc-timestamp>.log`, wired into both
+  `src.training.finetune main()` (direct single-run invocation) and
+  `src.training.orchestrate.execute_queue` (the full/priority/smoke queue).
+- `src.training.finetune.StepTimingCallback` + `logging_steps=10`: every 10
+  optimizer steps, in *both* the Turkish and Azerbaijani stages, logs
+  `step`, `loss`, seconds since the previous log line, and cumulative
+  wall-clock — independent of the (possibly much sparser) eval cadence.
+- Explicit `STAGE=turkish_intermediate` / `STAGE=azerbaijani`
+  start/end/cache-hit log lines with UTC timestamps in
+  `src.training.finetune.run_single`, so which stage is active is never
+  ambiguous from the log alone.
+
+Policy going forward: **`utilization.gpu` must never again be used as a
+progress signal when step-level logging is available** — check the log file
+for the latest `STEP` line and its `dt_sec` instead.
+
+## 13. Disk audit — 4 September 2026 (pre-A100-move)
+
+Requested before approving the A100 move: what does the full 114-run grid
+actually cost on disk, since it's the most likely thing to break a
+multi-hour unattended run mid-way through.
+
+**(a) Does the Turkish checkpoint cache save optimizer state?** No —
+confirmed empirically, not just by reading the code: `Trainer.save_model()`
+(what `_publish_tr_stage` in `src/training/finetune.py` calls) writes only
+`config.json` + `model.safetensors` (+ a ~5KB `training_args.bin`); no
+`optimizer.pt`/`scheduler.pt`/`rng_state.pth`. Those only get written by
+`Trainer`'s internal checkpoint machinery (`_save_checkpoint`, gated by
+`save_strategy`), which is never invoked here.
+
+Per-checkpoint size depends on vocabulary, not just the "250M-parameter
+model" framing — the donor's transplanted vocab (32,770 tokens) is much
+smaller than either base's original vocabulary, so an OMP-transplanted
+checkpoint is *smaller* than an original-tokenizer one on the same base:
+
+| Base | Tokenizer | Params | fp32 on disk |
+|---|---|---:|---:|
+| xlm15 | original (vocab 95,000) | 248,978,434 | 995.9 MB |
+| xlm15 | omp-transplanted (vocab 32,770) | 185,254,914 | 741.0 MB |
+| xlmr | original (vocab 250,002) | 278,045,186 | 1,112.2 MB |
+| xlmr | omp-transplanted (vocab 32,770) | 111,211,010 | 444.8 MB |
+
+Of the 30 distinct Turkish checkpoints the frozen queue requires (2 bases ×
+3 Turkish-bearing conditions × 5 seeds), 20 are original-tokenizer (`turk`,
+`turk_qarisiq`) and 10 are omp-transplanted (`her_ikisi`). Weights-only
+total: 10×995.9 + 5×741.0 (xlm15) + 10×1112.2 + 5×444.8 (xlmr) ≈ **27.0 GB**,
+plus ~30 MB of tokenizer/config/manifest files per checkpoint set — negligible.
+
+**(b) `save_strategy` / `save_total_limit`.** `save_strategy="no"` — already
+the case for *both* the Turkish and Azerbaijani stages, in the single shared
+`_train_stage()`, before this audit touched anything. No Trainer-driven
+checkpoint is ever written, at validation points or otherwise;
+`save_total_limit` is unset and moot. **The "checkpoint at every validation
+point" scenario in the audit prompt does not occur in this codebase.**
+
+Confirmed the premise for changing this safely, before considering any
+change: post-hoc checkpoint selection (`_step_training_evidence` in
+`finetune.py`) reads `trainer.state.log_history` — the in-memory per-step
+evaluation log — never a saved checkpoint on disk. `load_best_model_at_end`
+is `False` and `metric_for_best_model` is `None`; `selected_step` is chosen
+by scanning `step_history`, computed entirely from log rows.
+
+**(c) Total projected disk, whole grid:**
+
+| Component | Projection |
+|---|---:|
+| Turkish cache (weights-only, computed per-combo above) | ~27.0 GB |
+| Per-run temp output (`workdir`) | 0 — already `shutil.rmtree`'d in `run_single`'s `finally` block, before this audit |
+| Result JSONs (114 runs, schema v3, fuller step history than the old files) | ~15–20 MB |
+| Per-run log files (`results/logs/`, one per run, `STEP` every 10 steps) | ~5 MB |
+| **Total** | **~27 GB — under the ~50 GB threshold, no reduction required** |
+
+All three of the mitigations proposed for "if this exceeds ~50GB" were
+checked and were **already true** before this audit touched anything: no
+Trainer checkpointing at all (not just off for the AZ stage), no optimizer
+state ever written to the TR cache, and per-run temp dirs already cleaned
+up unconditionally. Nothing was changed to reach the ~27 GB figure.
+
+**Disk pre-flight guard — added.** No VRAM pre-flight guard exists in this
+codebase to mirror (checked; the only existing admission control is the
+time-budget check in `orchestrate.execute_queue`) — the disk guard follows
+that time-budget check's pattern instead: `orchestrate.estimate_grid_disk_bytes()`
+projects remaining disk need from a static, conservative per-checkpoint byte
+ceiling (`run.disk_budget_bytes_per_tr_checkpoint`, defaulted to 1.2 GB — the
+measured *maximum* combo, xlmr+original, so the guard never under-projects
+even though it doesn't distinguish combos) times checkpoints not yet found in
+`tr_stage_cache_dir`, plus a fixed per-run overhead, plus a 15% margin
+(`run.disk_budget_margin_ratio`). `execute_queue` calls it once before the
+loop starts (refuses with a loud `SystemExit` if free disk — checked at both
+`results_dir` and `tr_stage_cache_dir`, minimum of the two — can't cover it)
+and again before every single item using the shrinking remainder of the
+queue, breaking cleanly (not crashing mid-write) if disk runs out partway
+through. Deliberately importless (no torch/transformers) to stay cheap
+per-item and to keep `--dry-run` fast, at the cost of using one uniform
+conservative ceiling instead of a live per-checkpoint estimate — projects
+**~41.4 GB with margin** for the full grid from a cold cache (vs. the ~27 GB
+precise figure above), which is the intended conservative direction.
+Verified both directions: full test suite still passes with the guard active,
+and an artificial requirement forced a loud `SystemExit` before any run
+started.
+
+## 14. Parameter decomposition — 4 September 2026 (embedding vs. encoder)
+
+The disk audit's per-checkpoint sizes (§13) surfaced a scientifically
+load-bearing fact that must not be reported as raw parameter totals: total
+parameter count conflates the (donor-vocabulary-dependent) embedding table
+with the (vocabulary-independent) encoder. Measured directly, not computed
+by hand — `AutoModelForSequenceClassification.from_config` for the two
+original-vocab architectures (parameter count is architecture-determined,
+so this is exact regardless of pretrained-vs-random weights) and the real
+locally-built artifacts for the two transplanted variants:
+
+| Base | Tokenizer | Vocab | Embedding params | Non-embedding (encoder) params | Total |
+|---|---|---:|---:|---:|---:|
+| xlm15 | original | 95,000 | 97,280,000 | 151,698,434 | 248,978,434 |
+| xlm15 | transplanted (donor) | 32,770 | 33,556,480 | 151,698,434 | 185,254,914 |
+| xlmr | original | 250,002 | 192,001,536 | 86,043,650 | 278,045,186 |
+| xlmr | transplanted (donor) | 32,770 | 25,167,360 | 86,043,650 | 111,211,010 |
+
+Embedding parameters = `model.get_input_embeddings().weight.shape[0] *
+shape[1]` — the word/token embedding table only (not position or, for
+xlm15, language embeddings, which fall inside "non-embedding" here).
+**Non-embedding parameter count is bit-for-bit identical between the
+original- and transplanted-vocab model, for both bases** — 151,698,434 for
+xlm15, 86,043,650 for xlmr, exactly. Total-parameter drop after transplant:
+25.6% (xlm15), 60.0% (xlmr).
+
+Confirmed this isn't a coincidence of counting by reading `src/transplant/
+build.py`: `base_model = AutoModelForMaskedLM.from_pretrained(base_name)`
+loads the full pretrained checkpoint; the only mutations applied are
+`resize_token_embeddings(donor_vocab_size)` and copying the reconstructed
+matrix into `get_input_embeddings().weight` (and the tied output projection,
+if applicable) — every encoder layer, attention weight, FFN weight, layer
+norm, and (xlm15) position/language embedding is saved to the transplanted
+artifact exactly as loaded from the original pretrained checkpoint. The
+25.6%/60.0% total-parameter drops are embedding-table size only, driven by
+the donor's 32,770-token vocabulary being smaller than either base's
+original vocabulary — this is the treatment (a tokenization/vocabulary
+change), not a capacity confound on the encoder that does the actual
+sequence modeling.
+
+Recorded in `docs/PAPER_SKELETON.md` (model-description table + required
+paper text) and as a Limitations entry: the two bases are not
+capacity-matched at the encoder either — 151.7M (xlm15) vs. 86.0M (xlmr)
+non-embedding parameters, a 1.8× factor — recorded now, before any
+post-freeze result exists to be defended by it.
+
+**Side finding while reading `src/training/transplant_controls.py` for the
+test-eval audit, not fixed, flagging so it isn't lost:** its `main()`
+immediately raises `SystemExit("Retired: mean and random_coef are
+conditions in the single src.training.orchestrate queue.")` — the script is
+dead code. `run_all.sh` step "6c/9" still calls
+`python -m src.training.transplant_controls`, so `bash run_all.sh` (no
+mode, or `--controls-only`) would hit this `SystemExit` today. The "12 run"
+figure in that step's comment is also stale — it's the pre-amendment
+3-seed count (2 methods × 2 bases × 3 seeds); under the current 5-seed
+queue the equivalent (`transplant_mean`/`transplant_random_coef` at the
+reference size) is 20 runs, handled directly by the unified
+`orchestrate.py` queue now. Not fixed here — out of scope of what was
+asked — but `run_all.sh`'s "one-command reproduction" claim is currently
+broken by this, and whoever next touches `run_all.sh` should remove step
+"6c/9" rather than debug it.
