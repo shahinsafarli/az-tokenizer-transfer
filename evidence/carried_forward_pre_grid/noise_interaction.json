@@ -1,0 +1,18 @@
+{
+  "n_items": 66,
+  "contingency_table": {
+    "disagreement_with_turkish_specific_token": 15,
+    "disagreement_without": 1,
+    "agreement_with_turkish_specific_token": 48,
+    "agreement_without": 2
+  },
+  "rate_turkish_specific_given_disagreement_pct": 93.75,
+  "rate_turkish_specific_given_agreement_pct": 96.0,
+  "fisher_odds_ratio": 0.625,
+  "fisher_p_value": 1.0,
+  "alpha": 0.05,
+  "association_found": false,
+  "conclusion": "Assosiasiya tapılmadı (p≥0.05) — küy öyrənilən dilçilik xüsusiyyətindən ASILI DEYİL, ümumi-rejim arqumenti dayanır. Limitations bölməsinə bir cümlə əlavə edib davam edin — etiraz həmişəlik bağlanır.",
+  "n_items_excluded_no_consensus_or_unclear": 34,
+  "turkish_specific_type_count": 1816
+}

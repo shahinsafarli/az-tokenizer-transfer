@@ -1,0 +1,26 @@
+{
+  "base": "xlm15",
+  "base_role": "primary",
+  "base_model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+  "az_in_pretraining": false,
+  "condition": "tokenizator",
+  "condition_id": 3,
+  "tokenizer": "omp",
+  "turkish": "none",
+  "train_size": 100,
+  "actual_train_size": 100,
+  "seed": 13,
+  "n_labels": 2,
+  "model_path": "artifacts\\transplanted__xlm15__omp_k64_rescaled",
+  "val": {
+    "val_loss": 1.2576082944869995,
+    "val_accuracy": 0.5216768183446793,
+    "val_macro_f1": 0.4875751604153381,
+    "val_weighted_f1": 0.4876225238291289,
+    "val_runtime": 10.2134,
+    "val_samples_per_second": 273.269,
+    "val_steps_per_second": 8.616,
+    "epoch": 3.0
+  },
+  "runtime_sec": 94.0
+}

@@ -1,0 +1,38 @@
+{
+  "tag": "omp_k64",
+  "full_tag": "xlm15__omp_k64",
+  "method": "omp",
+  "k": 64,
+  "base": "xlm15",
+  "base_role": "primary",
+  "az_in_pretraining": false,
+  "base_model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+  "donor_model": "HPLT/hplt_bert_base_az",
+  "donor_revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+  "donor_embedding_diag": {
+    "donor_model": "HPLT/hplt_bert_base_az",
+    "revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+    "weights_file": "model.safetensors",
+    "resolved_embedding_key": "embedding.word_embedding.weight",
+    "embedding_shape": [
+      32768,
+      768
+    ],
+    "tokenizer_vocab_size_attr": 32768,
+    "tokenizer_get_vocab_len": 32770
+  },
+  "base_scheme": "fastbpe",
+  "donor_scheme": "sentencepiece",
+  "anchor_mode": "functional",
+  "new_vocab_size": 32770,
+  "n_anchor": 8079,
+  "n_special_mapped": 7,
+  "n_unfamiliar": 24684,
+  "output_dir": "artifacts\\transplanted__xlm15__omp_k64",
+  "reconstruction": {
+    "n_sampled": 500,
+    "mean_l2_error": 0.7474,
+    "mean_cosine": 0.6619,
+    "p10_cosine": 0.6202
+  }
+}

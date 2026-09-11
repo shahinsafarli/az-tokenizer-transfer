@@ -1,0 +1,71 @@
+{
+  "per_base": {
+    "xlm15": {
+      "base": "xlm15",
+      "base_role": "primary",
+      "tag": "xlm15__omp_k64",
+      "n_anchor": 8079,
+      "n_unfamiliar": 24684,
+      "anchor_share_pct": 24.66,
+      "reconstruction_mean_cosine": 0.6619,
+      "reconstruction_mean_l2_error": 0.7474,
+      "C1a_identity_passed": true,
+      "C1c_delta_bpc": -3.734,
+      "C1c_bpc_base": 8.7287,
+      "C1c_bpc_transplanted": 4.9947,
+      "top1_base": {"correct": 0, "masked": 37, "accuracy": 0.0},
+      "top1_transplanted_canonical": {"correct": 0, "masked": 12, "accuracy": 0.0},
+      "norm_ratio": 1.133,
+      "norm_ratio_healthy": true
+    },
+    "xlmr": {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "tag": "xlmr__omp_k64",
+      "n_anchor": 9776,
+      "n_unfamiliar": 22987,
+      "anchor_share_pct": 29.84,
+      "reconstruction_mean_cosine": 0.7024,
+      "reconstruction_mean_l2_error": 0.7098,
+      "C1a_identity_passed": true,
+      "C1c_delta_bpc": 16.6658,
+      "C1c_bpc_base": 0.4138,
+      "C1c_bpc_transplanted": 17.0796,
+      "top1_base": {"correct": 13, "masked": 17, "accuracy": 0.764706},
+      "top1_transplanted_canonical": {"correct": 0, "masked": 12, "accuracy": 0.0},
+      "norm_ratio": 1.9091,
+      "norm_ratio_healthy": false
+    }
+  },
+  "comparison": {
+    "anchor_share_pct": {
+      "xlm15": 24.66,
+      "xlmr": 29.84
+    },
+    "reconstruction_mean_cosine": {
+      "xlm15": 0.6619,
+      "xlmr": 0.7024
+    },
+    "C1c_delta_bpc": {
+      "xlm15": -3.734,
+      "xlmr": 16.6658
+    },
+    "top1_base_to_canonical_transplanted": {
+      "xlm15": {
+        "base": {"correct": 0, "masked": 37, "accuracy": 0.0},
+        "transplanted": {"correct": 0, "masked": 12, "accuracy": 0.0}
+      },
+      "xlmr": {
+        "base": {"correct": 13, "masked": 17, "accuracy": 0.764706},
+        "transplanted": {"correct": 0, "masked": 12, "accuracy": 0.0}
+      }
+    },
+    "norm_ratio": {
+      "xlm15": 1.133,
+      "xlmr": 1.9091
+    },
+    "cosine_gap": -0.0405,
+    "worse_transplant": "xlmr",
+    "note": "xlmr has the worse (more positive) C1c_delta_bpc (xlm15=-3.734, xlmr=16.6658) and the unhealthy norm ratio (xlm15=1.133, xlmr=1.9091, corroborating the same conclusion via an independent, non-scale-blind metric). Decided on BPC/norm ratio, NOT on reconstruction cosine. BPC is paired with top-1: xlm15 0/37 -> 0/12 and xlmr 13/17 -> 0/12; zero transplanted top-1 means the BPC change is not restored usable MLM ability (see HANDOFF.md §3.16)."
+  }
+}

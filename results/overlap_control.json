@@ -1,0 +1,294 @@
+{
+  "n_sentences_per_lang": 5000,
+  "langs": [
+    "tr",
+    "en",
+    "ru",
+    "fi"
+  ],
+  "source": "wikipedia",
+  "models": [
+    {
+      "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "az_fertility": 3.2064,
+      "az_types_raw": 7987,
+      "az_types_alpha": 3257,
+      "overlaps": {
+        "tr": {
+          "raw": {
+            "a_types": 7987,
+            "b_types": 12085,
+            "shared": 5392,
+            "a_covered_pct": 67.51,
+            "jaccard": 0.3673
+          },
+          "alpha": {
+            "a_types": 3257,
+            "b_types": 4191,
+            "shared": 2173,
+            "a_covered_pct": 66.72,
+            "jaccard": 0.4119
+          }
+        },
+        "en": {
+          "raw": {
+            "a_types": 7987,
+            "b_types": 11880,
+            "shared": 4236,
+            "a_covered_pct": 53.04,
+            "jaccard": 0.271
+          },
+          "alpha": {
+            "a_types": 3257,
+            "b_types": 4423,
+            "shared": 1869,
+            "a_covered_pct": 57.38,
+            "jaccard": 0.3216
+          }
+        },
+        "ru": {
+          "raw": {
+            "a_types": 7987,
+            "b_types": 10557,
+            "shared": 1859,
+            "a_covered_pct": 23.28,
+            "jaccard": 0.1114
+          },
+          "alpha": {
+            "a_types": 3257,
+            "b_types": 4304,
+            "shared": 547,
+            "a_covered_pct": 16.79,
+            "jaccard": 0.078
+          }
+        },
+        "fi": {
+          "raw": {
+            "a_types": 7987,
+            "b_types": 8555,
+            "shared": 4124,
+            "a_covered_pct": 51.63,
+            "jaccard": 0.3321
+          },
+          "alpha": {
+            "a_types": 3257,
+            "b_types": 3678,
+            "shared": 1921,
+            "a_covered_pct": 58.98,
+            "jaccard": 0.3831
+          }
+        }
+      },
+      "relatedness_signal": {
+        "tr_alpha_pct": 66.72,
+        "latin_baseline_pct": 58.18,
+        "latin_controls": {
+          "en": 57.38,
+          "fi": 58.98
+        },
+        "latin_baseline_spread_points": 1.6,
+        "nonlatin_controls": {
+          "ru": 16.79
+        },
+        "relatedness_lift_points": 8.54,
+        "ratio_vs_baseline": 1.147,
+        "lift_share_of_headroom_pct": 20.42,
+        "n_turkic_specific_types": 278
+      }
+    },
+    {
+      "model": "xlm-roberta-base",
+      "az_fertility": 1.9038,
+      "az_types_raw": 11294,
+      "az_types_alpha": 10054,
+      "overlaps": {
+        "tr": {
+          "raw": {
+            "a_types": 11294,
+            "b_types": 12718,
+            "shared": 5428,
+            "a_covered_pct": 48.06,
+            "jaccard": 0.2921
+          },
+          "alpha": {
+            "a_types": 10054,
+            "b_types": 11631,
+            "shared": 4666,
+            "a_covered_pct": 46.41,
+            "jaccard": 0.2742
+          }
+        },
+        "en": {
+          "raw": {
+            "a_types": 11294,
+            "b_types": 14214,
+            "shared": 4236,
+            "a_covered_pct": 37.51,
+            "jaccard": 0.1991
+          },
+          "alpha": {
+            "a_types": 10054,
+            "b_types": 13063,
+            "shared": 3425,
+            "a_covered_pct": 34.07,
+            "jaccard": 0.1739
+          }
+        },
+        "ru": {
+          "raw": {
+            "a_types": 11294,
+            "b_types": 12255,
+            "shared": 1746,
+            "a_covered_pct": 15.46,
+            "jaccard": 0.0801
+          },
+          "alpha": {
+            "a_types": 10054,
+            "b_types": 11112,
+            "shared": 902,
+            "a_covered_pct": 8.97,
+            "jaccard": 0.0445
+          }
+        },
+        "fi": {
+          "raw": {
+            "a_types": 11294,
+            "b_types": 13814,
+            "shared": 4204,
+            "a_covered_pct": 37.22,
+            "jaccard": 0.2011
+          },
+          "alpha": {
+            "a_types": 10054,
+            "b_types": 12655,
+            "shared": 3379,
+            "a_covered_pct": 33.61,
+            "jaccard": 0.1748
+          }
+        }
+      },
+      "relatedness_signal": {
+        "tr_alpha_pct": 46.41,
+        "latin_baseline_pct": 33.84,
+        "latin_controls": {
+          "en": 34.07,
+          "fi": 33.61
+        },
+        "latin_baseline_spread_points": 0.46,
+        "nonlatin_controls": {
+          "ru": 8.97
+        },
+        "relatedness_lift_points": 12.57,
+        "ratio_vs_baseline": 1.371,
+        "lift_share_of_headroom_pct": 19.0,
+        "n_turkic_specific_types": 1264
+      }
+    },
+    {
+      "model": "HPLT/hplt_bert_base_az",
+      "az_fertility": 1.7582,
+      "az_types_raw": 14931,
+      "az_types_alpha": 14858,
+      "overlaps": {
+        "tr": {
+          "raw": {
+            "a_types": 14931,
+            "b_types": 6848,
+            "shared": 4844,
+            "a_covered_pct": 32.44,
+            "jaccard": 0.286
+          },
+          "alpha": {
+            "a_types": 14858,
+            "b_types": 6768,
+            "shared": 4777,
+            "a_covered_pct": 32.15,
+            "jaccard": 0.2835
+          }
+        },
+        "en": {
+          "raw": {
+            "a_types": 14931,
+            "b_types": 4383,
+            "shared": 2941,
+            "a_covered_pct": 19.7,
+            "jaccard": 0.1796
+          },
+          "alpha": {
+            "a_types": 14858,
+            "b_types": 4304,
+            "shared": 2874,
+            "a_covered_pct": 19.34,
+            "jaccard": 0.1764
+          }
+        },
+        "ru": {
+          "raw": {
+            "a_types": 14931,
+            "b_types": 1731,
+            "shared": 1205,
+            "a_covered_pct": 8.07,
+            "jaccard": 0.078
+          },
+          "alpha": {
+            "a_types": 14858,
+            "b_types": 1659,
+            "shared": 1140,
+            "a_covered_pct": 7.67,
+            "jaccard": 0.0741
+          }
+        },
+        "fi": {
+          "raw": {
+            "a_types": 14931,
+            "b_types": 4026,
+            "shared": 2902,
+            "a_covered_pct": 19.44,
+            "jaccard": 0.1808
+          },
+          "alpha": {
+            "a_types": 14858,
+            "b_types": 3943,
+            "shared": 2832,
+            "a_covered_pct": 19.06,
+            "jaccard": 0.1773
+          }
+        }
+      },
+      "relatedness_signal": {
+        "tr_alpha_pct": 32.15,
+        "latin_baseline_pct": 19.2,
+        "latin_controls": {
+          "en": 19.34,
+          "fi": 19.06
+        },
+        "latin_baseline_spread_points": 0.28,
+        "nonlatin_controls": {
+          "ru": 7.67
+        },
+        "relatedness_lift_points": 12.95,
+        "ratio_vs_baseline": 1.674,
+        "lift_share_of_headroom_pct": 16.03,
+        "n_turkic_specific_types": 1924
+      }
+    }
+  ],
+  "decision": {
+    "verdict": "RELATEDNESS_MODERATE",
+    "note": "Türkə xas artım +8.5 punkt — real, amma orta səviyyədə. Downstream effekti kiçik gözlənilməlidir.",
+    "tr_alpha_pct": 66.72,
+    "latin_baseline_pct": 58.18,
+    "latin_controls": {
+      "en": 57.38,
+      "fi": 58.98
+    },
+    "latin_baseline_spread_points": 1.6,
+    "nonlatin_controls": {
+      "ru": 16.79
+    },
+    "relatedness_lift_points": 8.54,
+    "ratio_vs_baseline": 1.147,
+    "lift_share_of_headroom_pct": 20.42,
+    "n_turkic_specific_types": 278
+  }
+}
