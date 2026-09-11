@@ -1,0 +1,95 @@
+{
+  "dataset": "LocalDoc/sentiments_dataset_azerbaijani",
+  "exclude_labels": [
+    "neutral"
+  ],
+  "n_examples": 27914,
+  "max_lengths_measured": [
+    128,
+    256
+  ],
+  "configured_max_length": 256,
+  "by_max_length": {
+    "128": {
+      "setups": {
+        "base_original_xlm15": {
+          "max_length": 128,
+          "n": 27914,
+          "truncation_rate_pct": 5.162,
+          "n_truncated": 1441,
+          "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024"
+        },
+        "donor_transplanted": {
+          "max_length": 128,
+          "n": 27914,
+          "truncation_rate_pct": 1.806,
+          "n_truncated": 504,
+          "model": "HPLT/hplt_bert_base_az"
+        },
+        "contrast_original_xlmr": {
+          "max_length": 128,
+          "n": 27914,
+          "truncation_rate_pct": 2.307,
+          "n_truncated": 644,
+          "model": "xlm-roberta-base"
+        }
+      },
+      "confound_note": {
+        "xlm15_original_vs_donor_truncation_delta_pct": 3.356,
+        "xlmr_original_truncation_pct": 2.307
+      }
+    },
+    "256": {
+      "setups": {
+        "base_original_xlm15": {
+          "max_length": 256,
+          "n": 27914,
+          "truncation_rate_pct": 1.257,
+          "n_truncated": 351,
+          "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024"
+        },
+        "donor_transplanted": {
+          "max_length": 256,
+          "n": 27914,
+          "truncation_rate_pct": 0.351,
+          "n_truncated": 98,
+          "model": "HPLT/hplt_bert_base_az"
+        },
+        "contrast_original_xlmr": {
+          "max_length": 256,
+          "n": 27914,
+          "truncation_rate_pct": 0.473,
+          "n_truncated": 132,
+          "model": "xlm-roberta-base"
+        }
+      },
+      "confound_note": {
+        "xlm15_original_vs_donor_truncation_delta_pct": 0.906,
+        "xlmr_original_truncation_pct": 0.473
+      }
+    }
+  },
+  "length_distribution": {
+    "base_original_xlm15": {
+      "tokens_mean": 48.965,
+      "tokens_median": 33.0,
+      "tokens_p90": 90.0,
+      "tokens_p99": 283.0,
+      "tokens_max": 1463
+    },
+    "donor_transplanted": {
+      "tokens_mean": 30.27,
+      "tokens_median": 21.0,
+      "tokens_p90": 55.0,
+      "tokens_p99": 169.0,
+      "tokens_max": 1560
+    },
+    "contrast_original_xlmr": {
+      "tokens_mean": 33.724,
+      "tokens_median": 23.0,
+      "tokens_p90": 61.0,
+      "tokens_p99": 188.87,
+      "tokens_max": 1124
+    }
+  }
+}

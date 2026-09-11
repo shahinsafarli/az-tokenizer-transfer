@@ -1,0 +1,259 @@
+{
+  "candidates": [
+    {
+      "name": "maydogan/Turkish_SentimentAnalysis_TRSAv1",
+      "n_declared": 150000,
+      "n_after_dedup": 138640,
+      "dedup": {
+        "before": 150000,
+        "after": 138640,
+        "duplicates_removed": 11360,
+        "duplicate_pct": 7.57,
+        "conflicting_texts": 937,
+        "label_aware": true
+      },
+      "n_classes": 3,
+      "min_classes_required": 2,
+      "label_distribution": {
+        "Positive": 47909,
+        "Negative": 45915,
+        "Neutral": 44816
+      },
+      "majority_class_frac": 0.3456,
+      "source_composition_by_label": null,
+      "license_info": {
+        "gated": false,
+        "license": null,
+        "lookup_ok": true
+      },
+      "readme_provenance": {
+        "fetch_ok": true,
+        "excerpt": "---\ntask_categories:\n- text-classification\nlanguage:\n- tr\npretty_name: TRSAv1 (Turkish Sentiment Analysis Version 1)\nsize_categories:\n- 100K<n<1M\n---\nTRSAv1 (Turkish Sentiment Analysis Version 1) Dataset\nThis data set has been produced to contribute to Turkish NLP studies. \nThe dataset consists of a total of 150 thousand samples, 50 thousand negative, 50 thousand positive, and 50 thousand neutral. \nIt can be used in text classification and sentiment analysis studies by citing the related study.\n\nRelated Work\n\n\nAydoğan M, Kocaman V. TRSAv1: A new benchmark dataset for classifying user reviews on Turkish e-commerce websites. Journal of Information Science. February 2022. doi:10.1177/01655515221074328",
+        "risk_keywords_found": [],
+        "note": "riskli açar söz aşkar olunmadı (bu, təmiz olduğu demək DEYİL)."
+      },
+      "token_length_by_tokenizer": {
+        "xlm15": {
+          "n": 5000,
+          "tokens_mean": 22.95,
+          "tokens_median": 17.0,
+          "tokens_p90": 44.0,
+          "tokens_max": 322,
+          "words_mean": 12.45,
+          "fertility_micro": 1.8435,
+          "truncation_rate_at_128_pct": 0.54
+        },
+        "xlmr": {
+          "n": 5000,
+          "tokens_mean": 21.14,
+          "tokens_median": 16.0,
+          "tokens_p90": 41.0,
+          "tokens_max": 291,
+          "words_mean": 12.45,
+          "fertility_micro": 1.6982,
+          "truncation_rate_at_128_pct": 0.38
+        }
+      },
+      "headroom_proxy": {
+        "method": "tfidf_logreg_proxy_NOT_final",
+        "n_train": 16000,
+        "n_test": 4000,
+        "macro_f1": 0.7884,
+        "in_headroom_band": true
+      },
+      "criteria": {
+        "c1_rows_after_dedup_ge_10000": true,
+        "c2_not_gated": true,
+        "c3_license_known": false,
+        "c4_ge2_classes_majority_lt_60pct": true,
+        "c5_dup_rate_lt_10pct": true,
+        "c6_headroom_in_band": true
+      },
+      "n_criteria_passed": 5,
+      "n_criteria_total": 6
+    },
+    {
+      "name": "winvoker/turkish-sentiment-analysis-dataset",
+      "n_declared": 489644,
+      "n_after_dedup": 487385,
+      "dedup": {
+        "before": 489644,
+        "after": 487385,
+        "duplicates_removed": 2259,
+        "duplicate_pct": 0.46,
+        "conflicting_texts": 97,
+        "label_aware": true
+      },
+      "n_classes": 3,
+      "min_classes_required": 2,
+      "label_distribution": {
+        "Positive": 260617,
+        "Notr": 170691,
+        "Negative": 56077
+      },
+      "majority_class_frac": 0.5347,
+      "source_composition_by_label": {
+        "Positive": {
+          "total": 260617,
+          "dominant_source": "urun_yorumlari",
+          "dominant_source_share_pct": 83.82,
+          "sources": {
+            "urun_yorumlari": 218437,
+            "HUMIR": 32077,
+            "magaza_yorumlari": 4034,
+            "tweet-pn": 6069
+          }
+        },
+        "Notr": {
+          "total": 170691,
+          "dominant_source": "wiki",
+          "dominant_source_share_pct": 99.71,
+          "sources": {
+            "wiki": 170188,
+            "random": 503
+          }
+        },
+        "Negative": {
+          "total": 56077,
+          "dominant_source": "HUMIR",
+          "dominant_source_share_pct": 57.54,
+          "sources": {
+            "tweet-pn": 4942,
+            "urun_yorumlari": 14705,
+            "HUMIR": 32267,
+            "magaza_yorumlari": 4163
+          }
+        }
+      },
+      "license_info": {
+        "gated": false,
+        "license": [
+          "cc-by-sa-4.0"
+        ],
+        "lookup_ok": true
+      },
+      "readme_provenance": {
+        "fetch_ok": true,
+        "excerpt": "---\nannotations_creators:\n- crowdsourced\n- expert-generated\nlanguage_creators:\n- crowdsourced\nlanguage:\n- tr\nlicense:\n- cc-by-sa-4.0\nmultilinguality:\n- monolingual\npretty_name: Turkish Sentiment Dataset\nsize_categories:\n- unknown\nsource_datasets: []\ntask_categories:\n- text-classification\ntask_ids:\n- sentiment-classification\n---\n\n# Dataset\nThis dataset contains positive , negative and notr sentences from several data sources given in the references. In the most sentiment models , there are only two labels; positive and negative. However , user input can be totally notr sentence. For such cases there were no data I could find. Therefore I created this dataset with 3 class. Positive and negative sentences are listed below. Notr examples are extraced from turkish wiki dump. In addition, added some random text inputs like \"Lorem ipsum dolor sit amet.\".\n\nThere are 492.782 labeled sentences. %10 of them used for testing.\n\n# Türkçe Duygu Analizi Veriseti\nBu veriseti , farklı kaynaklardan derlenmiş pozitif , negatif ve nötr sınıflardan örnekler içerir. Bir çok verisetinde sadece pozitif ve negatif bulunur. Fakat kullanıcı input'u nötr olabilir. Bu tarz durumlar için türkçe bir dataset bulmakta zorlandım. Dolayısıyla , 3 sınıftan oluşan bu dataseti oluşturdum. Pozitif ve negatif örnekleri aldığın kaynaklar referans kısmında listelenmiştir. Nötr cümleler ise wikipedia datasından alınmıştır. Ek olarak bazı rastgele inputlar nötr olarak eklenmiştir. Örneğin: \"Lorem ipsum dolor sit amet.\".\n\nThere are 492.782 labeled sentences. %10 of them used for testing.\n\n# References \n- https://www.kaggle.com/burhanbilenn/duygu-analizi-icin-urun-yorumlari\n- https://github.com/fthbrmnby/turkish-text-data\n- https://www.kaggle.com/mustfkeskin/turkish-wikipedia-dump\n- https://github.com/ezgisubasi/turkish-tweets-sentiment-analysis\n- http://humirapps.cs.hacettepe.edu.tr/\n\nYou can reach me via LinkedIn. https://www.linkedin.com/in/batuhanayhan/",
+        "risk_keywords_found": [],
+        "note": "riskli açar söz aşkar olunmadı (bu, təmiz olduğu demək DEYİL)."
+      },
+      "token_length_by_tokenizer": {
+        "xlm15": {
+          "n": 5000,
+          "tokens_mean": 36.25,
+          "tokens_median": 19.0,
+          "tokens_p90": 75.0,
+          "tokens_max": 1362,
+          "words_mean": 20.09,
+          "fertility_micro": 1.8046,
+          "truncation_rate_at_128_pct": 3.28
+        },
+        "xlmr": {
+          "n": 5000,
+          "tokens_mean": 34.48,
+          "tokens_median": 20.0,
+          "tokens_p90": 70.0,
+          "tokens_max": 1215,
+          "words_mean": 20.09,
+          "fertility_micro": 1.7165,
+          "truncation_rate_at_128_pct": 2.94
+        }
+      },
+      "headroom_proxy": {
+        "method": "tfidf_logreg_proxy_NOT_final",
+        "n_train": 16000,
+        "n_test": 4000,
+        "macro_f1": 0.8424,
+        "in_headroom_band": true
+      },
+      "criteria": {
+        "c1_rows_after_dedup_ge_10000": true,
+        "c2_not_gated": true,
+        "c3_license_known": true,
+        "c4_ge2_classes_majority_lt_60pct": true,
+        "c5_dup_rate_lt_10pct": true,
+        "c6_headroom_in_band": true
+      },
+      "n_criteria_passed": 6,
+      "n_criteria_total": 6
+    },
+    {
+      "name": "fthbrmnby/turkish_product_reviews",
+      "n_declared": 235144,
+      "n_after_dedup": 233370,
+      "dedup": {
+        "before": 235144,
+        "after": 233370,
+        "duplicates_removed": 1774,
+        "duplicate_pct": 0.75,
+        "conflicting_texts": 76,
+        "label_aware": true
+      },
+      "n_classes": 2,
+      "min_classes_required": 2,
+      "label_distribution": {
+        "1": 218610,
+        "0": 14760
+      },
+      "majority_class_frac": 0.9368,
+      "source_composition_by_label": null,
+      "license_info": {
+        "gated": false,
+        "license": [
+          "unknown"
+        ],
+        "lookup_ok": true
+      },
+      "readme_provenance": {
+        "fetch_ok": true,
+        "excerpt": "---\nannotations_creators:\n- found\nlanguage_creators:\n- found\nlanguage:\n- tr\nlicense:\n- unknown\nmultilinguality:\n- monolingual\nsize_categories:\n- 100K<n<1M\nsource_datasets:\n- original\ntask_categories:\n- text-classification\ntask_ids:\n- sentiment-classification\npretty_name: Turkish Product Reviews\ndataset_info:\n  features:\n  - name: sentence\n    dtype: string\n  - name: sentiment\n    dtype:\n      class_label:\n        names:\n          '0': negative\n          '1': positive\n  splits:\n  - name: train\n    num_bytes: 43369614\n    num_examples: 235165\n  download_size: 24354762\n  dataset_size: 43369614\nconfigs:\n- config_name: default\n  data_files:\n  - split: train\n    path: data/train-*\n---\n\n# Dataset Card for Turkish Product Reviews\n\n## Table of Contents\n- [Dataset Description](#dataset-description)\n  - [Dataset Summary](#dataset-summary)\n  - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)\n  - [Languages](#languages)\n- [Dataset Structure](#dataset-structure)\n  - [Data Instances](#data-instances)\n  - [Data Fields](#data-fields)\n  - [Data Splits](#data-splits)\n- [Dataset Creation](#dataset-creation)\n  - [Curation Rationale](#curation-rationale)\n  - [Source Data](#source-data)\n  - [Annotations](#annotations)\n  - [Personal and Sensitive Information](#personal-and-sensitive-information)\n- [Considerations for Using the Data](#considerations-for-using-the-data)\n  - [Social Impact of Dataset](#social-impact-of-dataset)\n  - [Discussion of Biases](#discussion-of-biases)\n  - [Other Known Limitations](#other-known-limitations)\n- [Additional Information](#additional-information)\n  - [Dataset Curators](#dataset-curators)\n  - [Licensing Information](#licensing-information)\n  - [Citation Information](#citation-information)\n  - [Contributions](#contributions)\n\n## Dataset Description\n\n- **Repository:** [turkish-text-data](https://github.com/fthbrmnby/turkish-text-data)\n- **Point of Contact:** [Fatih Barmanbay](https://github.com/fthbrmnby)\n\n### Dataset Summary\n\nThis Turkis",
+        "risk_keywords_found": [],
+        "note": "riskli açar söz aşkar olunmadı (bu, təmiz olduğu demək DEYİL)."
+      },
+      "token_length_by_tokenizer": {
+        "xlm15": {
+          "n": 5000,
+          "tokens_mean": 43.38,
+          "tokens_median": 37.0,
+          "tokens_p90": 82.0,
+          "tokens_max": 557,
+          "words_mean": 23.54,
+          "fertility_micro": 1.8429,
+          "truncation_rate_at_128_pct": 3.12
+        },
+        "xlmr": {
+          "n": 5000,
+          "tokens_mean": 39.45,
+          "tokens_median": 32.5,
+          "tokens_p90": 75.0,
+          "tokens_max": 523,
+          "words_mean": 23.54,
+          "fertility_micro": 1.676,
+          "truncation_rate_at_128_pct": 2.44
+        }
+      },
+      "headroom_proxy": {
+        "method": "tfidf_logreg_proxy_NOT_final",
+        "n_train": 16000,
+        "n_test": 4000,
+        "macro_f1": 0.5383,
+        "in_headroom_band": false
+      },
+      "criteria": {
+        "c1_rows_after_dedup_ge_10000": true,
+        "c2_not_gated": true,
+        "c3_license_known": true,
+        "c4_ge2_classes_majority_lt_60pct": false,
+        "c5_dup_rate_lt_10pct": true,
+        "c6_headroom_in_band": false
+      },
+      "n_criteria_passed": 4,
+      "n_criteria_total": 6
+    }
+  ],
+  "recommendation": {
+    "leading": "maydogan/Turkish_SentimentAnalysis_TRSAv1",
+    "note": "Sıralama qaydası: (1) README-də AÇIQ etiket-metodologiyası riski OLMAYANLAR öndə, (2) domain-leakage riski (bir etiket demək olar tamamilə bir alt-mənbədən) olmayanlar, (3) keçən kriteriya sayı. Bax hər namizədin `criteria`, `readme_provenance` və `source_composition_by_label` sahələri — bu, insan qərarını ƏVƏZ ETMİR, sadəcə əsaslandırmanı izlənə bilən edir."
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "n_sentences_requested": 5000,
+  "models": [
+    {
+      "short": "xlm15",
+      "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "az": {
+        "n_sentences": 5000,
+        "n_words": 102726,
+        "n_tokens": 329376,
+        "fertility_micro": 3.2064,
+        "fertility_macro_mean": 3.2418,
+        "fertility_std": 0.6537,
+        "fertility_p50": 3.2222,
+        "fertility_p90": 4.0456,
+        "chars_per_token": 1.9479
+      },
+      "tr": {
+        "n_sentences": 5000,
+        "n_words": 98528,
+        "n_tokens": 174155,
+        "fertility_micro": 1.7676,
+        "fertility_macro_mean": 1.8277,
+        "fertility_std": 0.3482,
+        "fertility_p50": 1.7778,
+        "fertility_p90": 2.25,
+        "chars_per_token": 3.4575
+      },
+      "az_over_tr_fertility": 1.814,
+      "overlap_az_tr": {
+        "n_sentences_each": 2000,
+        "az_types": 5278,
+        "tr_types": 8986,
+        "shared_types": 3375,
+        "az_covered_by_tr_pct": 63.94,
+        "jaccard": 0.3099
+      }
+    },
+    {
+      "short": "xlmr",
+      "model": "xlm-roberta-base",
+      "az": {
+        "n_sentences": 5000,
+        "n_words": 102726,
+        "n_tokens": 195571,
+        "fertility_micro": 1.9038,
+        "fertility_macro_mean": 1.9841,
+        "fertility_std": 0.4086,
+        "fertility_p50": 1.9215,
+        "fertility_p90": 2.5333,
+        "chars_per_token": 3.2806
+      },
+      "tr": {
+        "n_sentences": 5000,
+        "n_words": 98528,
+        "n_tokens": 179375,
+        "fertility_micro": 1.8205,
+        "fertility_macro_mean": 1.8909,
+        "fertility_std": 0.3641,
+        "fertility_p50": 1.8333,
+        "fertility_p90": 2.3333,
+        "chars_per_token": 3.3569
+      },
+      "az_over_tr_fertility": 1.0458,
+      "overlap_az_tr": {
+        "n_sentences_each": 2000,
+        "az_types": 8442,
+        "tr_types": 10015,
+        "shared_types": 3473,
+        "az_covered_by_tr_pct": 41.14,
+        "jaccard": 0.2318
+      }
+    },
+    {
+      "short": "donor",
+      "model": "HPLT/hplt_bert_base_az",
+      "az": {
+        "n_sentences": 5000,
+        "n_words": 102726,
+        "n_tokens": 180617,
+        "fertility_micro": 1.7582,
+        "fertility_macro_mean": 1.8977,
+        "fertility_std": 0.5405,
+        "fertility_p50": 1.7619,
+        "fertility_p90": 2.625,
+        "chars_per_token": 3.5522
+      },
+      "tr": {
+        "n_sentences": 5000,
+        "n_words": 98528,
+        "n_tokens": 249156,
+        "fertility_micro": 2.5288,
+        "fertility_macro_mean": 2.6224,
+        "fertility_std": 0.456,
+        "fertility_p50": 2.5556,
+        "fertility_p90": 3.2222,
+        "chars_per_token": 2.4167
+      },
+      "az_over_tr_fertility": 0.6953,
+      "overlap_az_tr": {
+        "n_sentences_each": 2000,
+        "az_types": 11781,
+        "tr_types": 6346,
+        "shared_types": 3477,
+        "az_covered_by_tr_pct": 29.51,
+        "jaccard": 0.2373
+      }
+    }
+  ],
+  "decision": {
+    "base_az_over_tr": 1.814,
+    "donor_fertility_gain_pct": 45.17,
+    "verdict": "PREMISE_HOLDS",
+    "note": "Baza model AZ-ı TR-ə nisbətən cəzalandırır — fərziyyə sağdır."
+  }
+}
