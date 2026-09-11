@@ -1,0 +1,163 @@
+# =====================================================================
+#  PILOT KONFİQURASİYASI — pulsuz Colab T4 üçün GO / NO-GO probu
+#
+#  BU, HESABAT ÜÇÜN NƏTİCƏ İSTEHSAL ETMİR. Məqsədi TAM qridi işlətməyə
+#  DƏYƏR-DƏYMƏZ sualına ~5 saatda və PULSUZ cavab verməkdir.
+#
+#  Dondurulmuş konfiqdən (configs/experiment.yaml) FƏRQLƏRİ və hər birinin
+#  SƏBƏBİ:
+#
+#    results_dir: results_pilot   → TAM İZOLYASİYA. Pilot nəticələri
+#        `results/` altına HEÇ VAXT düşmür, ona görə `load_runs()` onları
+#        pooling edə bilməz və qrid nəticələrini çirkləndirə bilməz. Bu,
+#        müzakirə mövzusu deyil — pilot fərqli max_steps ilə işləyir, yəni
+#        onun rəqəmləri qrid rəqəmləri ilə MÜQAYİSƏ OLUNA BİLMƏZ.
+#
+#    max_steps: 2000 → 800        → Basin-dən çıxma 250–630 addım arasında
+#        müşahidə olunub (configs/FROZEN.md). 800 həmin pəncərəni HƏR İKİ
+#        tərəfdən əhatə edir, amma büdcənin yalnız 40%-ni xərcləyir.
+#        n=2000-də bu, hələ də ~12.8 epoxadır.
+#
+#    seeds: 5 → 3                 → 3 seed yalnız 0, ⅓, ⅔, 1 escape
+#        nisbətlərinə imkan verir — zəif, amma BÖYÜK effekti görmək üçün
+#        kifayət. Pilot effektin ÖLÇÜSÜNÜ deyil, MÖVCUDLUĞUNU sınayır.
+#
+#    eval_every_steps: 200 → 100  → 800 addımda ~8 nöqtə; qridin ~10 nöqtəsi
+#        ilə eyni zaman ayırdetməsi.
+#
+#    (batch 32 / accum 1 — qridlə EYNİ; T4-ün 16 GB-ı 8.6 GB zirvəni rahat
+#     tutur və pilotu ~2× sürətləndirir)
+#    eval_batch_size: 32 → 64     → Pilot TƏK axında işləyir və T4-də 16 GB
+#        var, ona görə birləşmiş VRAM tavanı bağlayıcı deyil. 64 validation
+#        keçidlərini ~2× ucuzlaşdırır. Elmi parametr DEYİL (forward-only).
+#
+#    şərtlər: yalnız baza + tokenizator  → Çarpaz-baza tokenizator
+#        kontrastı. Placebo-lar (mean/random_coef) və türk mərhələsi
+#        pilotdan KƏNARDADIR: onlar effekti İZAH edir, MÖVCUDLUĞUNU yox.
+#
+#  DƏYİŞMƏYƏN (bilərəkdən — pilotun nəticəsi qrid üçün proqnoz olsun deyə):
+#    batch_size 32 × grad_accum 1 (effektiv 32), max_length 256, lr 2e-5,
+#    transplant k=64 / n_candidates=256 / rescale_reconstructed=true,
+#    bölgü seed-i, train_size=2000, post-hoc seçim qaydası.
+#
+#  artifacts_dir DONDURULMUŞ KONFİQLƏ EYNİDİR — pilotun qurduğu transplant
+#  artefaktı TAM qridin işlədəcəyi artefaktın EYNİSİDİR (kanonik tag
+#  `omp_k64_rescaled`). Yəni pilotun ən bahalı hissəsi (OMP həlli) TƏKRAR
+#  İSTİFADƏ OLUNUR, atılmır.
+# =====================================================================
+
+experiment:
+  name: az-tokenizer-transfer-PILOT
+  results_dir: results_pilot      # İZOLYASİYA — bax yuxarı
+  artifacts_dir: artifacts        # qridlə PAYLAŞILIR (transplant təkrar istifadə)
+  figures_dir: figures_pilot
+  seeds: [42, 1337, 13]
+  seeds_high_resource: [42, 1337, 13]
+  deterministic: true
+
+models:
+  primary:
+    id: FacebookAI/xlm-mlm-tlm-xnli15-1024
+    short: xlm15
+    az_in_pretraining: false
+    note: "15 dil (tr var, az yox) · CC-BY-NC-4.0 · hidden 1024 · 95k BPE"
+
+  contrast:
+    id: xlm-roberta-base
+    short: xlmr
+    az_in_pretraining: true
+    note: "100 dil (az var) · ölçülmüş AZ/TR fertility = 1.046"
+
+  donor: HPLT/hplt_bert_base_az
+  donor_revision: a126552c30733333cc95425b4eefd3d85b39d878
+  max_length: 256
+
+data:
+  az:
+    source: hf
+    hf_name: LocalDoc/sentiments_dataset_azerbaijani
+    hf_config: null
+    hf_split: train
+    csv_path: null
+    text_column: text
+    label_column: labels
+    exclude_labels: [neutral]
+
+  tr:
+    source: hf
+    hf_name: maydogan/Turkish_SentimentAnalysis_TRSAv1
+    hf_config: null
+    hf_split: train
+    csv_path: null
+    text_column: review
+    label_column: score
+    max_examples: 20000
+
+  split:
+    seed: 12345                   # qridlə EYNİ bölgü — pilot eyni datanı görür
+    val_ratio: 0.10
+    test_ratio: 0.15
+
+  train_sizes: [2000]             # yalnız referans həcm
+  domain_keywords_file: resources/domain_keywords.txt
+
+transplant:
+  method: omp
+  k: 64                           # DONDURULMUŞ dəyər — pilotda da eyni
+  n_candidates: 256               # DONDURULMUŞ dəyər — pilotda da eyni
+  normalize: true
+  rescale_reconstructed: true     # kanonik artefakt: omp_k64_rescaled
+  batch_size: 256
+  device: cuda
+
+training:
+  lr: 2.0e-5                      # DONDURULMUŞ
+  max_steps: 800                  # PİLOT büdcəsi (qrid: 2000) — bax yuxarı
+  epochs_tr: 2
+  batch_size: 32                  # DONDURULMUŞ (2026-09-05 bərpası ilə uyğun)
+  grad_accum: 1                   # DONDURULMUŞ → effektiv batch 32 (bir keçiddə)
+  warmup_ratio: 0.1               # DONDURULMUŞ
+  weight_decay: 0.01              # DONDURULMUŞ
+  fp16: true                      # DONDURULMUŞ
+  early_stopping_patience: null   # DONDURULMUŞ (söndürülüb)
+  eval_every_steps: 100           # pilot: 800/100 = 8 nöqtə
+  eval_batch_size: 64             # forward-only, elmi parametr deyil
+  eval_strategy: steps
+  metric: macro_f1
+  metric_for_best_model: null     # seçim post-hoc, trainer-də YOX
+  load_best_model_at_end: false
+
+# Yalnız çarpaz-baza tokenizator kontrastı. Placebo-lar və türk mərhələsi
+# pilotdan kənardadır (bax modul başlığı).
+conditions:
+  - {id: 1, name: baza,        label: "Condition 1 — no transplant", tokenizer: original, turkish: none, transplant: none, sizes: all}
+  - {id: 3, name: tokenizator, label: "Real OMP transplant", tokenizer: omp, turkish: none, transplant: omp, transplant_tag: omp_k64_rescaled, sizes: all}
+
+analysis:
+  bootstrap_iters: 10000
+  alpha: 0.05
+  reference_size: 2000
+  false_friends_file: resources/false_friends.csv
+
+run:
+  priority_first: true
+  skip_existing: true             # RESUME — kəsilən Colab sessiyası iş itirmir
+  cache_turkish_stages: true
+  tr_stage_cache_dir: artifacts/tr_stage_cache
+  budget_seconds_per_step: 1.2    # T4 proyeksiyası; ilk run-dan sonra özünü düzəldir
+  budget_eval_overhead_sec: 300.0
+
+  disk_budget_bytes_per_tr_checkpoint: 1200000000
+  disk_budget_bytes_per_run_overhead: 250000
+  disk_budget_margin_ratio: 0.15
+
+  bases: [primary, contrast]
+  contrast_sizes: [2000]
+
+  # T4 tək kartdır (16 GB) və pilot tək axında işləyir. Per-proses zirvə
+  # qridlə EYNİDİR (~8.6 GB, batch 32) — ona görə pilotun ölçdüyü yaddaş
+  # rəqəmi birbaşa qrid üçün DƏ etibarlıdır.
+  phase1_streams: 1
+  parallel_streams: 1
+  vram_ceiling_gb: 10.0
+  vram_per_stream_gb: 8.6
