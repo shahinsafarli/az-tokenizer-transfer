@@ -1,0 +1,152 @@
+{
+  "candidates": [
+    {
+      "name": "LocalDoc/sentiments_dataset_azerbaijani",
+      "n_declared": 42000,
+      "n_after_dedup": 41723,
+      "dedup": {
+        "before": 42000,
+        "after": 41723,
+        "duplicates_removed": 277,
+        "duplicate_pct": 0.66,
+        "conflicting_texts": 29,
+        "label_aware": true
+      },
+      "n_classes": 3,
+      "label_distribution": {
+        "neutral": 13838,
+        "negative": 13949,
+        "positive": 13936
+      },
+      "majority_class_frac": 0.3343,
+      "license_info": {
+        "gated": false,
+        "license": "cc-by-nc-sa-4.0",
+        "lookup_ok": true
+      },
+      "readme_provenance": {
+        "fetch_ok": true,
+        "excerpt": "---\nlicense: cc-by-nc-sa-4.0\ndataset_info:\n  features:\n  - name: text\n    dtype: string\n  - name: labels\n    dtype: string\n  splits:\n  - name: train\n    num_bytes: 5806099\n    num_examples: 42000\n  download_size: 3970428\n  dataset_size: 5806099\nconfigs:\n- config_name: default\n  data_files:\n  - split: train\n    path: data/train-*\ntask_categories:\n- text-classification\nlanguage:\n- az\ntags:\n- sentiment\n- azerbaijani\npretty_name: Sentiments Dataset in Azerbaijani\nsize_categories:\n- 10K<n<100K\n---\n\n<h2>Sentiments Dataset in Azerbaijani</h2>\n\n\nDescription\n\nA collection of sentiments datasets in Azerbaijani language grouped into 3 classes: positive, neutral, negative. Data was collected from various sources such as social networks, reviews. It was created in 2024 and contains 42k text with label.\n\n\nFormat\n\nThe dataset is provided in comma-separated values (CSV) format. Each row represented on a new line with the following fields separated by commas:\n\n    text: user review / comment\n    labels: sentiment label\n\n\n\nLicense\n\nThe dataset is licensed under the Creative Commons Attribution-NonCommercial 4.0 International  license. This license allows you to freely share and redistribute the dataset with attribution to the source but prohibits commercial use and the creation of derivative works.\n\n\n\nContact information\n\nIf you have any questions or suggestions, please contact us at [v.resad.89@gmail.com].",
+        "risk_keywords_found": [],
+        "note": "riskli açar söz aşkar olunmadı (bu, təmiz olduğu demək DEYİL)."
+      },
+      "token_length_by_tokenizer": {
+        "xlm15": {
+          "n": 5000,
+          "tokens_mean": 45.95,
+          "tokens_median": 31.0,
+          "tokens_p90": 83.0,
+          "tokens_max": 1062,
+          "words_mean": 15.93,
+          "fertility_micro": 2.8843,
+          "truncation_rate_at_128_pct": 4.76
+        },
+        "xlmr": {
+          "n": 5000,
+          "tokens_mean": 30.53,
+          "tokens_median": 21.0,
+          "tokens_p90": 56.0,
+          "tokens_max": 979,
+          "words_mean": 15.93,
+          "fertility_micro": 1.9164,
+          "truncation_rate_at_128_pct": 1.88
+        }
+      },
+      "headroom_proxy": {
+        "method": "tfidf_logreg_proxy_NOT_final",
+        "n_train": 16000,
+        "n_test": 4000,
+        "macro_f1": 0.5781,
+        "in_headroom_band": false
+      },
+      "criteria": {
+        "c1_rows_after_dedup_ge_10000": true,
+        "c2_not_gated": true,
+        "c3_license_known": true,
+        "c4_ge3_classes_majority_lt_60pct": true,
+        "c5_dup_rate_lt_10pct": true,
+        "c6_headroom_in_band": false
+      },
+      "n_criteria_passed": 5,
+      "n_criteria_total": 6
+    },
+    {
+      "name": "hajili/azerbaijani_tweet_emotion_classification",
+      "n_declared": 150000,
+      "n_after_dedup": 139034,
+      "dedup": {
+        "before": 150000,
+        "after": 139034,
+        "duplicates_removed": 10966,
+        "duplicate_pct": 7.31,
+        "conflicting_texts": 24,
+        "label_aware": true
+      },
+      "n_classes": 3,
+      "label_distribution": {
+        "-1": 49943,
+        "1": 48457,
+        "0": 40634
+      },
+      "majority_class_frac": 0.3592,
+      "license_info": {
+        "gated": false,
+        "license": "mit",
+        "lookup_ok": true
+      },
+      "readme_provenance": {
+        "fetch_ok": true,
+        "excerpt": "---\nlicense: mit\ntask_categories:\n- text-classification\nlanguage:\n- az\nsize_categories:\n- 100K<n<1M\n---\n\n\nThis dataset contains 150K (train + test) cleaned tweets in Azerbaijani. Tweets were collected in 2021, and filtered and cleaned by following these steps:\n\n- Initial data were collected by using twint library. The tool is currently deprecated, cannot be used with new Twitter.\n- On top of the already filtered data, I applied an additional filter to select Azerbaijani tweets with using fastText language identification model.\n- Tweets were classified into 3 emotion categories: {positive: 1, negative: -1, neutral: 0} by using emojis as rule-based classifier.\n- Tags, usernames, and emojis were later cleaned.\n- Short tweets were filtered out.",
+        "risk_keywords_found": [
+          "emoji",
+          "rule-based",
+          "twint"
+        ],
+        "note": "README METODOLOGİYA barədə açıq mətn saxlayır — riskli açar sözlər aşkar olunubsa, T6 auditinin nəticəsi ilə ziddiyyət axtarın."
+      },
+      "token_length_by_tokenizer": {
+        "xlm15": {
+          "n": 5000,
+          "tokens_mean": 30.48,
+          "tokens_median": 24.0,
+          "tokens_p90": 57.0,
+          "tokens_max": 136,
+          "words_mean": 10.45,
+          "fertility_micro": 2.9169,
+          "truncation_rate_at_128_pct": 0.1
+        },
+        "xlmr": {
+          "n": 5000,
+          "tokens_mean": 20.71,
+          "tokens_median": 16.0,
+          "tokens_p90": 39.0,
+          "tokens_max": 99,
+          "words_mean": 10.45,
+          "fertility_micro": 1.9822,
+          "truncation_rate_at_128_pct": 0.0
+        }
+      },
+      "headroom_proxy": {
+        "method": "tfidf_logreg_proxy_NOT_final",
+        "n_train": 16000,
+        "n_test": 4000,
+        "macro_f1": 0.4327,
+        "in_headroom_band": false
+      },
+      "criteria": {
+        "c1_rows_after_dedup_ge_10000": true,
+        "c2_not_gated": true,
+        "c3_license_known": true,
+        "c4_ge3_classes_majority_lt_60pct": true,
+        "c5_dup_rate_lt_10pct": true,
+        "c6_headroom_in_band": false
+      },
+      "n_criteria_passed": 5,
+      "n_criteria_total": 6
+    }
+  ],
+  "recommendation": {
+    "leading": "LocalDoc/sentiments_dataset_azerbaijani",
+    "note": "Sıralama qaydası: (1) README-də AÇIQ etiket-metodologiyası riski OLMAYANLAR öndə, (2) sonra keçən kriteriya sayı. Bax hər namizədin `criteria` və `readme_provenance` sahələri — bu, insan qərarını ƏVƏZ ETMİR, sadəcə əsaslandırmanı izlənə bilən edir."
+  }
+}

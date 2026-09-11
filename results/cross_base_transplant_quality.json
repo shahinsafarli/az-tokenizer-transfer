@@ -1,0 +1,124 @@
+{
+  "per_base": {
+    "xlm15": {
+      "base": "xlm15",
+      "base_role": "primary",
+      "tag": "xlm15__omp_k64_rescaled",
+      "n_anchor": 8054,
+      "n_unfamiliar": 24716,
+      "anchor_share_pct": 24.58,
+      "reconstruction_mean_cosine": null,
+      "reconstruction_mean_l2_error": null,
+      "controls_source_path": "results/controls__xlm15__omp_k64_rescaled.json",
+      "controls_measured_tag": "omp_k64_rescaled",
+      "C1a_identity_passed": true,
+      "C1c_delta_bpc": -1.2037,
+      "C1c_bpc_base": 7.2071,
+      "C1c_bpc_transplanted": 6.0034,
+      "C1c_top1_transplanted": {
+        "correct": 2,
+        "masked": 1502
+      },
+      "C1c_top1_base": {
+        "correct": 2,
+        "masked": 2323
+      },
+      "C1c_interpretation_note": "A lower (more negative) delta BPC with a near-zero top-1 count is a CALIBRATION effect, not recovered lexical knowledge. Report delta BPC and top-1 together, always.",
+      "top1_base": {
+        "correct": 2,
+        "masked": 2323,
+        "accuracy": 0.000861
+      },
+      "top1_transplanted_canonical": {
+        "correct": 2,
+        "masked": 1502,
+        "accuracy": 0.001332
+      },
+      "norm_ratio": 1.1324,
+      "norm_ratio_healthy": true
+    },
+    "xlmr": {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "tag": "xlmr__omp_k64_rescaled",
+      "n_anchor": 9783,
+      "n_unfamiliar": 22987,
+      "anchor_share_pct": 29.85,
+      "reconstruction_mean_cosine": null,
+      "reconstruction_mean_l2_error": null,
+      "controls_source_path": "results/controls__xlmr__omp_k64_rescaled.json",
+      "controls_measured_tag": "omp_k64_rescaled",
+      "C1a_identity_passed": true,
+      "C1c_delta_bpc": 5.3377,
+      "C1c_bpc_base": 1.5975,
+      "C1c_bpc_transplanted": 6.9352,
+      "C1c_top1_transplanted": {
+        "correct": 40,
+        "masked": 1502
+      },
+      "C1c_top1_base": {
+        "correct": 602,
+        "masked": 1631
+      },
+      "C1c_interpretation_note": "A lower (more negative) delta BPC with a near-zero top-1 count is a CALIBRATION effect, not recovered lexical knowledge. Report delta BPC and top-1 together, always.",
+      "top1_base": {
+        "correct": 602,
+        "masked": 1631,
+        "accuracy": 0.369099
+      },
+      "top1_transplanted_canonical": {
+        "correct": 40,
+        "masked": 1502,
+        "accuracy": 0.026631
+      },
+      "norm_ratio": 1.9091,
+      "norm_ratio_healthy": false
+    }
+  },
+  "comparison": {
+    "anchor_share_pct": {
+      "xlm15": 24.58,
+      "xlmr": 29.85
+    },
+    "reconstruction_mean_cosine": {
+      "xlm15": null,
+      "xlmr": null
+    },
+    "C1c_delta_bpc": {
+      "xlm15": -1.2037,
+      "xlmr": 5.3377
+    },
+    "top1_base_to_canonical_transplanted": {
+      "xlm15": {
+        "base": {
+          "correct": 2,
+          "masked": 2323,
+          "accuracy": 0.000861
+        },
+        "transplanted": {
+          "correct": 2,
+          "masked": 1502,
+          "accuracy": 0.001332
+        }
+      },
+      "xlmr": {
+        "base": {
+          "correct": 602,
+          "masked": 1631,
+          "accuracy": 0.369099
+        },
+        "transplanted": {
+          "correct": 40,
+          "masked": 1502,
+          "accuracy": 0.026631
+        }
+      }
+    },
+    "norm_ratio": {
+      "xlm15": 1.1324,
+      "xlmr": 1.9091
+    },
+    "worse_transplant": "xlmr",
+    "note": "xlmr has the worse (more positive) C1c_delta_bpc (xlm15=-1.2037, xlmr=5.3377) and the unhealthy norm ratio (xlm15=1.1324, xlmr=1.9091, corroborating the same conclusion via an independent, non-scale-blind metric). Decided on BPC/norm ratio, NOT on reconstruction cosine — cosine is blind to cross-space scale problems by construction and inverted this exact comparison once already. BPC must be reported with the top-1 counts above; zero top-1 means a lower BPC is calibration improvement, not restored usable MLM (HANDOFF §3.16)."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "status": "NOT MEASURED",
+  "metric_policy": "Two separate quantities, never pooled: escape_rate (Fisher exact + Wilson CI) and conditional_macro_f1 over escaped seeds only (Welch t-test + bootstrap CI). Comparisons are within a base model; cross-base contrasts live in decompose.py. Since 2026-09-08 each comparison additionally carries a PAIRED test over seeds that escaped in both arms (the units are paired: same seed, same subsample), an UNCONDITIONAL all-seed contrast, and a family-wide Holm-Bonferroni adjusted p-value. The pre-registered Welch result is unchanged; the companions exist so a reader can see when a nominal finding depends on the analysis choice.",
+  "multiplicity": {
+    "family_size": 0,
+    "method": "holm-bonferroni",
+    "alpha": 0.05
+  },
+  "alpha": 0.05,
+  "bootstrap_iters": 10000,
+  "min_escaped_for_f1_test": 2,
+  "n_runs_loaded": 0,
+  "seed_noise": [],
+  "comparisons": [],
+  "note": "diff_over_noise < 1 → fərq küy səviyyəsindədir, iddia etməyin. conditional_ci_excludes_zero və conditional_significant birlikdə oxunmalıdır. Şərtli macro-F1 NOT MEASURED olduqda escape rate tək oxunur — sıfır escape 'pis F1' deyil, ölçülməmiş F1 deməkdir."
+}

@@ -1,0 +1,423 @@
+{
+  "models": [
+    {
+      "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "revision": null,
+      "vocab_size": 95000,
+      "az_colloquial": {
+        "n_words": 30,
+        "n_tokens": 102,
+        "fertility": 3.4,
+        "chars_per_token": 1.843,
+        "n_unk": 0
+      },
+      "az_technical": {
+        "n_words": 36,
+        "n_tokens": 140,
+        "fertility": 3.889,
+        "chars_per_token": 2.071,
+        "n_unk": 0
+      },
+      "tr": {
+        "n_words": 29,
+        "n_tokens": 56,
+        "fertility": 1.931,
+        "chars_per_token": 3.929,
+        "n_unk": 0
+      },
+      "letters": {
+        "_byte_level_decoded": false,
+        "ə": 2,
+        "q": 338,
+        "x": 376,
+        "ğ": 0,
+        "ş": 0,
+        "ç": 0,
+        "ö": 0,
+        "ü": 0,
+        "ı": 1240
+      },
+      "overlap_az_tr": {
+        "az_unique_tokens": 123,
+        "tr_unique_tokens": 55,
+        "shared": 9,
+        "az_covered_by_tr_pct": 7.32,
+        "jaccard": 0.0533
+      },
+      "probe_words": {
+        "gəlmişdilər": {
+          "n_pieces": 7,
+          "pieces_raw": [
+            "g",
+            "ə",
+            "l",
+            "mis",
+            "dil",
+            "ə",
+            "r</w>"
+          ],
+          "pieces": [
+            "g",
+            "ə",
+            "l",
+            "mis",
+            "dil",
+            "ə",
+            "r</w>"
+          ]
+        },
+        "qanunvericilik": {
+          "n_pieces": 5,
+          "pieces_raw": [
+            "q",
+            "anun",
+            "ver",
+            "ic",
+            "ilik</w>"
+          ],
+          "pieces": [
+            "q",
+            "anun",
+            "ver",
+            "ic",
+            "ilik</w>"
+          ]
+        },
+        "təyyarə": {
+          "n_pieces": 5,
+          "pieces_raw": [
+            "t",
+            "ə",
+            "y",
+            "yar",
+            "ə</w>"
+          ],
+          "pieces": [
+            "t",
+            "ə",
+            "y",
+            "yar",
+            "ə</w>"
+          ]
+        },
+        "kompüter": {
+          "n_pieces": 3,
+          "pieces_raw": [
+            "kom",
+            "put",
+            "er</w>"
+          ],
+          "pieces": [
+            "kom",
+            "put",
+            "er</w>"
+          ]
+        },
+        "xəstəxanalarımızda": {
+          "n_pieces": 10,
+          "pieces_raw": [
+            "x",
+            "ə",
+            "st",
+            "ə",
+            "x",
+            "an",
+            "alar",
+            "ımı",
+            "z",
+            "da</w>"
+          ],
+          "pieces": [
+            "x",
+            "ə",
+            "st",
+            "ə",
+            "x",
+            "an",
+            "alar",
+            "ımı",
+            "z",
+            "da</w>"
+          ]
+        },
+        "əməkdaşlıq": {
+          "n_pieces": 7,
+          "pieces_raw": [
+            "ə",
+            "m",
+            "ə",
+            "k",
+            "das",
+            "lı",
+            "q</w>"
+          ],
+          "pieces": [
+            "ə",
+            "m",
+            "ə",
+            "k",
+            "das",
+            "lı",
+            "q</w>"
+          ]
+        },
+        "işləyirlər": {
+          "n_pieces": 7,
+          "pieces_raw": [
+            "is",
+            "l",
+            "ə",
+            "yir",
+            "l",
+            "ə",
+            "r</w>"
+          ],
+          "pieces": [
+            "is",
+            "l",
+            "ə",
+            "yir",
+            "l",
+            "ə",
+            "r</w>"
+          ]
+        }
+      },
+      "az_over_tr_fertility_ratio": 1.887
+    },
+    {
+      "model": "xlm-roberta-base",
+      "revision": null,
+      "vocab_size": 250002,
+      "az_colloquial": {
+        "n_words": 30,
+        "n_tokens": 53,
+        "fertility": 1.767,
+        "chars_per_token": 3.547,
+        "n_unk": 0
+      },
+      "az_technical": {
+        "n_words": 36,
+        "n_tokens": 62,
+        "fertility": 1.722,
+        "chars_per_token": 4.677,
+        "n_unk": 0
+      },
+      "tr": {
+        "n_words": 29,
+        "n_tokens": 54,
+        "fertility": 1.862,
+        "chars_per_token": 4.074,
+        "n_unk": 0
+      },
+      "letters": {
+        "_byte_level_decoded": false,
+        "ə": 1366,
+        "q": 1378,
+        "x": 1260,
+        "ğ": 407,
+        "ş": 891,
+        "ç": 631,
+        "ö": 1422,
+        "ü": 1189,
+        "ı": 1404
+      },
+      "overlap_az_tr": {
+        "az_unique_tokens": 93,
+        "tr_unique_tokens": 49,
+        "shared": 7,
+        "az_covered_by_tr_pct": 7.53,
+        "jaccard": 0.0519
+      },
+      "probe_words": {
+        "gəlmişdilər": {
+          "n_pieces": 2,
+          "pieces_raw": [
+            "▁gəlmiş",
+            "dilər"
+          ],
+          "pieces": [
+            "▁gəlmiş",
+            "dilər"
+          ]
+        },
+        "qanunvericilik": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "▁qanunvericilik"
+          ],
+          "pieces": [
+            "▁qanunvericilik"
+          ]
+        },
+        "təyyarə": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "▁təyyarə"
+          ],
+          "pieces": [
+            "▁təyyarə"
+          ]
+        },
+        "kompüter": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "▁kompüter"
+          ],
+          "pieces": [
+            "▁kompüter"
+          ]
+        },
+        "xəstəxanalarımızda": {
+          "n_pieces": 2,
+          "pieces_raw": [
+            "▁xəstəxana",
+            "larımızda"
+          ],
+          "pieces": [
+            "▁xəstəxana",
+            "larımızda"
+          ]
+        },
+        "əməkdaşlıq": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "▁əməkdaşlıq"
+          ],
+          "pieces": [
+            "▁əməkdaşlıq"
+          ]
+        },
+        "işləyirlər": {
+          "n_pieces": 2,
+          "pieces_raw": [
+            "▁işləyir",
+            "lər"
+          ],
+          "pieces": [
+            "▁işləyir",
+            "lər"
+          ]
+        }
+      },
+      "az_over_tr_fertility_ratio": 0.937
+    },
+    {
+      "model": "HPLT/hplt_bert_base_az",
+      "revision": "a126552c30733333cc95425b4eefd3d85b39d878",
+      "vocab_size": 32770,
+      "az_colloquial": {
+        "n_words": 30,
+        "n_tokens": 50,
+        "fertility": 1.667,
+        "chars_per_token": 3.76,
+        "n_unk": 0
+      },
+      "az_technical": {
+        "n_words": 36,
+        "n_tokens": 55,
+        "fertility": 1.528,
+        "chars_per_token": 5.273,
+        "n_unk": 0
+      },
+      "tr": {
+        "n_words": 29,
+        "n_tokens": 89,
+        "fertility": 3.069,
+        "chars_per_token": 2.472,
+        "n_unk": 0
+      },
+      "letters": {
+        "_byte_level_decoded": true,
+        "ə": 8814,
+        "q": 2624,
+        "x": 1176,
+        "ğ": 928,
+        "ş": 2253,
+        "ç": 967,
+        "ö": 1069,
+        "ü": 2094,
+        "ı": 4241
+      },
+      "overlap_az_tr": {
+        "az_unique_tokens": 80,
+        "tr_unique_tokens": 78,
+        "shared": 11,
+        "az_covered_by_tr_pct": 13.75,
+        "jaccard": 0.0748
+      },
+      "probe_words": {
+        "gəlmişdilər": {
+          "n_pieces": 2,
+          "pieces_raw": [
+            "âĸģgÉĻlmiÅŁdi",
+            "lÉĻr"
+          ],
+          "pieces": [
+            "▁gəlmişdi",
+            "lər"
+          ]
+        },
+        "qanunvericilik": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "âĸģqanunvericilik"
+          ],
+          "pieces": [
+            "▁qanunvericilik"
+          ]
+        },
+        "təyyarə": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "âĸģtÉĻyyarÉĻ"
+          ],
+          "pieces": [
+            "▁təyyarə"
+          ]
+        },
+        "kompüter": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "âĸģkompÃ¼ter"
+          ],
+          "pieces": [
+            "▁kompüter"
+          ]
+        },
+        "xəstəxanalarımızda": {
+          "n_pieces": 2,
+          "pieces_raw": [
+            "âĸģxÉĻstÉĻxana",
+            "larÄ±mÄ±zda"
+          ],
+          "pieces": [
+            "▁xəstəxana",
+            "larımızda"
+          ]
+        },
+        "əməkdaşlıq": {
+          "n_pieces": 1,
+          "pieces_raw": [
+            "âĸģÉĻmÉĻkdaÅŁlÄ±q"
+          ],
+          "pieces": [
+            "▁əməkdaşlıq"
+          ]
+        },
+        "işləyirlər": {
+          "n_pieces": 2,
+          "pieces_raw": [
+            "âĸģiÅŁlÉĻyir",
+            "lÉĻr"
+          ],
+          "pieces": [
+            "▁işləyir",
+            "lər"
+          ]
+        }
+      },
+      "az_over_tr_fertility_ratio": 0.521
+    }
+  ]
+}
