@@ -1,0 +1,44 @@
+{
+  "xlm15": {
+    "base_role": "primary",
+    "base": {
+      "model": "FacebookAI/xlm-mlm-tlm-xnli15-1024",
+      "n_masked_tokens": 37,
+      "n_correct": 0,
+      "top1_accuracy": 0.0,
+      "vocab_size": 95000,
+      "random_guess_accuracy": 1.053e-05,
+      "accuracy_over_random": 0.0
+    },
+    "transplanted": {
+      "model": "artifacts\\transplanted__xlm15__omp_k64_rescaled",
+      "n_masked_tokens": 12,
+      "n_correct": 0,
+      "top1_accuracy": 0.0,
+      "vocab_size": 32770,
+      "random_guess_accuracy": 3.052e-05,
+      "accuracy_over_random": 0.0
+    }
+  },
+  "xlmr": {
+    "base_role": "contrast",
+    "base": {
+      "model": "xlm-roberta-base",
+      "n_masked_tokens": 17,
+      "n_correct": 13,
+      "top1_accuracy": 0.764706,
+      "vocab_size": 250002,
+      "random_guess_accuracy": 4e-06,
+      "accuracy_over_random": 191178.0
+    },
+    "transplanted": {
+      "model": "artifacts\\transplanted__xlmr__omp_k64_rescaled",
+      "n_masked_tokens": 12,
+      "n_correct": 0,
+      "top1_accuracy": 0.0,
+      "vocab_size": 32770,
+      "random_guess_accuracy": 3.052e-05,
+      "accuracy_over_random": 0.0
+    }
+  }
+}

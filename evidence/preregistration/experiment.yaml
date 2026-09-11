@@ -1,0 +1,270 @@
+# =====================================================================
+#  EKSPERİMENT KONFİQURASİYASI
+#  Bütün skriptlər bu faylı --config ilə oxuyur.
+#  >>> ADDIM 0: aşağıdakı "FILL" işarəli sahələri doldurun. <<<
+# =====================================================================
+
+experiment:
+  name: az-tokenizer-transfer
+  results_dir: results
+  artifacts_dir: artifacts        # transplant olunmuş modellər, checkpointlər
+  figures_dir: figures
+  seeds: [42, 1337, 13, 7, 2024]  # n <= 2000
+  seeds_high_resource: [42, 1337, 13]  # n > 2000
+  deterministic: true
+
+# ---------------------------------------------------------------- MODELLƏR
+#
+#  İKİ BAZA MODELİ — doza-cavab dizaynı.
+#  Məqsəd mexanizmdir, prior work-un təkrarı deyil; ona görə modeli mexanizmin
+#  ən yaxşı GÖRÜNDÜYÜ şəkildə seçirik.
+#
+#    primary  : Azərbaycan dili pretraining-də YOXDUR → tokenizasiya defisiti REAL
+#               → həm seqmentasiya, həm leksik düymə hərəkət edir
+#    contrast : Azərbaycan dili pretraining-də VAR → defisit ~yoxdur (ölçüldü: AZ/TR=1.046)
+#               → sıfır-effekt nəzarəti: "defisit olmayanda tokenizator heç nə vermir"
+#
+models:
+  primary:
+    id: FacebookAI/xlm-mlm-tlm-xnli15-1024
+    short: xlm15
+    az_in_pretraining: false
+    note: "15 dil (tr var, az yox) · CC-BY-NC-4.0 · hidden 1024 · 95k BPE"
+
+  contrast:
+    id: xlm-roberta-base
+    short: xlmr
+    az_in_pretraining: true
+    note: "100 dil (az var) · ölçülmüş AZ/TR fertility = 1.046"
+
+  # Donor model — tokenizatoru GÖTÜRÜLƏCƏK model (Azərbaycan-mərkəzli)
+  # Alternativlər: src/tokenization/anchors.py --donor <ad>
+  donor: HPLT/hplt_bert_base_az
+  # PİNLƏNMİŞ commit SHA — reproduksiya tələbi üçün (donor repo sonradan
+  # dəyişsə belə eyni çəkilər oxunur). Həm də trust_remote_code-suz yükləmə
+  # (src/transplant/donor_embeddings.py) BUNA görə mümkündür — bax orada.
+  donor_revision: a126552c30733333cc95425b4eefd3d85b39d878
+
+  max_length: 256   # T5: 128→256 — DataCollatorWithPadding pads dynamically to the batch max
+                    # (verified in src/training/finetune.py), so this raises the truncation
+                    # ceiling, not the per-batch compute cost. See results/truncation.json.
+
+# ---------------------------------------------------------------- DATA
+data:
+  # ---- Azərbaycan tapşırıq dataseti (yekun fine-tune + qiymətləndirmə)
+  az:
+    source: hf                    # "hf" | "csv"
+    hf_name: LocalDoc/sentiments_dataset_azerbaijani   # T4: təsdiqləndi — results/dataset_candidates.json
+    hf_config: null
+    hf_split: train
+    hf_revision: null             # NOT PINNED — see results/splits.json
+                                  # az_content_manifest. A fresh download may
+                                  # return different/reordered rows; the
+                                  # manifest's test.sha256 is what proves two
+                                  # runs saw the SAME holdout. Set this to a
+                                  # dataset commit sha to remove the risk.
+    csv_path: null                # source: csv olarsa
+    text_column: text
+    label_column: labels
+    exclude_labels: [neutral]     # T6 audit: HH=66.7% üç-sinifli (< 85% hədd), neutral-sərhəd
+                                   # anlaşılmazlığı idi (85% razılaşmazlıq), qütb (pos/neg) YOX.
+                                   # Binary 88.1% (n=42, tərəfli). _load_records-dan SONRA,
+                                   # _dedup-dan/_encode_labels-dan ƏVVƏL tətbiq olunur (splits.py)
+                                   # ki, etiket indeksləri ardıcıl qalsın və dedup statistikası
+                                   # YEKUN korpusu təsvir etsin.
+
+  # ---- Türk tapşırıq dataseti (ara-mərhələ, Şərt 2 / 4 / 5)
+  tr:
+    source: hf
+    hf_name: maydogan/Turkish_SentimentAnalysis_TRSAv1   # T4: təsdiqləndi — results/dataset_candidates_tr.json
+    hf_config: null
+    hf_split: train
+    csv_path: null
+    text_column: review
+    label_column: score
+    max_examples: 20000           # ara-mərhələ üçün kifayətdir
+
+  # ---- Bölgü (bir dəfə yaradılır, sonra dəyişmir)
+  split:
+    seed: 12345                   # bölgü seed-i — MODEL seed-lərindən AYRIDIR
+    val_ratio: 0.10
+    test_ratio: 0.15
+
+  # ---- Fine-tuning data həcmləri (data-həcmi əyrisi)
+  train_sizes: [500, 2000, 10000, 20914]
+
+  # ---- Domen bölgüsü (H3) — açar sözlərlə heuristik təsnifat
+  domain_keywords_file: resources/domain_keywords.txt
+
+# ---------------------------------------------------------------- TRANSPLANT
+transplant:
+  method: omp                     # omp | mean | random_coef   (ablasiya üçün)
+  k: 64                           # sparse əmsal sayı (ablasiya: 8/32/64/128) — PRE-REGISTERED, bu pasda TOXUNULMUR
+  n_candidates: 256               # OMP-dən əvvəl ən yaxın neçə anchor seçilir — PRE-REGISTERED, bu pasda TOXUNULMUR
+  normalize: true                 # L2 normalizasiya — YALNIZ namizəd axtarışı və OMP-nin donor-fəza
+                                   # sabitliyi üçündür, nəticə vektorunun miqyasına aid DEYİL (bax
+                                   # HANDOFF.md §3.16, "üçüncü səhv" — köhnə geri-miqyaslama silindi)
+  rescale_reconstructed: true     # PRE-REGISTERED (bax HANDOFF §3.16, rescale-variant bölməsi):
+                                   # hər OMP-reconstructed sətir bazanın ÖZ anchor sətirlərinin
+                                   # median L2 normuna miqyaslanır (donorun normuna YOX — bu, köhnə
+                                   # səhvin təkrarı olardı). Hər iki bazada BPC-ni yaxşılaşdırdığı və
+                                   # norm nisbətini sağlam diapazona gətirdiyi ÜÇÜN seçildi (dörd
+                                   # ölçü: {no-rescale, rescale} × {xlm15, xlmr}), simmetrik tətbiq
+                                   # olunur (hər iki bazada eyni), tək bazaya görə TÜNLƏNMƏYİB.
+                                   # Kanonik artefakt: artifacts/transplanted__<base>__omp_k64_rescaled
+  batch_size: 256
+  device: cuda
+  seed: 0                         # transplant RNG seed — AMENDED IN 2026-09-08
+                                  # only in the sense of being made EXPLICIT.
+                                  # 0 is the value the previous artifacts were
+                                  # built with, so nothing changes numerically.
+                                  # It matters because `random_coef` is ONE
+                                  # fixed realisation of the random control:
+                                  # five model seeds are not five independent
+                                  # random transplants, and the paper must say
+                                  # so rather than call it "random
+                                  # initialisation" unqualified.                    # cuda | cpu
+
+# ---------------------------------------------------------------- TRAINING
+training:
+  lr: 2.0e-5
+  max_steps: 2000
+  epochs_tr: 2
+  batch_size: 32                  # PRE-REGISTERED value, restored 2026-09-05 (see
+                                  # configs/FROZEN.md). One run peaks at 8.6 GB (measured,
+                                  # HANDOFF §12) — UNDER the brief's ~10-12 GB team cap, so
+                                  # accumulation is not needed for compliance at 1 stream.
+  grad_accum: 1                   # PRE-REGISTERED value, restored. The 8x4 form remains
+                                  # authorised as a fallback, but it costs ~2.1x wall-clock:
+                                  # this workload is kernel-launch-bound (sequences average
+                                  # 29.6 tokens), so splitting a batch of 32 into 4
+                                  # micro-batches multiplies the overhead that already
+                                  # dominates. Accumulation buys memory margin, not speed —
+                                  # and at 1 stream there is no margin to buy.
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  fp16: true                      # AMP — yaddaşı azaldır
+  early_stopping_patience: null
+  eval_every_steps: 200           # 2026-09-04 stall diagnostic, Step 3: was 65 — NOT
+                                   # pre-registered as a scientific parameter (observation
+                                   # frequency, not a training parameter). See configs/FROZEN.md.
+  eval_batch_size: 64             # Forward-only; NOT pre-registered (it cannot change the
+                                   # trained model). Restored to the batch_size*2 default now
+                                   # that the training peak is 8.6 GB again — a no-grad pass
+                                   # at 64 stays under that, so it does not raise the
+                                   # per-process figure the stream ceiling is computed from.
+  eval_strategy: steps
+  metric: macro_f1                # macro_f1 | accuracy
+
+  # AMENDED 2026-09-07 (was null / false). Standard protocol: SELECT the
+  # checkpoint on validation, then score the held-out test split on that same
+  # checkpoint. Until now `save_strategy: "no"` retained no checkpoint, so the
+  # only weights surviving training were the final-step ones and a test
+  # evaluation could not see the selected model.
+  #
+  # This does NOT change training. The optimisation trajectory, RNG
+  # consumption, gradients, and every logged validation figure are identical;
+  # only WHICH weights remain in memory afterwards changes. Escape rate and
+  # selected_validation_macro_f1 come from step_history, which is written
+  # during training and is therefore untouched — so validation results stay
+  # directly comparable with the previous grid.
+  #
+  # `early_stopping_patience` STAYS null: best-checkpoint restore is not early
+  # stopping. Every run still trains the full 2000 steps, so the collapse
+  # diagnostics that motivated the original `false` are unaffected.
+  # AZ stage only — the Turkish stage keeps save_strategy "no" (its product is
+  # the END of Turkish training, and that is what the cache key records).
+  metric_for_best_model: eval_macro_f1
+  load_best_model_at_end: true
+
+# ---------------------------------------------------------------- ŞƏRTLƏR
+# tokenizer: original | omp
+# turkish:   none | real | scrambled
+conditions:
+  # One queue. The first four are the learning/transplant gate and retain this order.
+  - {id: 1, name: baza,                    label: "Condition 1 — no transplant", tokenizer: original, turkish: none, transplant: none, sizes: all}
+  - {id: 3, name: tokenizator,             label: "Real OMP transplant", tokenizer: omp, turkish: none, transplant: omp, transplant_tag: omp_k64_rescaled, sizes: all}
+  - {id: 6, name: transplant_mean,         label: "mean placebo", tokenizer: omp, turkish: none, transplant: mean, transplant_tag: mean_k64_rescaled, sizes: all}
+  - {id: 7, name: transplant_random_coef,  label: "random_coef placebo", tokenizer: omp, turkish: none, transplant: random_coef, transplant_tag: random_coef_k64_rescaled, sizes: all}
+
+  # Turkish comparisons at TWO Azerbaijani data sizes — amended 2026-09-07
+  # (see configs/FROZEN.md, "2026-09-07 — Turkish comparison at n=500").
+  # Kardes-NLU's claim is specifically a LOW-RESOURCE one, so testing the
+  # Turkish stage at n=2000 only left the claim untested where it should be
+  # strongest. Turkish DOSE-response (varying TR data) stays frozen out; this
+  # varies the AZERBAIJANI size only, which is a pre-registered axis
+  # (data.train_sizes) and needs no new machinery.
+  - {id: 2, name: turk,              tokenizer: original, turkish: real, transplant: none, sizes: [500, 2000]}
+  - {id: 4, name: her_ikisi,         tokenizer: omp, turkish: real, transplant: omp, transplant_tag: omp_k64_rescaled, sizes: [500, 2000]}
+  - {id: 5, name: turk_qarisiq,      tokenizer: original, turkish: scrambled, transplant: none, sizes: [500, 2000]}
+
+# ---------------------------------------------------------------- ANALİZ
+analysis:
+  bootstrap_iters: 10000
+  alpha: 0.05
+  reference_size: 2000            # bərpa nisbəti bu həcmdə hesablanır
+  false_friends_file: resources/false_friends.csv
+
+# ---------------------------------------------------------------- İCRA
+run:
+  # Prioritet: əvvəlcə reference_size bütün şərtlərdə (yarıda qalsa da cədvəl olsun)
+  priority_first: true
+  skip_existing: true             # resume — mövcud nəticə faylını atlayır
+  cache_turkish_stages: true      # TR encoder checkpoint is independent of AZ train_size
+  tr_stage_cache_dir: artifacts/tr_stage_cache
+  budget_seconds_per_step: 0.30   # A100/H100 order-of-magnitude at batch 32; ADMISSION
+                                  # ESTIMATE ONLY (never a training parameter). Was
+                                  # 2.8081 — an RTX 4060 median, which over-projects a
+                                  # datacentre run ~12x and could make --budget-hours
+                                  # refuse a run that actually takes ~10 min. Self-
+                                  # corrects to the observed median after run #1.
+  budget_eval_overhead_sec: 600.0  # conservative allowance; self-corrects after the first
+                                   # completed run's median (see orchestrate._estimate_next_seconds)
+
+  # Disk pre-flight (2026-09-04 disk audit; see HANDOFF.md §13). Weights-only
+  # TR-stage checkpoints, measured/computed per (base, tokenizer) combo:
+  # xlm15+original=995.9MB, xlmr+original=1112.2MB, xlm15+omp=741.0MB,
+  # xlmr+omp=444.8MB. disk_budget_bytes_per_tr_checkpoint below is the max of
+  # these (xlmr+original), used uniformly so the guard never under-projects.
+  disk_budget_bytes_per_tr_checkpoint: 1200000000  # 1.2 GB ceiling per distinct TR checkpoint
+  disk_budget_bytes_per_run_overhead: 250000       # result JSON + per-run log, padded
+  disk_budget_margin_ratio: 0.15                   # safety margin on top of the raw projection
+
+  # Hansı baza modellər işlədilir
+  bases: [primary, contrast]
+
+  # Contrast model yalnız bu həcmlərdə (compute qənaəti — 60 yerinə 35 əlavə run)
+  #
+  # AMENDED 2026-09-07: was [2000]. The size gate is per-BASE and is applied
+  # BEFORE a condition's own `sizes` scope (src.training.orchestrate.build_queue
+  # -> src.utils.sizes_for_base, then condition_applies), so the n=500 Turkish
+  # comparison above could not reach the contrast base while this stayed at
+  # [2000]. Opening it to [500, 2000] is what makes the amendment symmetric
+  # across the two bases; it also gives the contrast base a two-point data
+  # curve, so its near-zero transplant effect is no longer a single-size
+  # observation. See configs/FROZEN.md.
+  contrast_sizes: [500, 2000]
+
+  # ---- İki fazalı icra + paralel axınlar (run plan §6.2 / §6.3)
+  # Faza 1 bütün TR checkpointlərini SERİAL qurur və manifest yazır; Faza 2
+  # keşi YALNIZ OXUNAN rejimdə açır. Yarış şəraiti mümkün olmaqdan çıxır,
+  # kilidlə "azaldılmır".
+  parallel_streams: 1             # Faza 2 üçün eyni anda işləyən proses sayı (1 = serial).
+                                  # A100-də 3; T4-də 1 SAXLAYIN (16GB kart, tək run onsuz da
+                                  # yer tutur və Colab CPU-su 2 prosesi doydura bilmir).
+  vram_ceiling_gb: 10.0           # BİRLƏŞMİŞ tavan (brifin 10-12 GB komanda büdcəsi).
+                                  # Launcher axın sayını bu tavana görə AZALDIR; ölçülmüş
+                                  # per-proses zirvəsi keçilərsə axın başlatmır.
+  phase1_streams: 1               # Faza 1 (TR keşi) üçün paralel işçi sayı. Default SERİAL.
+                                  # >1 TƏHLÜKƏSİZDİR, çünki Faza 1-in iş siyahısı
+                                  # dedup edilib və keş yolu spesifikasiyanın hash-idir:
+                                  # iki işçi eyni yola YAZA BİLMƏZ. Şərt hər dəfə
+                                  # `_assert_specs_are_injective()` ilə YOXLANILIR.
+                                  # Kirayə GPU-da bu, başqa cür azaldıla bilməyən
+                                  # ~4 saatlıq serial bloku ~1 saata endirir.
+  vram_per_stream_gb: 8.6         # ÖLÇÜLMÜŞ per-proses zirvəsi, batch 32 (HANDOFF §12).
+                                  # Bu dəyərlə 10 GB tavan TAM BİR axına icazə verir — kurs
+                                  # maşınında DÜZGÜN davranış budur. Kirayə kartda notebook
+                                  # tavanı kartın öz ölçüsündən hesablayır və bunu ÖLÇÜLMÜŞ
+                                  # rəqəmlə əvəz edir (bax notebooks/vastai_h100.ipynb).
+                                  # a100_micro_benchmark.py bunu ÖLÇÜR — dəyişdirin.
