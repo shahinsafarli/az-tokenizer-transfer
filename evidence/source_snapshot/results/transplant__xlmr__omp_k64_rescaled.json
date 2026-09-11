@@ -1,0 +1,20 @@
+{
+  "tag": "omp_k64_rescaled",
+  "full_tag": "xlmr__omp_k64_rescaled",
+  "base": "xlmr",
+  "base_role": "contrast",
+  "variant": "rescale_to_base_anchor_median",
+  "source_tag": "omp_k64",
+  "output_dir": "artifacts\\transplanted__xlmr__omp_k64_rescaled",
+  "n_anchor": 9783,
+  "n_unfamiliar": 22987,
+  "norm_report": {
+    "base": "xlmr",
+    "base_role": "contrast",
+    "variant": "rescale_to_base_anchor_median",
+    "target_median_norm": 5.9774,
+    "new_anchor_rows_median": 5.9774,
+    "new_reconstructed_rows_median": 5.9774,
+    "reconstructed_to_anchor_median_ratio": 1.0
+  }
+}

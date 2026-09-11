@@ -1,0 +1,1614 @@
+{
+  "metric_policy": "escape_rate with Wilson CI; conditional_macro_f1 over escaped seeds only with bootstrap CI; never a mixed macro-F1 mean",
+  "cells": [
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "baza",
+      "condition_id": 1,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 0.4,
+      "escape_rate_count": "2/5",
+      "escape_rate_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "conditional_macro_f1": 0.6791057910255218,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6741032842236678,
+        0.6841082978273758
+      ],
+      "n_escaped": 2,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.4798906932414722,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.34161355476295674,
+        0.6181678317199876
+      ],
+      "all_seed_minus_conditional": -0.1992,
+      "n_escaped_sustained": 2,
+      "escape_rate_sustained": 0.4,
+      "escape_rate_sustained_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=baza__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "tokenizator",
+      "condition_id": 3,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 0.6,
+      "escape_rate_count": "3/5",
+      "escape_rate_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "conditional_macro_f1": 0.6148317593005045,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.4640341866103985,
+        0.69074513977798
+      ],
+      "n_escaped": 3,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.502264233511996,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.3595371931854664,
+        0.6449912738385256
+      ],
+      "all_seed_minus_conditional": -0.1126,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 0.6,
+      "escape_rate_sustained_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_mean",
+      "condition_id": 6,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 0.6,
+      "escape_rate_count": "3/5",
+      "escape_rate_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "conditional_macro_f1": 0.695484155470766,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6753847915547664,
+        0.7058219223367953
+      ],
+      "n_escaped": 3,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.5506556712141529,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.40180731417433996,
+        0.6995040282539658
+      ],
+      "all_seed_minus_conditional": -0.1448,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 0.6,
+      "escape_rate_sustained_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_random_coef",
+      "condition_id": 7,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 0.8,
+      "escape_rate_count": "4/5",
+      "escape_rate_wilson_ci": [
+        0.37553462976252533,
+        0.9637758913675698
+      ],
+      "conditional_macro_f1": 0.6698525583165263,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6644897111506797,
+        0.6730057936777671
+      ],
+      "n_escaped": 4,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.6025646356190677,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.4669619481380748,
+        0.6727455702843234
+      ],
+      "all_seed_minus_conditional": -0.0673,
+      "n_escaped_sustained": 4,
+      "escape_rate_sustained": 0.8,
+      "escape_rate_sustained_wilson_ci": [
+        0.37553462976252533,
+        0.9637758913675698
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "turk",
+      "condition_id": 2,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 0.8,
+      "escape_rate_count": "4/5",
+      "escape_rate_wilson_ci": [
+        0.37553462976252533,
+        0.9637758913675698
+      ],
+      "conditional_macro_f1": 0.674675779556025,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6610208645185187,
+        0.6873804289803149
+      ],
+      "n_escaped": 4,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.6064232126106667,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.4687671448470736,
+        0.6831709166336163
+      ],
+      "all_seed_minus_conditional": -0.0683,
+      "n_escaped_sustained": 4,
+      "escape_rate_sustained": 0.8,
+      "escape_rate_sustained_wilson_ci": [
+        0.37553462976252533,
+        0.9637758913675698
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 2,
+      "tr_stage_macro_f1_mean": 0.4815929467654557,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=turk__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "her_ikisi",
+      "condition_id": 4,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.671212530657707,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6446632514302101,
+        0.6886857121504738
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.671212530657707,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.6446632514302101,
+        0.6886857121504738
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 3,
+      "tr_stage_macro_f1_mean": 0.40764316132469347,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "turk_qarisiq",
+      "condition_id": 5,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 0.4,
+      "escape_rate_count": "2/5",
+      "escape_rate_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "conditional_macro_f1": 0.687259928948263,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6824677478710226,
+        0.6920521100255035
+      ],
+      "n_escaped": 2,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.47495173847684524,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.6184074045553534
+      ],
+      "all_seed_minus_conditional": -0.2123,
+      "n_escaped_sustained": 2,
+      "escape_rate_sustained": 0.4,
+      "escape_rate_sustained_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 2,
+      "tr_stage_macro_f1_mean": 0.4949024179426747,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=13.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=42.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "baza",
+      "condition_id": 1,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.8277116203278206,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.8228375164502983,
+        0.8329457589314926
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.8277116203278206,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.8228375164502983,
+        0.8329457589314926
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=baza__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "tokenizator",
+      "condition_id": 3,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7617693718066334,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7545892880356584,
+        0.7688360457961713
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7617693718066334,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7545892880356584,
+        0.7688360457961713
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "transplant_mean",
+      "condition_id": 6,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7772388907318575,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7720942209045136,
+        0.7827255538270815
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7772388907318575,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7720942209045136,
+        0.7827255538270815
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "transplant_random_coef",
+      "condition_id": 7,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.729724041109939,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7251145328558073,
+        0.7353866974889508
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.729724041109939,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7251145328558073,
+        0.7353866974889508
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "turk",
+      "condition_id": 2,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.8307198348933588,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.8288004385464687,
+        0.8320646112612892
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.8307198348933588,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.8288004385464687,
+        0.8320646112612892
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": 0.7966655892819746,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=turk__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "her_ikisi",
+      "condition_id": 4,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7707747888705871,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7664056640954879,
+        0.7763481661078824
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7707747888705871,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7664056640954879,
+        0.7763481661078824
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": 0.6990272865902553,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "turk_qarisiq",
+      "condition_id": 5,
+      "train_size": 2000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.8268884433305566,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.8248134130719548,
+        0.8288443951459072
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.8268884433305566,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.8248134130719548,
+        0.8288443951459072
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": 0.7726832401434953,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=13.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=42.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=2000__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "baza",
+      "condition_id": 1,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 0.6,
+      "escape_rate_count": "3/5",
+      "escape_rate_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "conditional_macro_f1": 0.6305894444919186,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6212992173530448,
+        0.6391661065822913
+      ],
+      "n_escaped": 3,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.5117188446268445,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.39099019933399565,
+        0.6324474899196934
+      ],
+      "all_seed_minus_conditional": -0.1189,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 0.6,
+      "escape_rate_sustained_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=baza__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=baza__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "tokenizator",
+      "condition_id": 3,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 0.4,
+      "escape_rate_count": "2/5",
+      "escape_rate_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "conditional_macro_f1": 0.5271854957244985,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.4402749578162218,
+        0.6140960336327752
+      ],
+      "n_escaped": 2,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.41092196518733937,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.5231952007087561
+      ],
+      "all_seed_minus_conditional": -0.1163,
+      "n_escaped_sustained": 1,
+      "escape_rate_sustained": 0.2,
+      "escape_rate_sustained_wilson_ci": [
+        0.03622410863243014,
+        0.6244653702374747
+      ],
+      "n_escaped_then_collapsed": 1,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_mean",
+      "condition_id": 6,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 0.4,
+      "escape_rate_count": "2/5",
+      "escape_rate_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "conditional_macro_f1": 0.6359311107887338,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6269226842943625,
+        0.644939537283105
+      ],
+      "n_escaped": 2,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.45442021121303355,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.5790308481945822
+      ],
+      "all_seed_minus_conditional": -0.1815,
+      "n_escaped_sustained": 2,
+      "escape_rate_sustained": 0.4,
+      "escape_rate_sustained_wilson_ci": [
+        0.11762077423264783,
+        0.769275718723987
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_random_coef",
+      "condition_id": 7,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 0.6,
+      "escape_rate_count": "3/5",
+      "escape_rate_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "conditional_macro_f1": 0.6192029127314066,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6094168066104837,
+        0.6315956694105044
+      ],
+      "n_escaped": 3,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.5048869255705373,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.38861371718548343,
+        0.6211601339555912
+      ],
+      "all_seed_minus_conditional": -0.1143,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 0.6,
+      "escape_rate_sustained_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "turk",
+      "condition_id": 2,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 0.8,
+      "escape_rate_count": "4/5",
+      "escape_rate_wilson_ci": [
+        0.37553462976252533,
+        0.9637758913675698
+      ],
+      "conditional_macro_f1": 0.6140880233112052,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.5750117401149344,
+        0.6388137460366372
+      ],
+      "n_escaped": 4,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.5579530076148108,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.4392341956361558,
+        0.6348661386050194
+      ],
+      "all_seed_minus_conditional": -0.0561,
+      "n_escaped_sustained": 4,
+      "escape_rate_sustained": 0.8,
+      "escape_rate_sustained_wilson_ci": [
+        0.37553462976252533,
+        0.9637758913675698
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 2,
+      "tr_stage_macro_f1_mean": 0.4815929467654557,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=turk__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=turk__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "her_ikisi",
+      "condition_id": 4,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.6217037790300186,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6111778965274507,
+        0.6304337615509505
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.6217037790300186,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.6111778965274507,
+        0.6304337615509505
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 3,
+      "tr_stage_macro_f1_mean": 0.40764316132469347,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=her_ikisi__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "turk_qarisiq",
+      "condition_id": 5,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 0.6,
+      "escape_rate_count": "3/5",
+      "escape_rate_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "conditional_macro_f1": 0.6348303867964262,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6195650189995943,
+        0.6455713255370666
+      ],
+      "n_escaped": 3,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.514263410009549,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.39064335966330554,
+        0.6378834603557925
+      ],
+      "all_seed_minus_conditional": -0.1206,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 0.6,
+      "escape_rate_sustained_wilson_ci": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 2,
+      "tr_stage_macro_f1_mean": 0.4949024179426747,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=13.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=1337.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=2024.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=42.json",
+        "results/runs/base=xlm15__cond=turk_qarisiq__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "baza",
+      "condition_id": 1,
+      "train_size": 10000,
+      "status": "MEASURED",
+      "escape_rate": 0.6666666666666666,
+      "escape_rate_count": "2/3",
+      "escape_rate_wilson_ci": [
+        0.2076596008020477,
+        0.9385080552796037
+      ],
+      "conditional_macro_f1": 0.742724161543568,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7398460851076942,
+        0.7456022379794419
+      ],
+      "n_escaped": 2,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.6062870893054565,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.7456022379794419
+      ],
+      "all_seed_minus_conditional": -0.1364,
+      "n_escaped_sustained": 2,
+      "escape_rate_sustained": 0.6666666666666666,
+      "escape_rate_sustained_wilson_ci": [
+        0.2076596008020477,
+        0.9385080552796037
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=baza__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=10000__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "tokenizator",
+      "condition_id": 3,
+      "train_size": 10000,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "3/3",
+      "escape_rate_wilson_ci": [
+        0.4385029682449546,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7657052308134321,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7485623392844589,
+        0.7781745727563246
+      ],
+      "n_escaped": 3,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.7657052308134321,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7485623392844589,
+        0.7781745727563246
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.4385029682449546,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=tokenizator__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=10000__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_mean",
+      "condition_id": 6,
+      "train_size": 10000,
+      "status": "MEASURED",
+      "escape_rate": 0.3333333333333333,
+      "escape_rate_count": "1/3",
+      "escape_rate_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "conditional_macro_f1": 0.7652997359773683,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7652997359773683,
+        0.7652997359773683
+      ],
+      "n_escaped": 1,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.4773752085452783,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.7652997359773682
+      ],
+      "all_seed_minus_conditional": -0.2879,
+      "n_escaped_sustained": 1,
+      "escape_rate_sustained": 0.3333333333333333,
+      "escape_rate_sustained_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_mean__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=10000__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_random_coef",
+      "condition_id": 7,
+      "train_size": 10000,
+      "status": "MEASURED",
+      "escape_rate": 0.3333333333333333,
+      "escape_rate_count": "1/3",
+      "escape_rate_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "conditional_macro_f1": 0.6319170811532416,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6319170811532416,
+        0.6319170811532416
+      ],
+      "n_escaped": 1,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.4532743597050171,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.6319170811532416
+      ],
+      "all_seed_minus_conditional": -0.1786,
+      "n_escaped_sustained": 1,
+      "escape_rate_sustained": 0.3333333333333333,
+      "escape_rate_sustained_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=10000__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=10000__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=10000__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "baza",
+      "condition_id": 1,
+      "train_size": 20914,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "3/3",
+      "escape_rate_wilson_ci": [
+        0.4385029682449546,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7373646868727265,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7008858600767688,
+        0.7576360628108686
+      ],
+      "n_escaped": 3,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.7373646868727265,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7008858600767688,
+        0.7576360628108686
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 3,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.4385029682449546,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=baza__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=baza__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=baza__n=20914__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "tokenizator",
+      "condition_id": 3,
+      "train_size": 20914,
+      "status": "MEASURED",
+      "escape_rate": 0.3333333333333333,
+      "escape_rate_count": "1/3",
+      "escape_rate_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "conditional_macro_f1": 0.790034857125838,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.790034857125838,
+        0.790034857125838
+      ],
+      "n_escaped": 1,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.48562024892810157,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.7900348571258379
+      ],
+      "all_seed_minus_conditional": -0.3044,
+      "n_escaped_sustained": 1,
+      "escape_rate_sustained": 0.3333333333333333,
+      "escape_rate_sustained_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=tokenizator__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=tokenizator__n=20914__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_mean",
+      "condition_id": 6,
+      "train_size": 20914,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "3/3",
+      "escape_rate_wilson_ci": [
+        0.4385029682449546,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7262576569981736,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.5777552950787074,
+        0.8013044143774982
+      ],
+      "n_escaped": 3,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.7262576569981736,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.5777552950787074,
+        0.8013044143774982
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 2,
+      "escape_rate_sustained": 0.6666666666666666,
+      "escape_rate_sustained_wilson_ci": [
+        0.2076596008020477,
+        0.9385080552796037
+      ],
+      "n_escaped_then_collapsed": 1,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_mean__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_mean__n=20914__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlm15",
+      "base_role": "primary",
+      "condition": "transplant_random_coef",
+      "condition_id": 7,
+      "train_size": 20914,
+      "status": "MEASURED",
+      "escape_rate": 0.3333333333333333,
+      "escape_rate_count": "1/3",
+      "escape_rate_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "conditional_macro_f1": 0.7670582948125322,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7670582948125322,
+        0.7670582948125322
+      ],
+      "n_escaped": 1,
+      "n_total": 3,
+      "all_seed_macro_f1": 0.4779613948236663,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.33341294482923334,
+        0.7670582948125322
+      ],
+      "all_seed_minus_conditional": -0.2891,
+      "n_escaped_sustained": 1,
+      "escape_rate_sustained": 0.3333333333333333,
+      "escape_rate_sustained_wilson_ci": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=20914__seed=13.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=20914__seed=1337.json",
+        "results/runs/base=xlm15__cond=transplant_random_coef__n=20914__seed=42.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "baza",
+      "condition_id": 1,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7980419795890861,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7938844952678723,
+        0.8041831194261974
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7980419795890861,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7938844952678723,
+        0.8041831194261974
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=baza__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=baza__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "tokenizator",
+      "condition_id": 3,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7198141034406302,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7102383864161691,
+        0.7282869568533369
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7198141034406302,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7102383864161691,
+        0.7282869568533369
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=tokenizator__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "transplant_mean",
+      "condition_id": 6,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7420738710101846,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7317013493715383,
+        0.752446392648831
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7420738710101846,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7317013493715383,
+        0.752446392648831
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_mean__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "transplant_random_coef",
+      "condition_id": 7,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.6984757337114855,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.6882036933835678,
+        0.7088387303214365
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.6984757337114855,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.6882036933835678,
+        0.7088387303214365
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": null,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=transplant_random_coef__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "turk",
+      "condition_id": 2,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.8149423721880616,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.8103612464723933,
+        0.8193423448210968
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.8149423721880616,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.8103612464723933,
+        0.8193423448210968
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": 0.7966655892819746,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=turk__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=turk__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "her_ikisi",
+      "condition_id": 4,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.7260565808422341,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7078201977737925,
+        0.7406455805286313
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.7260565808422341,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7078201977737925,
+        0.7406455805286313
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": 0.6990272865902553,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=her_ikisi__n=500__seed=7.json"
+      ]
+    },
+    {
+      "base": "xlmr",
+      "base_role": "contrast",
+      "condition": "turk_qarisiq",
+      "condition_id": 5,
+      "train_size": 500,
+      "status": "MEASURED",
+      "escape_rate": 1.0,
+      "escape_rate_count": "5/5",
+      "escape_rate_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conditional_macro_f1": 0.8053511619921876,
+      "conditional_macro_f1_bootstrap_ci": [
+        0.7988515092235963,
+        0.8097670361829582
+      ],
+      "n_escaped": 5,
+      "n_total": 5,
+      "all_seed_macro_f1": 0.8053511619921876,
+      "all_seed_macro_f1_bootstrap_ci": [
+        0.7988515092235963,
+        0.8097670361829582
+      ],
+      "all_seed_minus_conditional": 0.0,
+      "n_escaped_sustained": 5,
+      "escape_rate_sustained": 1.0,
+      "escape_rate_sustained_wilson_ci": [
+        0.5655175352168251,
+        1.0
+      ],
+      "n_escaped_then_collapsed": 0,
+      "n_tr_stage_degenerate": 0,
+      "tr_stage_macro_f1_mean": 0.7726832401434953,
+      "source_paths": [
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=13.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=1337.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=2024.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=42.json",
+        "results/runs/base=xlmr__cond=turk_qarisiq__n=500__seed=7.json"
+      ]
+    }
+  ],
+  "cross_base_comparison": {
+    "status": "MEASURED",
+    "train_size": 2000,
+    "bases": {
+      "xlm15": {
+        "baseline_escape_rate": 0.4,
+        "omp_escape_rate": 0.6,
+        "escape_rate_difference": 0.19999999999999996,
+        "baseline_conditional_macro_f1": 0.6791057910255218,
+        "omp_conditional_macro_f1": 0.6148317593005045,
+        "conditional_macro_f1_difference": -0.06427403172501733,
+        "baseline_n_escaped": 2,
+        "omp_n_escaped": 3,
+        "source_paths": [
+          "results/runs/base=xlm15__cond=baza__n=2000__seed=13.json",
+          "results/runs/base=xlm15__cond=baza__n=2000__seed=1337.json",
+          "results/runs/base=xlm15__cond=baza__n=2000__seed=2024.json",
+          "results/runs/base=xlm15__cond=baza__n=2000__seed=42.json",
+          "results/runs/base=xlm15__cond=baza__n=2000__seed=7.json",
+          "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=13.json",
+          "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=1337.json",
+          "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=2024.json",
+          "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=42.json",
+          "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=7.json"
+        ]
+      },
+      "xlmr": {
+        "baseline_escape_rate": 1.0,
+        "omp_escape_rate": 1.0,
+        "escape_rate_difference": 0.0,
+        "baseline_conditional_macro_f1": 0.8277116203278206,
+        "omp_conditional_macro_f1": 0.7617693718066334,
+        "conditional_macro_f1_difference": -0.06594224852118724,
+        "baseline_n_escaped": 5,
+        "omp_n_escaped": 5,
+        "source_paths": [
+          "results/runs/base=xlmr__cond=baza__n=2000__seed=13.json",
+          "results/runs/base=xlmr__cond=baza__n=2000__seed=1337.json",
+          "results/runs/base=xlmr__cond=baza__n=2000__seed=2024.json",
+          "results/runs/base=xlmr__cond=baza__n=2000__seed=42.json",
+          "results/runs/base=xlmr__cond=baza__n=2000__seed=7.json",
+          "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=13.json",
+          "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=1337.json",
+          "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=2024.json",
+          "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=42.json",
+          "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=7.json"
+        ]
+      }
+    },
+    "cross_base": {
+      "escape_rate_effect_difference": 0.19999999999999996,
+      "conditional_macro_f1_effect_difference": 0.001668216796169908
+    },
+    "source_paths": [
+      "results/runs/base=xlm15__cond=baza__n=2000__seed=13.json",
+      "results/runs/base=xlm15__cond=baza__n=2000__seed=1337.json",
+      "results/runs/base=xlm15__cond=baza__n=2000__seed=2024.json",
+      "results/runs/base=xlm15__cond=baza__n=2000__seed=42.json",
+      "results/runs/base=xlm15__cond=baza__n=2000__seed=7.json",
+      "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=13.json",
+      "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=1337.json",
+      "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=2024.json",
+      "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=42.json",
+      "results/runs/base=xlm15__cond=tokenizator__n=2000__seed=7.json",
+      "results/runs/base=xlmr__cond=baza__n=2000__seed=13.json",
+      "results/runs/base=xlmr__cond=baza__n=2000__seed=1337.json",
+      "results/runs/base=xlmr__cond=baza__n=2000__seed=2024.json",
+      "results/runs/base=xlmr__cond=baza__n=2000__seed=42.json",
+      "results/runs/base=xlmr__cond=baza__n=2000__seed=7.json",
+      "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=13.json",
+      "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=1337.json",
+      "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=2024.json",
+      "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=42.json",
+      "results/runs/base=xlmr__cond=tokenizator__n=2000__seed=7.json"
+    ]
+  },
+  "n_nonfinite_values_nulled": 24
+}
